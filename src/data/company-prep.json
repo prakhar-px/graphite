@@ -1,0 +1,37 @@
+[
+  {
+    "Company": "Microsoft",
+    "Focus Areas": "Trees, Graphs, Clean Coding",
+    "Question Difficulty": "Medium",
+    "Target Problems": 60,
+    "Status": ""
+  },
+  {
+    "Company": "Amazon",
+    "Focus Areas": "OA Style, Arrays, Sliding Window",
+    "Question Difficulty": "Medium",
+    "Target Problems": 60,
+    "Status": ""
+  },
+  {
+    "Company": "Google",
+    "Focus Areas": "Graphs, DP, Hard Mediums",
+    "Question Difficulty": "Medium-Hard",
+    "Target Problems": 70,
+    "Status": ""
+  },
+  {
+    "Company": "Meta",
+    "Focus Areas": "Arrays, Strings, Trees",
+    "Question Difficulty": "Medium",
+    "Target Problems": 50,
+    "Status": ""
+  },
+  {
+    "Company": "Uber",
+    "Focus Areas": "Graphs, Heaps, Design Thinking",
+    "Question Difficulty": "Medium-Hard",
+    "Target Problems": 40,
+    "Status": ""
+  }
+]

@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Graphite — FAANG DSA Mission Control
 
-## Getting Started
+Premium developer productivity dashboard for FAANG / Microsoft DSA interview preparation.
 
-First, run the development server:
+## Stack
+
+- Next.js (App Router) + TypeScript
+- Tailwind CSS + shadcn/ui
+- Zustand (localStorage) + Recharts + Framer Motion
+
+## Quick Start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run excel:sample   # Parse sample Excel → JSON (first time)
+npm run dev            # http://localhost:4000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Data flow (V1.1)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+Excel  →  npm run excel:*  →  src/data/*.json  (roadmap structure)
+UI     →  Zustand          →  localStorage     (your progress)
+Charts →  seed + progress merged in lib/computed-data.ts
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Export / import** your progress from **Settings** before switching Excel files.
 
-## Learn More
+## Switch Excel workbooks
 
-To learn more about Next.js, take a look at the following resources:
+Configured in `excel.config.json`:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Command | Workbook |
+|---------|----------|
+| `npm run excel:sample` | `FAANG_DSA_Master_Roadmap_v2_sample.xlsx` |
+| `npm run excel:full` | `FAANG_DSA_Master_Roadmap_v2.xlsx` |
+| `npm run excel:use -- sample` | Set active + parse |
+| `npm run excel:list` | Show all sources |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+After switching: **export progress** → run excel command → restart `npm run dev` → refresh → **import** if needed.
 
-## Deploy on Vercel
+Legacy override:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+$env:EXCEL_FILE="your-file.xlsx"; npm run parse-excel
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Pages
+
+| Route | Description |
+|-------|-------------|
+| `/dashboard` | Mission control |
+| `/planner` | 70-day calendar |
+| `/topics` | Topic mastery |
+| `/settings` | Backup & Excel info |

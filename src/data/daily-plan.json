@@ -1,0 +1,1052 @@
+[
+  {
+    "day": 1,
+    "date": "24-May-2026",
+    "topic": "STL + Hashing",
+    "subtopic": "Vectors + Time Complexity",
+    "tasks": [
+      "Study Vectors + Time Complexity",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 8,
+    "timeGoal": "7-8 Hours",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 2,
+    "date": "25-May-2026",
+    "topic": "STL + Hashing",
+    "subtopic": "map vs unordered_map",
+    "tasks": [
+      "Study map vs unordered_map",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 3,
+    "date": "26-May-2026",
+    "topic": "STL + Hashing",
+    "subtopic": "set vs unordered_set",
+    "tasks": [
+      "Study set vs unordered_set",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 4,
+    "date": "27-May-2026",
+    "topic": "Hashing",
+    "subtopic": "Frequency Counting",
+    "tasks": [
+      "Study Frequency Counting",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 5,
+    "date": "28-May-2026",
+    "topic": "Hashing",
+    "subtopic": "Highest/Lowest Frequency",
+    "tasks": [
+      "Study Highest/Lowest Frequency",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 6,
+    "date": "29-May-2026",
+    "topic": "Hashing",
+    "subtopic": "Two Sum + Duplicates",
+    "tasks": [
+      "Study Two Sum + Duplicates",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 7,
+    "date": "30-May-2026",
+    "topic": "Revision",
+    "subtopic": "Timed Practice",
+    "tasks": [
+      "Study Timed Practice",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 8,
+    "timeGoal": "7-8 Hours",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 8,
+    "date": "31-May-2026",
+    "topic": "Prefix Sum",
+    "subtopic": "Prefix Basics",
+    "tasks": [
+      "Study Prefix Basics",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 8,
+    "timeGoal": "7-8 Hours",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 9,
+    "date": "01-Jun-2026",
+    "topic": "Prefix Sum",
+    "subtopic": "Subarray Sum",
+    "tasks": [
+      "Study Subarray Sum",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 10,
+    "date": "02-Jun-2026",
+    "topic": "Prefix Sum",
+    "subtopic": "Longest Subarray K",
+    "tasks": [
+      "Study Longest Subarray K",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 11,
+    "date": "03-Jun-2026",
+    "topic": "Prefix Sum",
+    "subtopic": "Prefix + HashMap",
+    "tasks": [
+      "Study Prefix + HashMap",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 12,
+    "date": "04-Jun-2026",
+    "topic": "XOR",
+    "subtopic": "XOR Basics",
+    "tasks": [
+      "Study XOR Basics",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 13,
+    "date": "05-Jun-2026",
+    "topic": "XOR",
+    "subtopic": "XOR Problems",
+    "tasks": [
+      "Study XOR Problems",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 14,
+    "date": "06-Jun-2026",
+    "topic": "Revision",
+    "subtopic": "Mixed Problems",
+    "tasks": [
+      "Study Mixed Problems",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 8,
+    "timeGoal": "7-8 Hours",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 15,
+    "date": "07-Jun-2026",
+    "topic": "Arrays",
+    "subtopic": "Largest/Smallest",
+    "tasks": [
+      "Study Largest/Smallest",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 8,
+    "timeGoal": "7-8 Hours",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 16,
+    "date": "08-Jun-2026",
+    "topic": "Arrays",
+    "subtopic": "Second Largest",
+    "tasks": [
+      "Study Second Largest",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 17,
+    "date": "09-Jun-2026",
+    "topic": "Arrays",
+    "subtopic": "Rotate Array",
+    "tasks": [
+      "Study Rotate Array",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 18,
+    "date": "10-Jun-2026",
+    "topic": "Arrays",
+    "subtopic": "Move Zeros",
+    "tasks": [
+      "Study Move Zeros",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 19,
+    "date": "11-Jun-2026",
+    "topic": "Arrays",
+    "subtopic": "Remove Duplicates",
+    "tasks": [
+      "Study Remove Duplicates",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 20,
+    "date": "12-Jun-2026",
+    "topic": "Arrays",
+    "subtopic": "Kadane Algorithm",
+    "tasks": [
+      "Study Kadane Algorithm",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 21,
+    "date": "13-Jun-2026",
+    "topic": "Revision",
+    "subtopic": "Timed Solving",
+    "tasks": [
+      "Study Timed Solving",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 8,
+    "timeGoal": "7-8 Hours",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 22,
+    "date": "14-Jun-2026",
+    "topic": "Arrays Advanced",
+    "subtopic": "Stock Buy Sell",
+    "tasks": [
+      "Study Stock Buy Sell",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 8,
+    "timeGoal": "7-8 Hours",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 23,
+    "date": "15-Jun-2026",
+    "topic": "Arrays Advanced",
+    "subtopic": "Majority Element",
+    "tasks": [
+      "Study Majority Element",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 24,
+    "date": "16-Jun-2026",
+    "topic": "Arrays Advanced",
+    "subtopic": "Merge Intervals",
+    "tasks": [
+      "Study Merge Intervals",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 25,
+    "date": "17-Jun-2026",
+    "topic": "Arrays Advanced",
+    "subtopic": "Spiral Matrix",
+    "tasks": [
+      "Study Spiral Matrix",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 26,
+    "date": "18-Jun-2026",
+    "topic": "Strings",
+    "subtopic": "Palindrome",
+    "tasks": [
+      "Study Palindrome",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 27,
+    "date": "19-Jun-2026",
+    "topic": "Strings",
+    "subtopic": "Anagram",
+    "tasks": [
+      "Study Anagram",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 28,
+    "date": "20-Jun-2026",
+    "topic": "Revision",
+    "subtopic": "Contest",
+    "tasks": [
+      "Study Contest",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 8,
+    "timeGoal": "7-8 Hours",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 29,
+    "date": "21-Jun-2026",
+    "topic": "Strings",
+    "subtopic": "Frequency Hashing",
+    "tasks": [
+      "Study Frequency Hashing",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 8,
+    "timeGoal": "7-8 Hours",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 30,
+    "date": "22-Jun-2026",
+    "topic": "Strings",
+    "subtopic": "Longest Common Prefix",
+    "tasks": [
+      "Study Longest Common Prefix",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 31,
+    "date": "23-Jun-2026",
+    "topic": "Strings",
+    "subtopic": "String Manipulation",
+    "tasks": [
+      "Study String Manipulation",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 32,
+    "date": "24-Jun-2026",
+    "topic": "Sliding Window",
+    "subtopic": "Fixed Window",
+    "tasks": [
+      "Study Fixed Window",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 33,
+    "date": "25-Jun-2026",
+    "topic": "Sliding Window",
+    "subtopic": "Variable Window",
+    "tasks": [
+      "Study Variable Window",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 34,
+    "date": "26-Jun-2026",
+    "topic": "Sliding Window",
+    "subtopic": "Longest Unique Substring",
+    "tasks": [
+      "Study Longest Unique Substring",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 35,
+    "date": "27-Jun-2026",
+    "topic": "Revision",
+    "subtopic": "Timed Solving",
+    "tasks": [
+      "Study Timed Solving",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 8,
+    "timeGoal": "7-8 Hours",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 36,
+    "date": "28-Jun-2026",
+    "topic": "Two Pointers",
+    "subtopic": "Max Consecutive Ones",
+    "tasks": [
+      "Study Max Consecutive Ones",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 8,
+    "timeGoal": "7-8 Hours",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 37,
+    "date": "29-Jun-2026",
+    "topic": "Two Pointers",
+    "subtopic": "Fruit Into Baskets",
+    "tasks": [
+      "Study Fruit Into Baskets",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 38,
+    "date": "30-Jun-2026",
+    "topic": "Sliding Window",
+    "subtopic": "Minimum Window Substring",
+    "tasks": [
+      "Study Minimum Window Substring",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 39,
+    "date": "01-Jul-2026",
+    "topic": "Binary Search",
+    "subtopic": "Basic Binary Search",
+    "tasks": [
+      "Study Basic Binary Search",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 40,
+    "date": "02-Jul-2026",
+    "topic": "Binary Search",
+    "subtopic": "Lower Bound Upper Bound",
+    "tasks": [
+      "Study Lower Bound Upper Bound",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 41,
+    "date": "03-Jul-2026",
+    "topic": "Binary Search",
+    "subtopic": "Rotated Array",
+    "tasks": [
+      "Study Rotated Array",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 42,
+    "date": "04-Jul-2026",
+    "topic": "Revision",
+    "subtopic": "Contest",
+    "tasks": [
+      "Study Contest",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 8,
+    "timeGoal": "7-8 Hours",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 43,
+    "date": "05-Jul-2026",
+    "topic": "Binary Search",
+    "subtopic": "Peak Element",
+    "tasks": [
+      "Study Peak Element",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 8,
+    "timeGoal": "7-8 Hours",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 44,
+    "date": "06-Jul-2026",
+    "topic": "Binary Search",
+    "subtopic": "BS on Answers",
+    "tasks": [
+      "Study BS on Answers",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 45,
+    "date": "07-Jul-2026",
+    "topic": "Binary Search",
+    "subtopic": "Book Allocation",
+    "tasks": [
+      "Study Book Allocation",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 46,
+    "date": "08-Jul-2026",
+    "topic": "Linked List",
+    "subtopic": "Basics",
+    "tasks": [
+      "Study Basics",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 47,
+    "date": "09-Jul-2026",
+    "topic": "Linked List",
+    "subtopic": "Reverse Linked List",
+    "tasks": [
+      "Study Reverse Linked List",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 48,
+    "date": "10-Jul-2026",
+    "topic": "Linked List",
+    "subtopic": "Middle Node",
+    "tasks": [
+      "Study Middle Node",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 49,
+    "date": "11-Jul-2026",
+    "topic": "Revision",
+    "subtopic": "Timed Solving",
+    "tasks": [
+      "Study Timed Solving",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 8,
+    "timeGoal": "7-8 Hours",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 50,
+    "date": "12-Jul-2026",
+    "topic": "Linked List",
+    "subtopic": "Cycle Detection",
+    "tasks": [
+      "Study Cycle Detection",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 8,
+    "timeGoal": "7-8 Hours",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 51,
+    "date": "13-Jul-2026",
+    "topic": "Linked List",
+    "subtopic": "Merge Sorted LL",
+    "tasks": [
+      "Study Merge Sorted LL",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 52,
+    "date": "14-Jul-2026",
+    "topic": "Linked List",
+    "subtopic": "Remove Nth Node",
+    "tasks": [
+      "Study Remove Nth Node",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 53,
+    "date": "15-Jul-2026",
+    "topic": "Stack",
+    "subtopic": "Stack Basics",
+    "tasks": [
+      "Study Stack Basics",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 54,
+    "date": "16-Jul-2026",
+    "topic": "Queue",
+    "subtopic": "Queue Basics",
+    "tasks": [
+      "Study Queue Basics",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 55,
+    "date": "17-Jul-2026",
+    "topic": "Stack",
+    "subtopic": "Valid Parentheses",
+    "tasks": [
+      "Study Valid Parentheses",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 56,
+    "date": "18-Jul-2026",
+    "topic": "Revision",
+    "subtopic": "Contest",
+    "tasks": [
+      "Study Contest",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 8,
+    "timeGoal": "7-8 Hours",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 57,
+    "date": "19-Jul-2026",
+    "topic": "Stack",
+    "subtopic": "Monotonic Stack",
+    "tasks": [
+      "Study Monotonic Stack",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 8,
+    "timeGoal": "7-8 Hours",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 58,
+    "date": "20-Jul-2026",
+    "topic": "Stack",
+    "subtopic": "Next Greater Element",
+    "tasks": [
+      "Study Next Greater Element",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 59,
+    "date": "21-Jul-2026",
+    "topic": "Stack",
+    "subtopic": "Largest Rectangle Histogram",
+    "tasks": [
+      "Study Largest Rectangle Histogram",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 60,
+    "date": "22-Jul-2026",
+    "topic": "Recursion",
+    "subtopic": "Recursion Basics",
+    "tasks": [
+      "Study Recursion Basics",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 61,
+    "date": "23-Jul-2026",
+    "topic": "Backtracking",
+    "subtopic": "Subsets",
+    "tasks": [
+      "Study Subsets",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 62,
+    "date": "24-Jul-2026",
+    "topic": "Backtracking",
+    "subtopic": "Combination Sum",
+    "tasks": [
+      "Study Combination Sum",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 63,
+    "date": "25-Jul-2026",
+    "topic": "Revision",
+    "subtopic": "Timed Solving",
+    "tasks": [
+      "Study Timed Solving",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 8,
+    "timeGoal": "7-8 Hours",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 64,
+    "date": "26-Jul-2026",
+    "topic": "Backtracking",
+    "subtopic": "Permutations",
+    "tasks": [
+      "Study Permutations",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 8,
+    "timeGoal": "7-8 Hours",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 65,
+    "date": "27-Jul-2026",
+    "topic": "Backtracking",
+    "subtopic": "N Queens",
+    "tasks": [
+      "Study N Queens",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 66,
+    "date": "28-Jul-2026",
+    "topic": "Trees",
+    "subtopic": "Tree Basics",
+    "tasks": [
+      "Study Tree Basics",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 67,
+    "date": "29-Jul-2026",
+    "topic": "Trees",
+    "subtopic": "DFS Traversals",
+    "tasks": [
+      "Study DFS Traversals",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 68,
+    "date": "30-Jul-2026",
+    "topic": "Trees",
+    "subtopic": "BFS Traversals",
+    "tasks": [
+      "Study BFS Traversals",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 69,
+    "date": "31-Jul-2026",
+    "topic": "Trees",
+    "subtopic": "Height + Diameter",
+    "tasks": [
+      "Study Height + Diameter",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 2,
+    "timeGoal": "1 Hour",
+    "notes": "",
+    "status": "pending"
+  },
+  {
+    "day": 70,
+    "date": "01-Aug-2026",
+    "topic": "Revision",
+    "subtopic": "Contest",
+    "tasks": [
+      "Study Contest",
+      "revise notes",
+      "solve problems and write observations"
+    ],
+    "problemTarget": 8,
+    "timeGoal": "7-8 Hours",
+    "notes": "",
+    "status": "pending"
+  }
+]

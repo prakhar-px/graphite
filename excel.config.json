@@ -1,0 +1,13 @@
+{
+  "active": "full",
+  "sources": {
+    "sample": {
+      "file": "FAANG_DSA_Master_Roadmap_v2_sample.xlsx",
+      "label": "Sample roadmap"
+    },
+    "full": {
+      "file": "FAANG_DSA_Master_Roadmap_v2.xlsx",
+      "label": "Full 70-day roadmap"
+    }
+  }
+}
