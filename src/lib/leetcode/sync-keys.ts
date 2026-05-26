@@ -14,7 +14,7 @@ export function collectImportedSubmissionKeys(problemLog: SolvedProblem[]): Set<
       keys.add(submissionDedupeKey(problem.id.slice("lc-sub-".length)));
       continue;
     }
-    if (problem.source === "leetcode-sync") {
+    if (problem.source === "leetcode-sync" && problem.titleSlug) {
       keys.add(`slug-time:${problem.titleSlug}:${problem.solvedAt}`);
     }
   }

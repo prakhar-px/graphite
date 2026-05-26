@@ -1,15 +1,43 @@
 export type TaskStatus = "pending" | "in-progress" | "completed";
 
+export type DayType = "weekday" | "weekend";
+
+export type SessionType =
+  | "concept"
+  | "practice"
+  | "revision"
+  | "contest"
+  | "mixed";
+
 export interface DailyPlanDay {
+  /** Fixed sequence 1–70 (alias: day). */
+  sequence: number;
   day: number;
-  date: string;
+  actualDate: string;
+  dayName: string;
+  dayType: DayType;
   topic: string;
   subtopic: string;
-  tasks: string[];
-  problemTarget: number;
-  timeGoal: string;
-  notes: string;
+  suggestedQuestions: string[];
+  optionalQuestions: string[];
+  difficulty: "easy" | "medium" | "hard";
+  learningGoal: string;
+  resourceFocus: string;
+  estimatedHours: string;
+  recommendedSolveCount: number;
+  sessionType: SessionType;
+  defaultConfidence: number;
+  revisionFocus: string;
   status: TaskStatus;
+  notes: string;
+  /** @deprecated Use actualDate */
+  date: string;
+  /** @deprecated Mission uses suggestedQuestions */
+  tasks: string[];
+  /** @deprecated Use recommendedSolveCount */
+  problemTarget: number;
+  /** @deprecated Use estimatedHours */
+  timeGoal: string;
 }
 
 export interface DashboardMetric {
@@ -67,13 +95,15 @@ export interface TopicProgress {
   revisionCount: number;
   confidence: number;
   status: "weak" | "in-progress" | "completed" | "revision-pending";
-  recentActivity: string;
+  recentActivity: string | null;
+  missionsCompleted?: number;
 }
 
 export interface WeeklyProgressPoint {
   week: string;
   solved: number;
   target: number;
+  missionsCompleted?: number;
 }
 
 export interface TopicDistribution {

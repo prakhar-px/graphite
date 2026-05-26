@@ -1,5 +1,8 @@
 import { leetcodeGraphQL } from "@/lib/leetcode/graphql-client";
-import type { LeetCodeQuestionMeta, ProblemDifficulty } from "@/types/problem-log";
+import type {
+  LeetCodeProblemDifficulty,
+  LeetCodeQuestionMeta,
+} from "@/types/problem-log";
 
 const QUESTION_BY_SLUG = `
   query questionData($titleSlug: String!) {
@@ -17,7 +20,7 @@ const QUESTION_BY_SLUG = `
   }
 `;
 
-function normalizeDifficulty(value: string): ProblemDifficulty {
+function normalizeDifficulty(value: string): LeetCodeProblemDifficulty {
   const d = value.toLowerCase();
   if (d === "easy") return "Easy";
   if (d === "hard") return "Hard";

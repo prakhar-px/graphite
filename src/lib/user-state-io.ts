@@ -1,4 +1,5 @@
 import { dailyPlan } from "@/lib/data";
+import { normalizeDifficulty, normalizeSource } from "@/engines/problems/helpers";
 import type { TaskStatus } from "@/types";
 import type { SolvedProblem } from "@/types/problem-log";
 
@@ -31,36 +32,55 @@ function parseProblemLog(raw: unknown): SolvedProblem[] {
   for (const item of raw) {
     if (!item || typeof item !== "object") continue;
     const p = item as Partial<SolvedProblem>;
-    if (
-      typeof p.titleSlug !== "string" ||
-      typeof p.title !== "string" ||
-      typeof p.questionId !== "string"
-    ) {
+    if (typeof p.solvedAt !== "string" && typeof p.title !== "string") {
       continue;
     }
+    const topics = Array.isArray(p.topics)
+      ? p.topics.filter((t): t is string => typeof t === "string")
+      : Array.isArray(p.topicTags)
+        ? p.topicTags.filter((t): t is string => typeof t === "string")
+        : [];
+    const linkedPlannerDay =
+      typeof p.linkedPlannerDay === "number"
+        ? p.linkedPlannerDay
+        : typeof p.plannerDay === "number"
+          ? p.plannerDay
+          : undefined;
+    const timeSpentMinutes =
+      typeof p.timeSpentMinutes === "number"
+        ? p.timeSpentMinutes
+        : typeof p.timeMinutes === "number"
+          ? p.timeMinutes
+          : undefined;
+    const loggingMode = p.loggingMode === "quick" ? "quick" : "detailed";
+
     entries.push({
-      id: typeof p.id === "string" ? p.id : `lc-${p.titleSlug}`,
-      questionId: p.questionId,
+      id:
+        typeof p.id === "string"
+          ? p.id
+          : `${loggingMode}-${p.titleSlug ?? p.title ?? Date.now()}`,
+      questionId: typeof p.questionId === "string" ? p.questionId : undefined,
       questionFrontendId:
         typeof p.questionFrontendId === "number" ? p.questionFrontendId : undefined,
-      title: p.title,
-      titleSlug: p.titleSlug,
-      difficulty:
-        p.difficulty === "Easy" || p.difficulty === "Hard" ? p.difficulty : "Medium",
-      topicTags: Array.isArray(p.topicTags)
-        ? p.topicTags.filter((t): t is string => typeof t === "string")
-        : [],
-      url:
-        typeof p.url === "string"
-          ? p.url
-          : `https://leetcode.com/problems/${p.titleSlug}/`,
-      platform: "LeetCode",
+      title: typeof p.title === "string" ? p.title : undefined,
+      titleSlug: typeof p.titleSlug === "string" ? p.titleSlug : undefined,
+      difficulty: normalizeDifficulty(p.difficulty),
+      topics,
+      topicTags: topics,
+      url: typeof p.url === "string" ? p.url : undefined,
+      platform: p.platform === "LeetCode" ? "LeetCode" : undefined,
       solvedAt: typeof p.solvedAt === "string" ? p.solvedAt : new Date().toISOString(),
-      plannerDay: typeof p.plannerDay === "number" ? p.plannerDay : undefined,
+      linkedPlannerDay,
+      plannerDay: linkedPlannerDay,
       confidence: typeof p.confidence === "number" ? p.confidence : undefined,
       notes: typeof p.notes === "string" ? p.notes : undefined,
-      timeMinutes: typeof p.timeMinutes === "number" ? p.timeMinutes : undefined,
-      source: p.source === "leetcode-sync" ? "leetcode-sync" : "manual",
+      timeSpentMinutes,
+      timeMinutes: timeSpentMinutes,
+      revisionNeeded: Boolean(p.revisionNeeded),
+      loggingMode,
+      solvedCount:
+        typeof p.solvedCount === "number" ? Math.max(0, Math.round(p.solvedCount)) : 1,
+      source: normalizeSource(p.source),
       submissionId:
         typeof p.submissionId === "string" ? p.submissionId : undefined,
       lang: typeof p.lang === "string" ? p.lang : undefined,

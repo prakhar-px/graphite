@@ -7,6 +7,8 @@ export const EXCEL_SOURCES = {
     file: "FAANG_DSA_Master_Roadmap_v2.xlsx",
     label: "Full 70-day roadmap",
   },
+  updated: {
+    file: "Graphite_FAANG_Roadmap_Updated.xlsx",
+    label: "Graphite FAANG roadmap (mission-based)",
+  },
 } as const;
-
-export type ExcelSourceKey = keyof typeof EXCEL_SOURCES;

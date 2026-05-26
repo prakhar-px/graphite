@@ -8,6 +8,7 @@
     "start": "next start -p 4000",
     "lint": "eslint",
     "parse-excel": "tsx scripts/parse-excel.ts",
+    "excel:sync": "tsx scripts/sync-excel-roadmap.ts && tsx scripts/parse-excel.ts",
     "excel:use": "tsx scripts/use-excel.ts",
     "excel:sample": "tsx scripts/use-excel.ts sample",
     "excel:full": "tsx scripts/use-excel.ts full",

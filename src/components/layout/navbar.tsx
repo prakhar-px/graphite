@@ -5,11 +5,8 @@ import { Bell, Command, Menu, Search, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import {
-  companies,
-  getPlanWithStatuses,
-  revisionTopics,
-} from "@/lib/data";
+import { companies, getPlanWithStatuses } from "@/lib/data";
+import { buildProblemRevisionIndex } from "@/engines/revision/selectors";
 import { cn } from "@/lib/utils";
 import {
   getComputedNotifications,
@@ -82,7 +79,12 @@ export function Navbar({
 
     const topicMatches = plan
       .filter((item) =>
-        [item.topic, item.subtopic, item.tasks.join(" ")]
+        [
+          item.topic,
+          item.subtopic,
+          item.learningGoal,
+          ...(item.suggestedQuestions ?? []),
+        ]
           .join(" ")
           .toLowerCase()
           .includes(q)
@@ -112,19 +114,23 @@ export function Navbar({
         onSelect: () => router.push("/companies"),
       }));
 
-    const revisionMatches = revisionTopics
-      .filter((item) => item.topic.toLowerCase().includes(q))
+    const revisionMatches = buildProblemRevisionIndex(snapshot.solvedProblems)
+      .filter(
+        (item) =>
+          item.title.toLowerCase().includes(q) ||
+          item.parentTopic.toLowerCase().includes(q)
+      )
       .slice(0, 4)
       .map((item) => ({
-        id: `revision-${item.topic}`,
-        label: item.topic,
-        detail: "Revision tracker topic",
+        id: `revision-${item.identityKey}`,
+        label: item.title,
+        detail: `${item.parentTopic} · ${item.revisionCount} revision${item.revisionCount === 1 ? "" : "s"}`,
         type: "Revision",
         onSelect: () => router.push("/revision"),
       }));
 
     return [...topicMatches, ...companyMatches, ...revisionMatches].slice(0, 8);
-  }, [query, plan, router, setPlannerSelectedDay]);
+  }, [query, plan, router, setPlannerSelectedDay, snapshot]);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {

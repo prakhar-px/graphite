@@ -9,7 +9,11 @@ export function getDataSeedId(): string {
     "activeKey" in meta && typeof meta.activeKey === "string"
       ? meta.activeKey
       : "";
-  return `${activeKey || source}::${dailyPlan.length}::${dailyPlan[0]?.day ?? 0}::${parsedAt}`;
+  const start =
+    "roadmapStartDate" in meta && typeof meta.roadmapStartDate === "string"
+      ? meta.roadmapStartDate
+      : dailyPlan[0]?.actualDate ?? "";
+  return `${activeKey || source}::${dailyPlan.length}::${start}::${parsedAt}`;
 }
 
 export function getExcelMeta() {

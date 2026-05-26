@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Shell } from "@/components/layout/shell";
 import { TopicCard } from "@/components/topics/topic-card";
 import { MasteryChart } from "@/components/topics/mastery-chart";
-import { buildTopicProgress } from "@/lib/data";
+import { buildTopicProgress } from "@/engines/topics/selectors";
 import { useUserSnapshot } from "@/store/app-store";
 import { cn } from "@/lib/utils";
 

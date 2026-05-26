@@ -4,6 +4,7 @@ import { Suspense, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useAppStore } from "@/store/app-store";
+import { GlobalLogAction } from "@/components/problems/global-log-action";
 import { Navbar } from "./navbar";
 import { Sidebar } from "./sidebar";
 
@@ -43,6 +44,7 @@ export function Shell({ children, title, subtitle }: ShellProps) {
         </Suspense>
         <Navbar title={title} subtitle={subtitle} />
         <main className="graphite-scrollbar-inset flex-1 overflow-y-auto">{children}</main>
+        <GlobalLogAction />
       </div>
     </div>
   );

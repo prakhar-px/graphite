@@ -20,7 +20,7 @@ export function WeeklyChart() {
   return (
     <PremiumCard className="min-w-0 xl:col-span-2">
       <div className="mb-5">
-        <p className="text-sm text-zinc-500">Weekly Progress</p>
+        <p className="text-sm text-zinc-500">Telemetry Velocity</p>
         <h3 className="mt-1 text-lg font-semibold text-zinc-100">
           Solved velocity
         </h3>

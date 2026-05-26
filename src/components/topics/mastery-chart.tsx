@@ -7,7 +7,7 @@ import {
   RadarChart,
   ResponsiveContainer,
 } from "recharts";
-import { buildTopicProgress } from "@/lib/data";
+import { buildTopicProgress } from "@/engines/topics/selectors";
 import { useUserSnapshot } from "@/store/app-store";
 import { PremiumCard } from "@/components/ui/premium-card";
 

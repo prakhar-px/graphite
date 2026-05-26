@@ -43,7 +43,9 @@ export function TopicCard({ topic }: TopicCardProps) {
           </span>
           <span>{topic.revisionCount} revisions</span>
           <span className="font-mono text-zinc-300">{topic.confidence}%</span>
-          <span className="truncate">Recent: {topic.recentActivity}</span>
+          <span className="truncate">
+            Recent: {topic.recentActivity ?? "—"}
+          </span>
         </div>
         <Badge
           variant="outline"

@@ -3,12 +3,28 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import {
-  getDashboardStats,
-  buildTopicProgress,
-  getPlanWithStatuses,
-  type UserSnapshot,
-} from "@/lib/computed-data";
-import { dailyPlan, revisionTopics } from "@/lib/data";
+  GRAPHITE_STORAGE_KEY,
+  createGraphiteStorage,
+} from "@/engines/storage/local-persistence";
+import {
+  buildDetailedProblemLog,
+  buildQuickProblemLog,
+  formatDifficulty,
+  getProblemTopics,
+  normalizeDifficulty,
+  normalizeSource,
+} from "@/engines/problems/helpers";
+import type { UserSnapshot } from "@/engines/core/types";
+import { getDashboardStats } from "@/engines/dashboard/selectors";
+import { buildMissionCompletionLogs, mergeMissionLogs } from "@/engines/planner/mission";
+import type { MissionQuestionEntry } from "@/types/mission-completion";
+import { getMissionByDay, getPlanWithStatuses } from "@/engines/planner/selectors";
+import { buildTopicProgress } from "@/engines/topics/selectors";
+import { dailyPlan } from "@/lib/data";
+import {
+  buildProblemRevisionIndex,
+  getRevisionSummary,
+} from "@/engines/revision/selectors";
 import { getDataSeedId } from "@/lib/data-seed";
 import { buildSolvedProblem } from "@/lib/leetcode/build-entry";
 import { collectImportedSubmissionKeys } from "@/lib/leetcode/sync-keys";
@@ -20,7 +36,13 @@ import {
   type PersistedUserState,
 } from "@/lib/user-state-io";
 import type { TaskStatus } from "@/types";
-import type { LeetCodeQuestionMeta, SolvedProblem } from "@/types/problem-log";
+import type {
+  LeetCodeQuestionMeta,
+  ProblemDifficulty,
+  ProblemLog,
+  ProblemSource,
+  SolvedProblem,
+} from "@/types/problem-log";
 
 type AppNotification = {
   id: string;
@@ -53,6 +75,39 @@ interface AppState extends PersistedUserState {
   resetProgress: () => void;
   acknowledgeSeed: () => void;
   setLeetcodeUsername: (username: string) => void;
+  addProblemLog: (entry: ProblemLog) => void;
+  quickLogProblemCount: (options: {
+    solvedCount: number;
+    plannerDay?: number;
+    title?: string;
+    topics?: string[];
+    confidence?: number;
+  }) => void;
+  addDetailedProblemLog: (input: {
+    title: string;
+    source?: ProblemSource;
+    difficulty?: ProblemDifficulty;
+    topics?: string[];
+    confidence?: number;
+    notes?: string;
+    timeSpentMinutes?: number;
+    revisionNeeded?: boolean;
+    linkedPlannerDay?: number;
+  }) => { ok: boolean; message: string };
+      roughlyCompleteMission: (
+        day: number,
+        entries: MissionQuestionEntry[]
+      ) => void;
+      completeMissionWithQuestions: (
+        day: number,
+        entries: MissionQuestionEntry[]
+      ) => void;
+      /** @deprecated Use roughlyCompleteMission / completeMissionWithQuestions */
+      completePlannerDay: (
+        day: number,
+        solvedCount: number,
+        confidence?: number
+      ) => void;
   addSolvedProblem: (
     meta: LeetCodeQuestionMeta,
     options?: {
@@ -60,6 +115,7 @@ interface AppState extends PersistedUserState {
       confidence?: number;
       notes?: string;
       timeMinutes?: number;
+      revisionNeeded?: boolean;
       solvedAt?: string;
       source?: SolvedProblem["source"];
     }
@@ -112,6 +168,12 @@ function createInitialState(): Omit<
   | "resetProgress"
   | "acknowledgeSeed"
   | "setLeetcodeUsername"
+  | "addProblemLog"
+  | "quickLogProblemCount"
+  | "addDetailedProblemLog"
+  | "roughlyCompleteMission"
+  | "completeMissionWithQuestions"
+  | "completePlannerDay"
   | "addSolvedProblem"
   | "removeSolvedProblem"
   | "syncLeetCodeSubmissions"
@@ -195,16 +257,94 @@ export const useAppStore = create<AppState>()(
 
       setLeetcodeUsername: (username) => set({ leetcodeUsername: username.trim() }),
 
+      addProblemLog: (entry) =>
+        set((state) => {
+          const problemLog = [entry, ...state.problemLog];
+          const snapshot = snapshotFromState({ ...state, problemLog });
+          return { problemLog, ...deriveFromSnapshot(snapshot) };
+        }),
+
+      quickLogProblemCount: ({
+        solvedCount,
+        plannerDay,
+        title,
+        topics,
+        confidence,
+      }) =>
+        set((state) => {
+          const entry = buildQuickProblemLog({
+            solvedCount,
+            linkedPlannerDay: plannerDay ?? state.plannerSelectedDay,
+            title,
+            topics,
+            confidence,
+          });
+          const problemLog = [entry, ...state.problemLog];
+          const snapshot = snapshotFromState({ ...state, problemLog });
+          return { problemLog, ...deriveFromSnapshot(snapshot) };
+        }),
+
+      addDetailedProblemLog: (input) => {
+        const state = get();
+        const title = input.title.trim();
+        if (!title) return { ok: false, message: "Add a problem title." };
+        const entry = buildDetailedProblemLog({
+          ...input,
+          title,
+          linkedPlannerDay: input.linkedPlannerDay ?? state.plannerSelectedDay,
+          sourceType: "manual",
+          manuallyAdded: true,
+        });
+        const problemLog = [entry, ...state.problemLog];
+        const snapshot = snapshotFromState({ ...state, problemLog });
+        set({ problemLog, ...deriveFromSnapshot(snapshot) });
+        return { ok: true, message: `Logged ${title}.` };
+      },
+
+      roughlyCompleteMission: (day, entries) =>
+        set((state) => {
+          const planDay = getMissionByDay(day);
+          if (!planDay) return state;
+          const dayStatuses = { ...state.dayStatuses, [day]: "completed" as TaskStatus };
+          const logs = buildMissionCompletionLogs(planDay, entries);
+          const problemLog = mergeMissionLogs(state.problemLog, day, logs);
+          const snapshot = snapshotFromState({ ...state, dayStatuses, problemLog });
+          return { dayStatuses, problemLog, ...deriveFromSnapshot(snapshot) };
+        }),
+
+      completeMissionWithQuestions: (day, entries) =>
+        set((state) => {
+          const planDay = getMissionByDay(day);
+          if (!planDay) return state;
+          const dayStatuses = { ...state.dayStatuses, [day]: "completed" as TaskStatus };
+          const logs = buildMissionCompletionLogs(planDay, entries);
+          const problemLog = mergeMissionLogs(state.problemLog, day, logs);
+          const snapshot = snapshotFromState({ ...state, dayStatuses, problemLog });
+          return { dayStatuses, problemLog, ...deriveFromSnapshot(snapshot) };
+        }),
+
+      completePlannerDay: (day, solvedCount, confidence) => {
+        const planDay = getMissionByDay(day);
+        if (!planDay) return;
+        const defaultConf = confidence ?? planDay.defaultConfidence;
+        const entries = planDay.suggestedQuestions
+          .slice(0, Math.max(0, Math.round(solvedCount)))
+          .map((title) => ({ title, confidence: defaultConf }));
+        if (entries.length >= planDay.suggestedQuestions.length) {
+          get().roughlyCompleteMission(day, entries);
+        } else {
+          get().completeMissionWithQuestions(day, entries);
+        }
+      },
+
       addSolvedProblem: (meta, options = {}) => {
         const state = get();
-        if (state.problemLog.some((p) => p.titleSlug === meta.titleSlug)) {
-          return { ok: false, message: `${meta.title} is already in your log.` };
-        }
         const entry = buildSolvedProblem(meta, {
           plannerDay: options.plannerDay ?? state.plannerSelectedDay,
           confidence: options.confidence,
           notes: options.notes,
           timeMinutes: options.timeMinutes,
+          revisionNeeded: options.revisionNeeded,
           solvedAt: options.solvedAt,
           source: options.source,
         });
@@ -331,7 +471,8 @@ export const useAppStore = create<AppState>()(
         set({ seedMismatch: false, lastDataSeedId: currentSeedId }),
     }),
     {
-      name: "graphite-dsa-store-v4",
+      name: GRAPHITE_STORAGE_KEY,
+      storage: createGraphiteStorage(),
       partialize: (state) => ({
         dayStatuses: state.dayStatuses,
         completedTasks: state.completedTasks,
@@ -346,6 +487,29 @@ export const useAppStore = create<AppState>()(
       onRehydrateStorage: () => (state) => {
         if (!state) return;
         if (!state.problemLog) state.problemLog = [];
+        state.problemLog = state.problemLog.map((problem) => {
+          const topics = problem.topics ?? problem.topicTags ?? [];
+          const linkedPlannerDay = problem.linkedPlannerDay ?? problem.plannerDay;
+          const timeSpentMinutes = problem.timeSpentMinutes ?? problem.timeMinutes;
+          return {
+            ...problem,
+            source: normalizeSource(problem.source),
+            difficulty: normalizeDifficulty(problem.difficulty),
+            topics,
+            topicTags: topics,
+            linkedPlannerDay,
+            plannerDay: linkedPlannerDay,
+            timeSpentMinutes,
+            timeMinutes: timeSpentMinutes,
+            loggingMode: problem.loggingMode ?? "detailed",
+            solvedCount:
+              typeof problem.solvedCount === "number"
+                ? problem.solvedCount
+                : problem.loggingMode === "quick"
+                  ? 0
+                  : 1,
+          };
+        });
         if (!state.leetcodeUsername) state.leetcodeUsername = "";
         const seedId = getDataSeedId();
         if (state.lastDataSeedId && state.lastDataSeedId !== seedId) {
@@ -382,13 +546,26 @@ export function getComputedNotifications(snapshot: UserSnapshot): AppNotificatio
   );
   const pending = plan.filter((item) => item.status === "pending").length;
 
-  const notifications: AppNotification[] = revisionTopics
-    .filter((revision) => !revision.revision2)
+  const revisionProblems = buildProblemRevisionIndex(snapshot.solvedProblems);
+  const revisionSummary = getRevisionSummary(snapshot);
+
+  const notifications: AppNotification[] = revisionProblems
+    .filter(
+      (problem) =>
+        problem.revisionPending ||
+        problem.revisionCount > 0 ||
+        (problem.confidence > 0 && problem.confidence < 50)
+    )
     .slice(0, 3)
-    .map((revision) => ({
-      id: `rev-${revision.topic}`,
-      title: `${revision.topic} revision due`,
-      detail: "Second revision cycle is pending.",
+    .map((problem) => ({
+      id: `rev-${problem.identityKey}`,
+      title:
+        problem.revisionCount > 0
+          ? `${problem.title} · ${problem.revisionCount} revision${problem.revisionCount === 1 ? "" : "s"}`
+          : `${problem.title} needs review`,
+      detail: problem.revisionPending
+        ? "Flagged from problem telemetry."
+        : `Last solved ${problem.lastSolvedAt.slice(0, 10)}`,
       level: "warning" as const,
     }));
 
@@ -410,12 +587,20 @@ export function getComputedNotifications(snapshot: UserSnapshot): AppNotificatio
     });
   }
 
-  const revisionDue = revisionTopics.filter((r) => !r.revision1).length;
-  if (revisionDue > 0) {
+  if (revisionSummary.totalRevisions > 0) {
     notifications.push({
-      id: "revision-backlog",
-      title: `${revisionDue} topics need R1`,
-      detail: "Open Revision to schedule first-pass reviews.",
+      id: "revision-repeats",
+      title: `${revisionSummary.totalRevisions} repeat solves tracked`,
+      detail: "Re-solving the same problem counts as revision.",
+      level: "info",
+    });
+  }
+
+  if (revisionSummary.pending > 0) {
+    notifications.push({
+      id: "revision-flagged",
+      title: `${revisionSummary.pending} problems flagged`,
+      detail: "Review flagged items in your problem log.",
       level: "warning",
     });
   }
@@ -424,11 +609,12 @@ export function getComputedNotifications(snapshot: UserSnapshot): AppNotificatio
     const latest = snapshot.solvedProblems[0];
     notifications.push({
       id: "latest-solve",
-      title: `Logged: ${latest.title}`,
-      detail: `${latest.difficulty} · ${latest.topicTags.slice(0, 2).join(", ") || "General"}`,
+      title: `Logged: ${latest.title ?? "Quick telemetry"}`,
+      detail: `${formatDifficulty(latest.difficulty)} · ${getProblemTopics(latest).slice(0, 2).join(", ") || "General"}`,
       level: "success",
     });
   }
 
   return notifications;
 }
+

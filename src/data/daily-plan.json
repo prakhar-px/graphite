@@ -1,1052 +1,2034 @@
 [
   {
+    "sequence": 1,
     "day": 1,
-    "date": "24-May-2026",
+    "actualDate": "27-May-2026",
+    "dayName": "Wednesday",
+    "dayType": "weekday",
     "topic": "STL + Hashing",
     "subtopic": "Vectors + Time Complexity",
-    "tasks": [
-      "Study Vectors + Time Complexity",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Vector Basics",
+      "Time Complexity Analysis"
     ],
-    "problemTarget": 8,
-    "timeGoal": "7-8 Hours",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Rebuild STL fluency + asymptotic thinking",
+    "resourceFocus": "STL fundamentals + Big O",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "27-May-2026",
+    "tasks": [
+      "Vector Basics",
+      "Time Complexity Analysis"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 2,
     "day": 2,
-    "date": "25-May-2026",
+    "actualDate": "28-May-2026",
+    "dayName": "Thursday",
+    "dayType": "weekday",
     "topic": "STL + Hashing",
     "subtopic": "map vs unordered_map",
-    "tasks": [
-      "Study map vs unordered_map",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Two Sum"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Understand hashing lookup tradeoffs",
+    "resourceFocus": "map vs unordered_map internals",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "28-May-2026",
+    "tasks": [
+      "Two Sum"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 3,
     "day": 3,
-    "date": "26-May-2026",
+    "actualDate": "29-May-2026",
+    "dayName": "Friday",
+    "dayType": "weekday",
     "topic": "STL + Hashing",
     "subtopic": "set vs unordered_set",
-    "tasks": [
-      "Study set vs unordered_set",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Contains Duplicate"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Understand uniqueness + set behavior",
+    "resourceFocus": "set/unordered_set usage",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "29-May-2026",
+    "tasks": [
+      "Contains Duplicate"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 4,
     "day": 4,
-    "date": "27-May-2026",
+    "actualDate": "30-May-2026",
+    "dayName": "Saturday",
+    "dayType": "weekend",
     "topic": "Hashing",
     "subtopic": "Frequency Counting",
-    "tasks": [
-      "Study Frequency Counting",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Frequency of Elements"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Master frequency counting patterns",
+    "resourceFocus": "Hashing basics",
+    "estimatedHours": "2-4 Hours",
+    "recommendedSolveCount": 3,
+    "sessionType": "mixed",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "30-May-2026",
+    "tasks": [
+      "Frequency of Elements"
+    ],
+    "problemTarget": 3,
+    "timeGoal": "2-4 Hours"
   },
   {
+    "sequence": 5,
     "day": 5,
-    "date": "28-May-2026",
+    "actualDate": "31-May-2026",
+    "dayName": "Sunday",
+    "dayType": "weekend",
     "topic": "Hashing",
     "subtopic": "Highest/Lowest Frequency",
-    "tasks": [
-      "Study Highest/Lowest Frequency",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Highest Frequency Element"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Pattern recognition using maps",
+    "resourceFocus": "Frequency optimization",
+    "estimatedHours": "2-4 Hours",
+    "recommendedSolveCount": 3,
+    "sessionType": "mixed",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "31-May-2026",
+    "tasks": [
+      "Highest Frequency Element"
+    ],
+    "problemTarget": 3,
+    "timeGoal": "2-4 Hours"
   },
   {
+    "sequence": 6,
     "day": 6,
-    "date": "29-May-2026",
+    "actualDate": "01-Jun-2026",
+    "dayName": "Monday",
+    "dayType": "weekday",
     "topic": "Hashing",
     "subtopic": "Two Sum + Duplicates",
-    "tasks": [
-      "Study Two Sum + Duplicates",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Two Sum"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Classic hash lookup interview pattern",
+    "resourceFocus": "Hashing pattern solving",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "01-Jun-2026",
+    "tasks": [
+      "Two Sum"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 7,
     "day": 7,
-    "date": "30-May-2026",
+    "actualDate": "02-Jun-2026",
+    "dayName": "Tuesday",
+    "dayType": "weekday",
     "topic": "Revision",
     "subtopic": "Timed Practice",
-    "tasks": [
-      "Study Timed Practice",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Mixed Hashing Revision"
     ],
-    "problemTarget": 8,
-    "timeGoal": "7-8 Hours",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Strengthen retention through timed solving",
+    "resourceFocus": "Revision + speed",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "02-Jun-2026",
+    "tasks": [
+      "Mixed Hashing Revision"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 8,
     "day": 8,
-    "date": "31-May-2026",
+    "actualDate": "03-Jun-2026",
+    "dayName": "Wednesday",
+    "dayType": "weekday",
     "topic": "Prefix Sum",
     "subtopic": "Prefix Basics",
-    "tasks": [
-      "Study Prefix Basics",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Running Sum of 1D Array"
     ],
-    "problemTarget": 8,
-    "timeGoal": "7-8 Hours",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Build prefix intuition",
+    "resourceFocus": "Prefix Sum basics",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "03-Jun-2026",
+    "tasks": [
+      "Running Sum of 1D Array"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 9,
     "day": 9,
-    "date": "01-Jun-2026",
+    "actualDate": "04-Jun-2026",
+    "dayName": "Thursday",
+    "dayType": "weekday",
     "topic": "Prefix Sum",
     "subtopic": "Subarray Sum",
-    "tasks": [
-      "Study Subarray Sum",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Subarray Sum Equals K"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Prefix + hashmap mastery",
+    "resourceFocus": "Subarray patterns",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "04-Jun-2026",
+    "tasks": [
+      "Subarray Sum Equals K"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 10,
     "day": 10,
-    "date": "02-Jun-2026",
+    "actualDate": "05-Jun-2026",
+    "dayName": "Friday",
+    "dayType": "weekday",
     "topic": "Prefix Sum",
     "subtopic": "Longest Subarray K",
-    "tasks": [
-      "Study Longest Subarray K",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Longest Subarray With Sum K"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Sliding prefix techniques",
+    "resourceFocus": "Prefix optimization",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "05-Jun-2026",
+    "tasks": [
+      "Longest Subarray With Sum K"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 11,
     "day": 11,
-    "date": "03-Jun-2026",
+    "actualDate": "06-Jun-2026",
+    "dayName": "Saturday",
+    "dayType": "weekend",
     "topic": "Prefix Sum",
     "subtopic": "Prefix + HashMap",
-    "tasks": [
-      "Study Prefix + HashMap",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Subarray Sum Divisible by K"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Hashmap + prefix combination",
+    "resourceFocus": "Advanced prefix hashing",
+    "estimatedHours": "2-4 Hours",
+    "recommendedSolveCount": 3,
+    "sessionType": "mixed",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "06-Jun-2026",
+    "tasks": [
+      "Subarray Sum Divisible by K"
+    ],
+    "problemTarget": 3,
+    "timeGoal": "2-4 Hours"
   },
   {
+    "sequence": 12,
     "day": 12,
-    "date": "04-Jun-2026",
+    "actualDate": "07-Jun-2026",
+    "dayName": "Sunday",
+    "dayType": "weekend",
     "topic": "XOR",
     "subtopic": "XOR Basics",
-    "tasks": [
-      "Study XOR Basics",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Single Number"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Build XOR intuition",
+    "resourceFocus": "Bit manipulation",
+    "estimatedHours": "2-4 Hours",
+    "recommendedSolveCount": 3,
+    "sessionType": "mixed",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "07-Jun-2026",
+    "tasks": [
+      "Single Number"
+    ],
+    "problemTarget": 3,
+    "timeGoal": "2-4 Hours"
   },
   {
+    "sequence": 13,
     "day": 13,
-    "date": "05-Jun-2026",
+    "actualDate": "08-Jun-2026",
+    "dayName": "Monday",
+    "dayType": "weekday",
     "topic": "XOR",
     "subtopic": "XOR Problems",
-    "tasks": [
-      "Study XOR Problems",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Find Missing Number"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Use XOR for optimized solutions",
+    "resourceFocus": "XOR applications",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "08-Jun-2026",
+    "tasks": [
+      "Find Missing Number"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 14,
     "day": 14,
-    "date": "06-Jun-2026",
+    "actualDate": "09-Jun-2026",
+    "dayName": "Tuesday",
+    "dayType": "weekday",
     "topic": "Revision",
     "subtopic": "Mixed Problems",
-    "tasks": [
-      "Study Mixed Problems",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Mixed Prefix + XOR Revision"
     ],
-    "problemTarget": 8,
-    "timeGoal": "7-8 Hours",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Consolidate hashing patterns",
+    "resourceFocus": "Revision",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "09-Jun-2026",
+    "tasks": [
+      "Mixed Prefix + XOR Revision"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 15,
     "day": 15,
-    "date": "07-Jun-2026",
+    "actualDate": "10-Jun-2026",
+    "dayName": "Wednesday",
+    "dayType": "weekday",
     "topic": "Arrays",
     "subtopic": "Largest/Smallest",
-    "tasks": [
-      "Study Largest/Smallest",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Linear Search + Traversal Basics"
     ],
-    "problemTarget": 8,
-    "timeGoal": "7-8 Hours",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Comfort with array iteration",
+    "resourceFocus": "Array fundamentals",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "10-Jun-2026",
+    "tasks": [
+      "Linear Search + Traversal Basics"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 16,
     "day": 16,
-    "date": "08-Jun-2026",
+    "actualDate": "11-Jun-2026",
+    "dayName": "Thursday",
+    "dayType": "weekday",
     "topic": "Arrays",
     "subtopic": "Second Largest",
-    "tasks": [
-      "Study Second Largest",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Largest Element in Array"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Basic traversal confidence",
+    "resourceFocus": "Array scanning",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "11-Jun-2026",
+    "tasks": [
+      "Largest Element in Array"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 17,
     "day": 17,
-    "date": "09-Jun-2026",
+    "actualDate": "12-Jun-2026",
+    "dayName": "Friday",
+    "dayType": "weekday",
     "topic": "Arrays",
     "subtopic": "Rotate Array",
-    "tasks": [
-      "Study Rotate Array",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Second Largest Element"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Track multiple candidates",
+    "resourceFocus": "Greedy array logic",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "12-Jun-2026",
+    "tasks": [
+      "Second Largest Element"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 18,
     "day": 18,
-    "date": "10-Jun-2026",
+    "actualDate": "13-Jun-2026",
+    "dayName": "Saturday",
+    "dayType": "weekend",
     "topic": "Arrays",
     "subtopic": "Move Zeros",
-    "tasks": [
-      "Study Move Zeros",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Rotate Array"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Index manipulation fluency",
+    "resourceFocus": "Array transformations",
+    "estimatedHours": "2-4 Hours",
+    "recommendedSolveCount": 3,
+    "sessionType": "mixed",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "13-Jun-2026",
+    "tasks": [
+      "Rotate Array"
+    ],
+    "problemTarget": 3,
+    "timeGoal": "2-4 Hours"
   },
   {
+    "sequence": 19,
     "day": 19,
-    "date": "11-Jun-2026",
+    "actualDate": "14-Jun-2026",
+    "dayName": "Sunday",
+    "dayType": "weekend",
     "topic": "Arrays",
     "subtopic": "Remove Duplicates",
-    "tasks": [
-      "Study Remove Duplicates",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Move Zeroes"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Two pointer movement basics",
+    "resourceFocus": "In-place operations",
+    "estimatedHours": "2-4 Hours",
+    "recommendedSolveCount": 3,
+    "sessionType": "mixed",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "14-Jun-2026",
+    "tasks": [
+      "Move Zeroes"
+    ],
+    "problemTarget": 3,
+    "timeGoal": "2-4 Hours"
   },
   {
+    "sequence": 20,
     "day": 20,
-    "date": "12-Jun-2026",
+    "actualDate": "15-Jun-2026",
+    "dayName": "Monday",
+    "dayType": "weekday",
     "topic": "Arrays",
     "subtopic": "Kadane Algorithm",
-    "tasks": [
-      "Study Kadane Algorithm",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Remove Duplicates from Sorted Array"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "In-place deduplication",
+    "resourceFocus": "Two pointers",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "15-Jun-2026",
+    "tasks": [
+      "Remove Duplicates from Sorted Array"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 21,
     "day": 21,
-    "date": "13-Jun-2026",
+    "actualDate": "16-Jun-2026",
+    "dayName": "Tuesday",
+    "dayType": "weekday",
     "topic": "Revision",
     "subtopic": "Timed Solving",
-    "tasks": [
-      "Study Timed Solving",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Mixed Array Revision"
     ],
-    "problemTarget": 8,
-    "timeGoal": "7-8 Hours",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Timed array solving",
+    "resourceFocus": "Revision",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "16-Jun-2026",
+    "tasks": [
+      "Mixed Array Revision"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 22,
     "day": 22,
-    "date": "14-Jun-2026",
+    "actualDate": "17-Jun-2026",
+    "dayName": "Wednesday",
+    "dayType": "weekday",
     "topic": "Arrays Advanced",
     "subtopic": "Stock Buy Sell",
-    "tasks": [
-      "Study Stock Buy Sell",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Maximum Subarray"
     ],
-    "problemTarget": 8,
-    "timeGoal": "7-8 Hours",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Kadane pattern mastery",
+    "resourceFocus": "Greedy arrays",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "17-Jun-2026",
+    "tasks": [
+      "Maximum Subarray"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 23,
     "day": 23,
-    "date": "15-Jun-2026",
+    "actualDate": "18-Jun-2026",
+    "dayName": "Thursday",
+    "dayType": "weekday",
     "topic": "Arrays Advanced",
     "subtopic": "Majority Element",
-    "tasks": [
-      "Study Majority Element",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Best Time to Buy and Sell Stock"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Profit tracking intuition",
+    "resourceFocus": "Greedy thinking",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "18-Jun-2026",
+    "tasks": [
+      "Best Time to Buy and Sell Stock"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 24,
     "day": 24,
-    "date": "16-Jun-2026",
+    "actualDate": "19-Jun-2026",
+    "dayName": "Friday",
+    "dayType": "weekday",
     "topic": "Arrays Advanced",
     "subtopic": "Merge Intervals",
-    "tasks": [
-      "Study Merge Intervals",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Rearrange Array Elements by Sign"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Pattern-based manipulation",
+    "resourceFocus": "Array arrangement",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "19-Jun-2026",
+    "tasks": [
+      "Rearrange Array Elements by Sign"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 25,
     "day": 25,
-    "date": "17-Jun-2026",
+    "actualDate": "20-Jun-2026",
+    "dayName": "Saturday",
+    "dayType": "weekend",
     "topic": "Arrays Advanced",
     "subtopic": "Spiral Matrix",
-    "tasks": [
-      "Study Spiral Matrix",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Majority Element"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Voting algorithm intuition",
+    "resourceFocus": "Moore Voting",
+    "estimatedHours": "2-4 Hours",
+    "recommendedSolveCount": 3,
+    "sessionType": "mixed",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "20-Jun-2026",
+    "tasks": [
+      "Majority Element"
+    ],
+    "problemTarget": 3,
+    "timeGoal": "2-4 Hours"
   },
   {
+    "sequence": 26,
     "day": 26,
-    "date": "18-Jun-2026",
+    "actualDate": "21-Jun-2026",
+    "dayName": "Sunday",
+    "dayType": "weekend",
     "topic": "Strings",
     "subtopic": "Palindrome",
-    "tasks": [
-      "Study Palindrome",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Merge Intervals"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Interval pattern recognition",
+    "resourceFocus": "Sorting + merging",
+    "estimatedHours": "2-4 Hours",
+    "recommendedSolveCount": 3,
+    "sessionType": "mixed",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "21-Jun-2026",
+    "tasks": [
+      "Merge Intervals"
+    ],
+    "problemTarget": 3,
+    "timeGoal": "2-4 Hours"
   },
   {
+    "sequence": 27,
     "day": 27,
-    "date": "19-Jun-2026",
+    "actualDate": "22-Jun-2026",
+    "dayName": "Monday",
+    "dayType": "weekday",
     "topic": "Strings",
     "subtopic": "Anagram",
-    "tasks": [
-      "Study Anagram",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Spiral Matrix"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Boundary traversal confidence",
+    "resourceFocus": "Matrix traversal",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "22-Jun-2026",
+    "tasks": [
+      "Spiral Matrix"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 28,
     "day": 28,
-    "date": "20-Jun-2026",
+    "actualDate": "23-Jun-2026",
+    "dayName": "Tuesday",
+    "dayType": "weekday",
     "topic": "Revision",
     "subtopic": "Contest",
-    "tasks": [
-      "Study Contest",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Weekly Contest / Mixed Arrays"
     ],
-    "problemTarget": 8,
-    "timeGoal": "7-8 Hours",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Pressure solving",
+    "resourceFocus": "Contest exposure",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "23-Jun-2026",
+    "tasks": [
+      "Weekly Contest / Mixed Arrays"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 29,
     "day": 29,
-    "date": "21-Jun-2026",
+    "actualDate": "24-Jun-2026",
+    "dayName": "Wednesday",
+    "dayType": "weekday",
     "topic": "Strings",
     "subtopic": "Frequency Hashing",
-    "tasks": [
-      "Study Frequency Hashing",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Valid Anagram"
     ],
-    "problemTarget": 8,
-    "timeGoal": "7-8 Hours",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "String frequency basics",
+    "resourceFocus": "String hashing",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "24-Jun-2026",
+    "tasks": [
+      "Valid Anagram"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 30,
     "day": 30,
-    "date": "22-Jun-2026",
+    "actualDate": "25-Jun-2026",
+    "dayName": "Thursday",
+    "dayType": "weekday",
     "topic": "Strings",
     "subtopic": "Longest Common Prefix",
-    "tasks": [
-      "Study Longest Common Prefix",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Valid Palindrome"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Two pointer strings",
+    "resourceFocus": "Palindrome patterns",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "25-Jun-2026",
+    "tasks": [
+      "Valid Palindrome"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 31,
     "day": 31,
-    "date": "23-Jun-2026",
+    "actualDate": "26-Jun-2026",
+    "dayName": "Friday",
+    "dayType": "weekday",
     "topic": "Strings",
     "subtopic": "String Manipulation",
-    "tasks": [
-      "Study String Manipulation",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Group Anagrams"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Hashing + strings",
+    "resourceFocus": "Pattern grouping",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "26-Jun-2026",
+    "tasks": [
+      "Group Anagrams"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 32,
     "day": 32,
-    "date": "24-Jun-2026",
+    "actualDate": "27-Jun-2026",
+    "dayName": "Saturday",
+    "dayType": "weekend",
     "topic": "Sliding Window",
     "subtopic": "Fixed Window",
-    "tasks": [
-      "Study Fixed Window",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Character Frequency Sort"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "String frequency analysis",
+    "resourceFocus": "Hashmaps in strings",
+    "estimatedHours": "2-4 Hours",
+    "recommendedSolveCount": 3,
+    "sessionType": "mixed",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "27-Jun-2026",
+    "tasks": [
+      "Character Frequency Sort"
+    ],
+    "problemTarget": 3,
+    "timeGoal": "2-4 Hours"
   },
   {
+    "sequence": 33,
     "day": 33,
-    "date": "25-Jun-2026",
+    "actualDate": "28-Jun-2026",
+    "dayName": "Sunday",
+    "dayType": "weekend",
     "topic": "Sliding Window",
     "subtopic": "Variable Window",
-    "tasks": [
-      "Study Variable Window",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Longest Common Prefix"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Comparison-based string logic",
+    "resourceFocus": "Prefix matching",
+    "estimatedHours": "2-4 Hours",
+    "recommendedSolveCount": 3,
+    "sessionType": "mixed",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "28-Jun-2026",
+    "tasks": [
+      "Longest Common Prefix"
+    ],
+    "problemTarget": 3,
+    "timeGoal": "2-4 Hours"
   },
   {
+    "sequence": 34,
     "day": 34,
-    "date": "26-Jun-2026",
+    "actualDate": "29-Jun-2026",
+    "dayName": "Monday",
+    "dayType": "weekday",
     "topic": "Sliding Window",
     "subtopic": "Longest Unique Substring",
-    "tasks": [
-      "Study Longest Unique Substring",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Reverse Words in String"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Manipulation confidence",
+    "resourceFocus": "String operations",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "29-Jun-2026",
+    "tasks": [
+      "Reverse Words in String"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 35,
     "day": 35,
-    "date": "27-Jun-2026",
+    "actualDate": "30-Jun-2026",
+    "dayName": "Tuesday",
+    "dayType": "weekday",
     "topic": "Revision",
     "subtopic": "Timed Solving",
-    "tasks": [
-      "Study Timed Solving",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Mixed String Revision"
     ],
-    "problemTarget": 8,
-    "timeGoal": "7-8 Hours",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Timed string solving",
+    "resourceFocus": "Revision",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "30-Jun-2026",
+    "tasks": [
+      "Mixed String Revision"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 36,
     "day": 36,
-    "date": "28-Jun-2026",
+    "actualDate": "01-Jul-2026",
+    "dayName": "Wednesday",
+    "dayType": "weekday",
     "topic": "Two Pointers",
     "subtopic": "Max Consecutive Ones",
-    "tasks": [
-      "Study Max Consecutive Ones",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Maximum Average Subarray I"
     ],
-    "problemTarget": 8,
-    "timeGoal": "7-8 Hours",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Fixed window basics",
+    "resourceFocus": "Sliding Window",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "01-Jul-2026",
+    "tasks": [
+      "Maximum Average Subarray I"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 37,
     "day": 37,
-    "date": "29-Jun-2026",
+    "actualDate": "02-Jul-2026",
+    "dayName": "Thursday",
+    "dayType": "weekday",
     "topic": "Two Pointers",
     "subtopic": "Fruit Into Baskets",
-    "tasks": [
-      "Study Fruit Into Baskets",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Longest Repeating Character Replacement"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Variable window intuition",
+    "resourceFocus": "Dynamic window",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "02-Jul-2026",
+    "tasks": [
+      "Longest Repeating Character Replacement"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 38,
     "day": 38,
-    "date": "30-Jun-2026",
+    "actualDate": "03-Jul-2026",
+    "dayName": "Friday",
+    "dayType": "weekday",
     "topic": "Sliding Window",
     "subtopic": "Minimum Window Substring",
-    "tasks": [
-      "Study Minimum Window Substring",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Longest Substring Without Repeating Characters"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Hashset + window mastery",
+    "resourceFocus": "Sliding Window",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "03-Jul-2026",
+    "tasks": [
+      "Longest Substring Without Repeating Characters"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 39,
     "day": 39,
-    "date": "01-Jul-2026",
+    "actualDate": "04-Jul-2026",
+    "dayName": "Saturday",
+    "dayType": "weekend",
     "topic": "Binary Search",
     "subtopic": "Basic Binary Search",
-    "tasks": [
-      "Study Basic Binary Search",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Max Consecutive Ones III"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Constraint-based windows",
+    "resourceFocus": "Window optimization",
+    "estimatedHours": "2-4 Hours",
+    "recommendedSolveCount": 3,
+    "sessionType": "mixed",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "04-Jul-2026",
+    "tasks": [
+      "Max Consecutive Ones III"
+    ],
+    "problemTarget": 3,
+    "timeGoal": "2-4 Hours"
   },
   {
+    "sequence": 40,
     "day": 40,
-    "date": "02-Jul-2026",
+    "actualDate": "05-Jul-2026",
+    "dayName": "Sunday",
+    "dayType": "weekend",
     "topic": "Binary Search",
     "subtopic": "Lower Bound Upper Bound",
-    "tasks": [
-      "Study Lower Bound Upper Bound",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Fruit Into Baskets"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "At-most-k distinct logic",
+    "resourceFocus": "Pattern recognition",
+    "estimatedHours": "2-4 Hours",
+    "recommendedSolveCount": 3,
+    "sessionType": "mixed",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "05-Jul-2026",
+    "tasks": [
+      "Fruit Into Baskets"
+    ],
+    "problemTarget": 3,
+    "timeGoal": "2-4 Hours"
   },
   {
+    "sequence": 41,
     "day": 41,
-    "date": "03-Jul-2026",
+    "actualDate": "06-Jul-2026",
+    "dayName": "Monday",
+    "dayType": "weekday",
     "topic": "Binary Search",
     "subtopic": "Rotated Array",
-    "tasks": [
-      "Study Rotated Array",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Minimum Window Substring"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "hard",
+    "learningGoal": "Advanced sliding window mastery",
+    "resourceFocus": "Complex windows",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 5,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "06-Jul-2026",
+    "tasks": [
+      "Minimum Window Substring"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 42,
     "day": 42,
-    "date": "04-Jul-2026",
+    "actualDate": "07-Jul-2026",
+    "dayName": "Tuesday",
+    "dayType": "weekday",
     "topic": "Revision",
     "subtopic": "Contest",
-    "tasks": [
-      "Study Contest",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Sliding Window Revision + Contest"
     ],
-    "problemTarget": 8,
-    "timeGoal": "7-8 Hours",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Retention under pressure",
+    "resourceFocus": "Contest",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "07-Jul-2026",
+    "tasks": [
+      "Sliding Window Revision + Contest"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 43,
     "day": 43,
-    "date": "05-Jul-2026",
+    "actualDate": "08-Jul-2026",
+    "dayName": "Wednesday",
+    "dayType": "weekday",
     "topic": "Binary Search",
     "subtopic": "Peak Element",
-    "tasks": [
-      "Study Peak Element",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Binary Search"
     ],
-    "problemTarget": 8,
-    "timeGoal": "7-8 Hours",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Core BS fundamentals",
+    "resourceFocus": "Search space intuition",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "08-Jul-2026",
+    "tasks": [
+      "Binary Search"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 44,
     "day": 44,
-    "date": "06-Jul-2026",
+    "actualDate": "09-Jul-2026",
+    "dayName": "Thursday",
+    "dayType": "weekday",
     "topic": "Binary Search",
     "subtopic": "BS on Answers",
-    "tasks": [
-      "Study BS on Answers",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Lower Bound / Upper Bound"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Library + manual BS understanding",
+    "resourceFocus": "Bounds logic",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "09-Jul-2026",
+    "tasks": [
+      "Lower Bound / Upper Bound"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 45,
     "day": 45,
-    "date": "07-Jul-2026",
+    "actualDate": "10-Jul-2026",
+    "dayName": "Friday",
+    "dayType": "weekday",
     "topic": "Binary Search",
     "subtopic": "Book Allocation",
-    "tasks": [
-      "Study Book Allocation",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Search in Rotated Sorted Array"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Conditional binary search",
+    "resourceFocus": "Modified BS",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "10-Jul-2026",
+    "tasks": [
+      "Search in Rotated Sorted Array"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 46,
     "day": 46,
-    "date": "08-Jul-2026",
+    "actualDate": "11-Jul-2026",
+    "dayName": "Saturday",
+    "dayType": "weekend",
     "topic": "Linked List",
     "subtopic": "Basics",
-    "tasks": [
-      "Study Basics",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Find Peak Element"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Binary search on patterns",
+    "resourceFocus": "Peak logic",
+    "estimatedHours": "2-4 Hours",
+    "recommendedSolveCount": 3,
+    "sessionType": "mixed",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "11-Jul-2026",
+    "tasks": [
+      "Find Peak Element"
+    ],
+    "problemTarget": 3,
+    "timeGoal": "2-4 Hours"
   },
   {
+    "sequence": 47,
     "day": 47,
-    "date": "09-Jul-2026",
+    "actualDate": "12-Jul-2026",
+    "dayName": "Sunday",
+    "dayType": "weekend",
     "topic": "Linked List",
     "subtopic": "Reverse Linked List",
-    "tasks": [
-      "Study Reverse Linked List",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Koko Eating Bananas"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Binary search on answers",
+    "resourceFocus": "Answer-space search",
+    "estimatedHours": "2-4 Hours",
+    "recommendedSolveCount": 3,
+    "sessionType": "mixed",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "12-Jul-2026",
+    "tasks": [
+      "Koko Eating Bananas"
+    ],
+    "problemTarget": 3,
+    "timeGoal": "2-4 Hours"
   },
   {
+    "sequence": 48,
     "day": 48,
-    "date": "10-Jul-2026",
+    "actualDate": "13-Jul-2026",
+    "dayName": "Monday",
+    "dayType": "weekday",
     "topic": "Linked List",
     "subtopic": "Middle Node",
-    "tasks": [
-      "Study Middle Node",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Book Allocation / Aggressive Cows"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "hard",
+    "learningGoal": "Interview-grade BS patterns",
+    "resourceFocus": "Optimization problems",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 5,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "13-Jul-2026",
+    "tasks": [
+      "Book Allocation / Aggressive Cows"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 49,
     "day": 49,
-    "date": "11-Jul-2026",
+    "actualDate": "14-Jul-2026",
+    "dayName": "Tuesday",
+    "dayType": "weekday",
     "topic": "Revision",
     "subtopic": "Timed Solving",
-    "tasks": [
-      "Study Timed Solving",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Mixed Binary Search Revision"
     ],
-    "problemTarget": 8,
-    "timeGoal": "7-8 Hours",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Pattern retention",
+    "resourceFocus": "Revision",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "14-Jul-2026",
+    "tasks": [
+      "Mixed Binary Search Revision"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 50,
     "day": 50,
-    "date": "12-Jul-2026",
+    "actualDate": "15-Jul-2026",
+    "dayName": "Wednesday",
+    "dayType": "weekday",
     "topic": "Linked List",
     "subtopic": "Cycle Detection",
-    "tasks": [
-      "Study Cycle Detection",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Linked List Basics"
     ],
-    "problemTarget": 8,
-    "timeGoal": "7-8 Hours",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Pointer comfort",
+    "resourceFocus": "LL fundamentals",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "15-Jul-2026",
+    "tasks": [
+      "Linked List Basics"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 51,
     "day": 51,
-    "date": "13-Jul-2026",
+    "actualDate": "16-Jul-2026",
+    "dayName": "Thursday",
+    "dayType": "weekday",
     "topic": "Linked List",
     "subtopic": "Merge Sorted LL",
-    "tasks": [
-      "Study Merge Sorted LL",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Reverse Linked List"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Pointer reversal mastery",
+    "resourceFocus": "Core LL manipulation",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "16-Jul-2026",
+    "tasks": [
+      "Reverse Linked List"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 52,
     "day": 52,
-    "date": "14-Jul-2026",
+    "actualDate": "17-Jul-2026",
+    "dayName": "Friday",
+    "dayType": "weekday",
     "topic": "Linked List",
     "subtopic": "Remove Nth Node",
-    "tasks": [
-      "Study Remove Nth Node",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Middle of Linked List"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Fast-slow pointer basics",
+    "resourceFocus": "Two pointers",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "17-Jul-2026",
+    "tasks": [
+      "Middle of Linked List"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 53,
     "day": 53,
-    "date": "15-Jul-2026",
+    "actualDate": "18-Jul-2026",
+    "dayName": "Saturday",
+    "dayType": "weekend",
     "topic": "Stack",
     "subtopic": "Stack Basics",
-    "tasks": [
-      "Study Stack Basics",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Linked List Cycle"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Floyd cycle detection",
+    "resourceFocus": "Fast-slow pointers",
+    "estimatedHours": "2-4 Hours",
+    "recommendedSolveCount": 3,
+    "sessionType": "mixed",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "18-Jul-2026",
+    "tasks": [
+      "Linked List Cycle"
+    ],
+    "problemTarget": 3,
+    "timeGoal": "2-4 Hours"
   },
   {
+    "sequence": 54,
     "day": 54,
-    "date": "16-Jul-2026",
+    "actualDate": "19-Jul-2026",
+    "dayName": "Sunday",
+    "dayType": "weekend",
     "topic": "Queue",
     "subtopic": "Queue Basics",
-    "tasks": [
-      "Study Queue Basics",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Merge Two Sorted Lists"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Sorted LL manipulation",
+    "resourceFocus": "Merge logic",
+    "estimatedHours": "2-4 Hours",
+    "recommendedSolveCount": 3,
+    "sessionType": "mixed",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "19-Jul-2026",
+    "tasks": [
+      "Merge Two Sorted Lists"
+    ],
+    "problemTarget": 3,
+    "timeGoal": "2-4 Hours"
   },
   {
+    "sequence": 55,
     "day": 55,
-    "date": "17-Jul-2026",
+    "actualDate": "20-Jul-2026",
+    "dayName": "Monday",
+    "dayType": "weekday",
     "topic": "Stack",
     "subtopic": "Valid Parentheses",
-    "tasks": [
-      "Study Valid Parentheses",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Remove Nth Node From End"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Gap-based pointer solving",
+    "resourceFocus": "Fast-slow technique",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "20-Jul-2026",
+    "tasks": [
+      "Remove Nth Node From End"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 56,
     "day": 56,
-    "date": "18-Jul-2026",
+    "actualDate": "21-Jul-2026",
+    "dayName": "Tuesday",
+    "dayType": "weekday",
     "topic": "Revision",
     "subtopic": "Contest",
-    "tasks": [
-      "Study Contest",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Mixed Linked List Revision"
     ],
-    "problemTarget": 8,
-    "timeGoal": "7-8 Hours",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Consolidate LL confidence",
+    "resourceFocus": "Revision",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "21-Jul-2026",
+    "tasks": [
+      "Mixed Linked List Revision"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 57,
     "day": 57,
-    "date": "19-Jul-2026",
+    "actualDate": "22-Jul-2026",
+    "dayName": "Wednesday",
+    "dayType": "weekday",
     "topic": "Stack",
     "subtopic": "Monotonic Stack",
-    "tasks": [
-      "Study Monotonic Stack",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Implement Stack Using Array"
     ],
-    "problemTarget": 8,
-    "timeGoal": "7-8 Hours",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "LIFO fundamentals",
+    "resourceFocus": "Stack basics",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "22-Jul-2026",
+    "tasks": [
+      "Implement Stack Using Array"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 58,
     "day": 58,
-    "date": "20-Jul-2026",
+    "actualDate": "23-Jul-2026",
+    "dayName": "Thursday",
+    "dayType": "weekday",
     "topic": "Stack",
     "subtopic": "Next Greater Element",
-    "tasks": [
-      "Study Next Greater Element",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Implement Queue Using Array"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "FIFO intuition",
+    "resourceFocus": "Queue basics",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "23-Jul-2026",
+    "tasks": [
+      "Implement Queue Using Array"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 59,
     "day": 59,
-    "date": "21-Jul-2026",
+    "actualDate": "24-Jul-2026",
+    "dayName": "Friday",
+    "dayType": "weekday",
     "topic": "Stack",
     "subtopic": "Largest Rectangle Histogram",
-    "tasks": [
-      "Study Largest Rectangle Histogram",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Valid Parentheses"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Stack application basics",
+    "resourceFocus": "Bracket matching",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "24-Jul-2026",
+    "tasks": [
+      "Valid Parentheses"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 60,
     "day": 60,
-    "date": "22-Jul-2026",
+    "actualDate": "25-Jul-2026",
+    "dayName": "Saturday",
+    "dayType": "weekend",
     "topic": "Recursion",
     "subtopic": "Recursion Basics",
-    "tasks": [
-      "Study Recursion Basics",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Next Greater Element I"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Monotonic stack intuition",
+    "resourceFocus": "Stack patterns",
+    "estimatedHours": "2-4 Hours",
+    "recommendedSolveCount": 3,
+    "sessionType": "mixed",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "25-Jul-2026",
+    "tasks": [
+      "Next Greater Element I"
+    ],
+    "problemTarget": 3,
+    "timeGoal": "2-4 Hours"
   },
   {
+    "sequence": 61,
     "day": 61,
-    "date": "23-Jul-2026",
+    "actualDate": "26-Jul-2026",
+    "dayName": "Sunday",
+    "dayType": "weekend",
     "topic": "Backtracking",
     "subtopic": "Subsets",
-    "tasks": [
-      "Study Subsets",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Daily Temperatures"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Monotonic optimization",
+    "resourceFocus": "NGE variants",
+    "estimatedHours": "2-4 Hours",
+    "recommendedSolveCount": 3,
+    "sessionType": "mixed",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "26-Jul-2026",
+    "tasks": [
+      "Daily Temperatures"
+    ],
+    "problemTarget": 3,
+    "timeGoal": "2-4 Hours"
   },
   {
+    "sequence": 62,
     "day": 62,
-    "date": "24-Jul-2026",
+    "actualDate": "27-Jul-2026",
+    "dayName": "Monday",
+    "dayType": "weekday",
     "topic": "Backtracking",
     "subtopic": "Combination Sum",
-    "tasks": [
-      "Study Combination Sum",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Largest Rectangle in Histogram"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "hard",
+    "learningGoal": "Advanced monotonic stack",
+    "resourceFocus": "Histogram pattern",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 5,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "27-Jul-2026",
+    "tasks": [
+      "Largest Rectangle in Histogram"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 63,
     "day": 63,
-    "date": "25-Jul-2026",
+    "actualDate": "28-Jul-2026",
+    "dayName": "Tuesday",
+    "dayType": "weekday",
     "topic": "Revision",
     "subtopic": "Timed Solving",
-    "tasks": [
-      "Study Timed Solving",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Mixed Stack + Queue Revision"
     ],
-    "problemTarget": 8,
-    "timeGoal": "7-8 Hours",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Pattern retention",
+    "resourceFocus": "Contest + revision",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "28-Jul-2026",
+    "tasks": [
+      "Mixed Stack + Queue Revision"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 64,
     "day": 64,
-    "date": "26-Jul-2026",
+    "actualDate": "29-Jul-2026",
+    "dayName": "Wednesday",
+    "dayType": "weekday",
     "topic": "Backtracking",
     "subtopic": "Permutations",
-    "tasks": [
-      "Study Permutations",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Recursion Basics"
     ],
-    "problemTarget": 8,
-    "timeGoal": "7-8 Hours",
+    "optionalQuestions": [],
+    "difficulty": "easy",
+    "learningGoal": "Recursive thinking",
+    "resourceFocus": "Call stack",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 7,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "29-Jul-2026",
+    "tasks": [
+      "Recursion Basics"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 65,
     "day": 65,
-    "date": "27-Jul-2026",
+    "actualDate": "30-Jul-2026",
+    "dayName": "Thursday",
+    "dayType": "weekday",
     "topic": "Backtracking",
     "subtopic": "N Queens",
-    "tasks": [
-      "Study N Queens",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Print All Subsequences"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Decision tree recursion",
+    "resourceFocus": "Pick/not-pick",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "30-Jul-2026",
+    "tasks": [
+      "Print All Subsequences"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 66,
     "day": 66,
-    "date": "28-Jul-2026",
+    "actualDate": "31-Jul-2026",
+    "dayName": "Friday",
+    "dayType": "weekday",
     "topic": "Trees",
     "subtopic": "Tree Basics",
-    "tasks": [
-      "Study Tree Basics",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Subsets"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Backtracking foundation",
+    "resourceFocus": "Recursive generation",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "31-Jul-2026",
+    "tasks": [
+      "Subsets"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 67,
     "day": 67,
-    "date": "29-Jul-2026",
+    "actualDate": "01-Aug-2026",
+    "dayName": "Saturday",
+    "dayType": "weekend",
     "topic": "Trees",
     "subtopic": "DFS Traversals",
-    "tasks": [
-      "Study DFS Traversals",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Combination Sum"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Backtracking exploration",
+    "resourceFocus": "Recursive pruning",
+    "estimatedHours": "2-4 Hours",
+    "recommendedSolveCount": 3,
+    "sessionType": "mixed",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "01-Aug-2026",
+    "tasks": [
+      "Combination Sum"
+    ],
+    "problemTarget": 3,
+    "timeGoal": "2-4 Hours"
   },
   {
+    "sequence": 68,
     "day": 68,
-    "date": "30-Jul-2026",
+    "actualDate": "02-Aug-2026",
+    "dayName": "Sunday",
+    "dayType": "weekend",
     "topic": "Trees",
     "subtopic": "BFS Traversals",
-    "tasks": [
-      "Study BFS Traversals",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Permutations"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "State-space exploration",
+    "resourceFocus": "Swapping/backtracking",
+    "estimatedHours": "2-4 Hours",
+    "recommendedSolveCount": 3,
+    "sessionType": "mixed",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "02-Aug-2026",
+    "tasks": [
+      "Permutations"
+    ],
+    "problemTarget": 3,
+    "timeGoal": "2-4 Hours"
   },
   {
+    "sequence": 69,
     "day": 69,
-    "date": "31-Jul-2026",
+    "actualDate": "03-Aug-2026",
+    "dayName": "Monday",
+    "dayType": "weekday",
     "topic": "Trees",
     "subtopic": "Height + Diameter",
-    "tasks": [
-      "Study Height + Diameter",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "N-Queens"
     ],
-    "problemTarget": 2,
-    "timeGoal": "1 Hour",
+    "optionalQuestions": [],
+    "difficulty": "hard",
+    "learningGoal": "Constraint-based backtracking",
+    "resourceFocus": "Advanced recursion",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 5,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "03-Aug-2026",
+    "tasks": [
+      "N-Queens"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   },
   {
+    "sequence": 70,
     "day": 70,
-    "date": "01-Aug-2026",
+    "actualDate": "04-Aug-2026",
+    "dayName": "Tuesday",
+    "dayType": "weekday",
     "topic": "Revision",
     "subtopic": "Contest",
-    "tasks": [
-      "Study Contest",
-      "revise notes",
-      "solve problems and write observations"
+    "suggestedQuestions": [
+      "Recursion + Backtracking Revision"
     ],
-    "problemTarget": 8,
-    "timeGoal": "7-8 Hours",
+    "optionalQuestions": [],
+    "difficulty": "medium",
+    "learningGoal": "Final retention cycle",
+    "resourceFocus": "Timed solving",
+    "estimatedHours": "1 Hour",
+    "recommendedSolveCount": 1,
+    "sessionType": "concept",
+    "defaultConfidence": 6,
+    "revisionFocus": "",
+    "status": "pending",
     "notes": "",
-    "status": "pending"
+    "date": "04-Aug-2026",
+    "tasks": [
+      "Recursion + Backtracking Revision"
+    ],
+    "problemTarget": 1,
+    "timeGoal": "1 Hour"
   }
 ]

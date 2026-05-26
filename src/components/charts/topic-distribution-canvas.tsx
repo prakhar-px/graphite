@@ -10,7 +10,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { getTopicDistributionForChart } from "@/lib/data";
+import { getTopicDistributionForChart } from "@/engines/topics/selectors";
 import { useUserSnapshot } from "@/store/app-store";
 
 export function TopicDistributionCanvas() {

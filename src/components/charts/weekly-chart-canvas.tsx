@@ -10,7 +10,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { getWeeklySolvedTrend } from "@/lib/data";
+import { getWeeklySolvedTrend } from "@/engines/telemetry/selectors";
 import { useUserSnapshot } from "@/store/app-store";
 
 export function WeeklyChartCanvas() {

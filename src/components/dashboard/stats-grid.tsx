@@ -9,21 +9,17 @@ import {
   Zap,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import {
-  getDashboardStats,
-  getRevisionCount,
-  getWeeklySolvedTotal,
-} from "@/lib/data";
+import { useState } from "react";
+import { getDashboardStats } from "@/engines/dashboard/selectors";
+import { getWeeklySolvedTotal } from "@/engines/telemetry/selectors";
+import { ProblemLogDialog } from "@/components/problems/problem-log-dialog";
 import { useUserSnapshot } from "@/store/app-store";
 import { PremiumCard } from "@/components/ui/premium-card";
 
 export function StatsGrid() {
   const snapshot = useUserSnapshot();
-  const stats = getDashboardStats(
-    snapshot.dayStatuses,
-    snapshot.completedTasks,
-    snapshot.solvedProblems
-  );
+  const stats = getDashboardStats(snapshot);
+  const [logOpen, setLogOpen] = useState(false);
 
   const ctx = {
     solved: stats.solved,
@@ -33,6 +29,9 @@ export function StatsGrid() {
     weeklySolved: stats.weeklySolved,
     revisionCount: stats.revisionCount,
     problemsTarget: stats.problemsTarget,
+    detailedLogged: stats.detailedLogged,
+    quickLogged: stats.quickLogged,
+    averageConfidence: stats.averageConfidence,
   };
 
   const statConfig = [
@@ -42,23 +41,23 @@ export function StatsGrid() {
       icon: Target,
       color: "text-violet-400",
       value: ctx.solved,
-      sub: `Target: ${ctx.problemsTarget}`,
+      sub: `${stats.uniqueTracked} unique tracked`,
     },
     {
       key: "weekly",
       label: "Weekly Progress",
       icon: TrendingUp,
       color: "text-blue-400",
-      value: getWeeklySolvedTotal(1, snapshot),
-      sub: `2-wk: ${getWeeklySolvedTotal(2, snapshot)}`,
+      value: getWeeklySolvedTotal(snapshot, 1),
+      sub: `2-wk: ${getWeeklySolvedTotal(snapshot, 2)}`,
     },
     {
       key: "revision",
       label: "Revision Count",
       icon: RefreshCw,
       color: "text-green-400",
-      value: getRevisionCount(),
-      sub: "Across R1/R2/R3",
+      value: stats.revisionCount,
+      sub: "From problem telemetry",
     },
     {
       key: "streak",
@@ -82,16 +81,18 @@ export function StatsGrid() {
       label: "Focus Score",
       icon: Zap,
       color: "text-emerald-400",
-      value: ctx.focusScore,
-      sub: "Elite consistency",
-      suffix: "/100",
+      value: stats.focusScore,
+      sub: `${stats.missionsCompleted}/70 missions · ${stats.averageConfidence}% conf`,
+      suffix: "/99",
     },
   ] as const;
 
   return (
+    <>
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6">
       {statConfig.map((stat, i) => {
         const Icon = stat.icon;
+        const clickable = stat.key === "problems";
 
         return (
           <motion.div
@@ -100,28 +101,51 @@ export function StatsGrid() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.05 }}
           >
-            <PremiumCard className="h-full">
-              <div className="flex items-start justify-between">
-                <div>
-                  <p className="text-xs text-zinc-500">{stat.label}</p>
-                  <p
-                    className={`mt-2 text-2xl font-bold text-zinc-100 ${stat.key === "topic" ? "" : "font-mono"}`}
-                  >
-                    {stat.value}
-                    {"suffix" in stat && stat.suffix ? (
-                      <span className="text-sm font-normal text-zinc-500">
-                        {stat.suffix}
-                      </span>
-                    ) : null}
-                  </p>
-                  <p className="mt-1 text-xs text-zinc-500">{stat.sub}</p>
+            {clickable ? (
+              <button
+                type="button"
+                onClick={() => setLogOpen(true)}
+                className="block h-full w-full text-left"
+              >
+                <PremiumCard className="h-full transition hover:border-violet-500/30">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <p className="text-xs text-zinc-500">{stat.label}</p>
+                      <p className="mt-2 font-mono text-2xl font-bold text-zinc-100">
+                        {stat.value}
+                      </p>
+                      <p className="mt-1 text-xs text-zinc-500">{stat.sub}</p>
+                    </div>
+                    <Icon className={`h-5 w-5 ${stat.color}`} />
+                  </div>
+                </PremiumCard>
+              </button>
+            ) : (
+              <PremiumCard className="h-full">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <p className="text-xs text-zinc-500">{stat.label}</p>
+                    <p
+                      className={`mt-2 text-2xl font-bold text-zinc-100 ${stat.key === "topic" ? "" : "font-mono"}`}
+                    >
+                      {stat.value}
+                      {"suffix" in stat && stat.suffix ? (
+                        <span className="text-sm font-normal text-zinc-500">
+                          {stat.suffix}
+                        </span>
+                      ) : null}
+                    </p>
+                    <p className="mt-1 text-xs text-zinc-500">{stat.sub}</p>
+                  </div>
+                  <Icon className={`h-5 w-5 ${stat.color}`} />
                 </div>
-                <Icon className={`h-5 w-5 ${stat.color}`} />
-              </div>
-            </PremiumCard>
+              </PremiumCard>
+            )}
           </motion.div>
         );
       })}
     </div>
+    <ProblemLogDialog open={logOpen} onOpenChange={setLogOpen} />
+    </>
   );
 }

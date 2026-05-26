@@ -2,6 +2,12 @@
 
 import { ExternalLink, Trash2 } from "lucide-react";
 import { format } from "date-fns";
+import {
+  formatDifficulty,
+  getProblemPlannerDay,
+  getProblemSolvedCount,
+  getProblemTopics,
+} from "@/engines/problems/helpers";
 import { useAppStore } from "@/store/app-store";
 import { PremiumCard } from "@/components/ui/premium-card";
 import { Badge } from "@/components/ui/badge";
@@ -11,17 +17,19 @@ import { cn } from "@/lib/utils";
 interface SolvedProblemsListProps {
   plannerDay?: number;
   limit?: number;
+  onViewAll?: () => void;
 }
 
 export function SolvedProblemsList({
   plannerDay,
   limit = 8,
+  onViewAll,
 }: SolvedProblemsListProps) {
   const problemLog = useAppStore((s) => s.problemLog);
   const removeSolvedProblem = useAppStore((s) => s.removeSolvedProblem);
 
   const items = problemLog
-    .filter((p) => (plannerDay ? p.plannerDay === plannerDay : true))
+    .filter((p) => (plannerDay ? getProblemPlannerDay(p) === plannerDay : true))
     .slice(0, limit);
 
   if (problemLog.length === 0) {
@@ -44,26 +52,36 @@ export function SolvedProblemsList({
             >
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <a
-                    href={problem.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="truncate text-sm font-medium text-zinc-100 hover:text-violet-300"
-                  >
-                    {problem.title}
-                  </a>
-                  <ExternalLink className="h-3 w-3 shrink-0 text-zinc-600" />
+                  {problem.url ? (
+                    <>
+                      <a
+                        href={problem.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="truncate text-sm font-medium text-zinc-100 hover:text-violet-300"
+                      >
+                        {problem.title}
+                      </a>
+                      <ExternalLink className="h-3 w-3 shrink-0 text-zinc-600" />
+                    </>
+                  ) : (
+                    <span className="truncate text-sm font-medium text-zinc-100">
+                      {problem.title ?? "Quick logged problems"}
+                    </span>
+                  )}
                   <Badge
                     variant="outline"
                     className={cn(
                       "text-[10px]",
-                      problem.difficulty === "Easy" && "border-green-500/40 text-green-400",
-                      problem.difficulty === "Medium" &&
+                      problem.difficulty === "easy" && "border-green-500/40 text-green-400",
+                      problem.difficulty === "medium" &&
                         "border-amber-500/40 text-amber-400",
-                      problem.difficulty === "Hard" && "border-red-500/40 text-red-400"
+                      problem.difficulty === "hard" && "border-red-500/40 text-red-400"
                     )}
                   >
-                    {problem.difficulty}
+                    {problem.loggingMode === "quick"
+                      ? `${getProblemSolvedCount(problem)} solves`
+                      : formatDifficulty(problem.difficulty)}
                   </Badge>
                   {problem.confidence ? (
                     <span className="text-[10px] text-zinc-500">
@@ -72,7 +90,7 @@ export function SolvedProblemsList({
                   ) : null}
                 </div>
                 <p className="mt-0.5 text-[11px] text-zinc-500">
-                  {problem.topicTags.slice(0, 3).join(" · ") || "—"} ·{" "}
+                  {getProblemTopics(problem).slice(0, 3).join(" · ") || "—"} ·{" "}
                   {format(new Date(problem.solvedAt), "MMM d")}
                   {problem.source === "leetcode-sync" ? " · sync" : ""}
                 </p>
@@ -91,10 +109,15 @@ export function SolvedProblemsList({
         </ul>
       )}
       {problemLog.length > limit && !plannerDay ? (
-        <p className="mt-2 text-[11px] text-zinc-600">
-          +{problemLog.length - limit} more in log
-        </p>
+        <button
+          type="button"
+          onClick={onViewAll}
+          className="mt-2 text-[11px] text-violet-400 hover:underline"
+        >
+          View all {problemLog.length} entries
+        </button>
       ) : null}
     </PremiumCard>
   );
 }
+

@@ -1,4 +1,5 @@
 import type { LeetCodeQuestionMeta, SolvedProblem } from "@/types/problem-log";
+import { buildDetailedProblemLog } from "@/engines/problems/helpers";
 
 export function buildSolvedProblem(
   meta: LeetCodeQuestionMeta,
@@ -7,32 +8,29 @@ export function buildSolvedProblem(
     confidence?: number;
     notes?: string;
     timeMinutes?: number;
+    revisionNeeded?: boolean;
     source?: SolvedProblem["source"];
     solvedAt?: string;
     submissionId?: string;
     lang?: string;
   } = {}
 ): SolvedProblem {
-  const solvedAt = options.solvedAt ?? new Date().toISOString();
-  return {
-    id: options.submissionId
-      ? `lc-sub-${options.submissionId}`
-      : `lc-${meta.titleSlug}-${solvedAt}`,
-    questionId: meta.questionId,
-    questionFrontendId: meta.questionFrontendId,
+  return buildDetailedProblemLog({
     title: meta.title,
-    titleSlug: meta.titleSlug,
+    source: options.source === "leetcode-sync" ? "leetcode-sync" : "leetcode",
     difficulty: meta.difficulty,
-    topicTags: meta.topicTags,
-    url: meta.url,
-    platform: "LeetCode",
-    solvedAt,
-    plannerDay: options.plannerDay,
+    topics: meta.topicTags,
     confidence: options.confidence,
     notes: options.notes,
-    timeMinutes: options.timeMinutes,
-    source: options.source ?? "manual",
+    timeSpentMinutes: options.timeMinutes,
+    revisionNeeded: options.revisionNeeded,
+    linkedPlannerDay: options.plannerDay,
+    solvedAt: options.solvedAt,
+    titleSlug: meta.titleSlug,
+    url: meta.url,
+    questionId: meta.questionId,
+    questionFrontendId: meta.questionFrontendId,
     submissionId: options.submissionId,
     lang: options.lang,
-  };
+  });
 }

@@ -5,8 +5,9 @@ import {
   getUpcomingDays,
   getWeeklySolvedTrend,
 } from "@/lib/computed-data";
-import { revisionTopics } from "@/lib/data";
-import type { UserSnapshot } from "@/lib/computed-data";
+import { getProblemTopics } from "@/engines/problems/helpers";
+import { getLowConfidenceRevisionGaps } from "@/engines/revision/selectors";
+import type { UserSnapshot } from "@/engines/core/types";
 
 export type AiCoachContextInput = UserSnapshot & {
   leetcodeUsername?: string;
@@ -27,15 +28,7 @@ export function buildAiCoachContext(input: AiCoachContextInput): string {
   const topics = buildTopicProgress(snapshot);
   const weekly = getWeeklySolvedTrend(snapshot);
   const weak = topics.filter((t) => t.status === "weak").slice(0, 5);
-  const lowConfidence = revisionTopics
-    .filter((r) => r.confidence < 50)
-    .slice(0, 6)
-    .map((r) => ({
-      topic: r.topic,
-      confidence: r.confidence,
-      revision1: r.revision1,
-      revision2: r.revision2,
-    }));
+  const lowConfidence = getLowConfidenceRevisionGaps(snapshot, 6);
 
   const recentSolves = [...snapshot.solvedProblems]
     .sort(
@@ -47,14 +40,18 @@ export function buildAiCoachContext(input: AiCoachContextInput): string {
       title: p.title,
       slug: p.titleSlug,
       difficulty: p.difficulty,
-      tags: p.topicTags.slice(0, 4),
+      tags: getProblemTopics(p).slice(0, 4),
       confidence: p.confidence,
       notes: p.notes?.slice(0, 120),
       solvedAt: p.solvedAt.slice(0, 10),
       source: p.source,
     }));
 
-  const slugSet = new Set(snapshot.solvedProblems.map((p) => p.titleSlug));
+  const slugSet = new Set(
+    snapshot.solvedProblems
+      .map((p) => p.titleSlug)
+      .filter((slug): slug is string => typeof slug === "string")
+  );
 
   const payload = {
     leetcodeUsername: input.leetcodeUsername || null,
@@ -71,18 +68,23 @@ export function buildAiCoachContext(input: AiCoachContextInput): string {
     },
     today: {
       day: today.day,
-      date: today.date,
+      sequence: today.sequence,
+      actualDate: today.actualDate,
+      dayType: today.dayType,
       topic: today.topic,
       subtopic: today.subtopic,
-      problemTarget: today.problemTarget,
-      tasks: today.tasks,
+      learningGoal: today.learningGoal,
+      suggestedQuestions: today.suggestedQuestions,
+      recommendedSolveCount: today.recommendedSolveCount,
+      sessionType: today.sessionType,
       status: snapshot.dayStatuses[today.day] ?? today.status,
     },
     upcomingDays: upcoming.map((d) => ({
       day: d.day,
       topic: d.topic,
       subtopic: d.subtopic,
-      problemTarget: d.problemTarget,
+      dayType: d.dayType,
+      recommendedSolveCount: d.recommendedSolveCount,
     })),
     weeklyTrend: weekly.slice(-6),
     weakTopics: weak.map((t) => ({

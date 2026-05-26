@@ -1,7 +1,7 @@
 "use client";
 
 import { isValidElement, useCallback, useEffect, useRef, useState } from "react";
-import { Loader2, Link2, Plus } from "lucide-react";
+import { ArrowLeft, Loader2, Link2 } from "lucide-react";
 import { parseBulkQuestionInput, parseQuestionInput } from "@/lib/leetcode/parse-input";
 import { useAppStore } from "@/store/app-store";
 import type { LeetCodeQuestionMeta } from "@/types/problem-log";
@@ -25,13 +25,23 @@ type FetchState = "idle" | "loading" | "error";
 interface LogProblemDialogProps {
   plannerDay?: number;
   trigger?: React.ReactNode;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  /** When set (e.g. from global log menu), shows Back to return to the capture menu */
+  onBack?: () => void;
 }
 
-export function LogProblemDialog({ plannerDay, trigger }: LogProblemDialogProps) {
+export function LogProblemDialog({
+  plannerDay,
+  trigger,
+  open: controlledOpen,
+  onOpenChange,
+  onBack,
+}: LogProblemDialogProps) {
   const addSolvedProblem = useAppStore((s) => s.addSolvedProblem);
   const selectedDay = useAppStore((s) => s.plannerSelectedDay);
 
-  const [open, setOpen] = useState(false);
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
   const [input, setInput] = useState("");
   const [bulkMode, setBulkMode] = useState(false);
   const [fetchState, setFetchState] = useState<FetchState>("idle");
@@ -40,11 +50,14 @@ export function LogProblemDialog({ plannerDay, trigger }: LogProblemDialogProps)
   const [confidence, setConfidence] = useState("7");
   const [notes, setNotes] = useState("");
   const [timeMinutes, setTimeMinutes] = useState("");
+  const [revisionNeeded, setRevisionNeeded] = useState(false);
   const [bulkStatus, setBulkStatus] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const lookupRequestRef = useRef(0);
 
   const day = plannerDay ?? selectedDay;
+  const open = controlledOpen ?? uncontrolledOpen;
+  const setOpen = onOpenChange ?? setUncontrolledOpen;
 
   const resetForm = useCallback(() => {
     lookupRequestRef.current += 1;
@@ -55,6 +68,7 @@ export function LogProblemDialog({ plannerDay, trigger }: LogProblemDialogProps)
     setConfidence("7");
     setNotes("");
     setTimeMinutes("");
+    setRevisionNeeded(false);
     setBulkStatus(null);
   }, []);
 
@@ -155,6 +169,7 @@ export function LogProblemDialog({ plannerDay, trigger }: LogProblemDialogProps)
       confidence: Number(confidence) || undefined,
       notes: notes.trim() || undefined,
       timeMinutes: timeMinutes ? Number(timeMinutes) : undefined,
+      revisionNeeded,
     });
     if (result.ok) {
       setOpen(false);
@@ -183,17 +198,21 @@ export function LogProblemDialog({ plannerDay, trigger }: LogProblemDialogProps)
         <DialogTrigger render={trigger} />
       ) : trigger ? (
         <DialogTrigger>{trigger}</DialogTrigger>
-      ) : (
-        <DialogTrigger
-          render={
-            <Button size="sm" className="bg-violet-600 hover:bg-violet-500" />
-          }
-        >
-          <Plus className="mr-1.5 h-3.5 w-3.5" />
-          Log problem
-        </DialogTrigger>
-      )}
+      ) : null}
       <DialogContent className="sm:max-w-md" showCloseButton>
+        {onBack ? (
+          <button
+            type="button"
+            onClick={() => {
+              resetForm();
+              onBack();
+            }}
+            className="mb-2 flex items-center gap-1.5 text-xs text-zinc-500 transition hover:text-zinc-300"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" />
+            Back
+          </button>
+        ) : null}
         <DialogHeader>
           <DialogTitle>Log LeetCode problem</DialogTitle>
           <DialogDescription>
@@ -344,6 +363,20 @@ export function LogProblemDialog({ plannerDay, trigger }: LogProblemDialogProps)
                   className="border-zinc-700 bg-zinc-900/50"
                 />
               </div>
+              <button
+                type="button"
+                onClick={() => setRevisionNeeded((value) => !value)}
+                className={cn(
+                  "col-span-3 rounded-xl border px-3 py-2 text-left text-xs transition",
+                  revisionNeeded
+                    ? "border-amber-500/40 bg-amber-500/10 text-amber-200"
+                    : "border-zinc-800 bg-zinc-950/40 text-zinc-500 hover:border-zinc-700"
+                )}
+              >
+                {revisionNeeded
+                  ? "Revision flagged for this problem"
+                  : "Flag for revision if this felt shaky"}
+              </button>
             </div>
           ) : null}
         </div>

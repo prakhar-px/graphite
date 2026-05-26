@@ -1,8 +1,10 @@
 {
-  "parsedAt": "2026-05-24T16:37:34.240Z",
-  "sourceFile": "FAANG_DSA_Master_Roadmap_v2.xlsx",
-  "activeKey": "full",
+  "parsedAt": "2026-05-25T20:33:04.936Z",
+  "sourceFile": "Graphite_FAANG_Roadmap_Updated.xlsx",
+  "activeKey": "updated",
   "dayCount": 70,
+  "roadmapStartDate": "27-May-2026",
+  "foundationSprintDays": 70,
   "sheets": [
     "Dashboard",
     "Master Plan",

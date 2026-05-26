@@ -6,6 +6,8 @@ import companyRaw from "@/data/company-prep.json";
 import mistakeRaw from "@/data/mistake-log.json";
 import weeklyRaw from "@/data/weekly-review.json";
 import type { UserSnapshot } from "@/lib/computed-data";
+import { getRevisionCycleCount } from "@/engines/revision/selectors";
+import { getRevisionLoad } from "@/engines/problems/selectors";
 import {
   buildTopicProgress as buildTopicProgressMerged,
   getWeeklyProgress as getWeeklyProgressMerged,
@@ -13,10 +15,21 @@ import {
   getTopicDistributionForChart as getTopicDistributionForChartMerged,
   getDashboardStats as getDashboardStatsMerged,
   getWeeklySolvedTotal as getWeeklySolvedTotalMerged,
-  getPlanWithStatuses as getPlanWithStatusesMerged,
-  getTodayPlan as getTodayPlanMerged,
   getUpcomingDays as getUpcomingDaysMerged,
 } from "@/lib/computed-data";
+import {
+  getPlanWithStatuses as getPlanWithStatusesEngine,
+  getTodayPlan as getTodayPlanEngine,
+  getCompletedMissionCount as getCompletedMissionCountEngine,
+  getPlannerCompletionRate,
+} from "@/engines/planner/selectors";
+import {
+  getPlanOverallMetrics,
+  getPlanWeekMetrics,
+  getPlanWeekendMissions,
+  getPlanWeekdayMissions,
+  getPlanTopicMetrics,
+} from "@/engines/telemetry/selectors";
 import type {
   CompanyPrep,
   DailyPlanDay,
@@ -153,8 +166,16 @@ export function getDashboardSolvedCount(): number {
   return metric?.current ?? 0;
 }
 
-export function getCompletedDayCount(): number {
-  return dailyPlan.filter((d) => d.status === "completed").length;
+export function getCompletedDayCount(
+  dayStatuses?: Record<number, import("@/types").TaskStatus>
+): number {
+  const statuses =
+    dayStatuses ??
+    (Object.fromEntries(dailyPlan.map((d) => [d.day, d.status])) as Record<
+      number,
+      import("@/types").TaskStatus
+    >);
+  return getCompletedMissionCountEngine(statuses);
 }
 
 export function getMistakeCategoryStats(): { type: string; count: number }[] {
@@ -187,20 +208,17 @@ export function getTopicDistributionForChart(snapshot?: UserSnapshot) {
   return getTopicDistributionForChartMerged(snapshot ?? seedSnapshot());
 }
 
+function defaultDayStatuses(): Record<number, import("@/types").TaskStatus> {
+  return Object.fromEntries(dailyPlan.map((d) => [d.day, d.status])) as Record<
+    number,
+    import("@/types").TaskStatus
+  >;
+}
+
 export function getTodayPlan(
   dayStatuses?: Record<number, import("@/types").TaskStatus>
 ): DailyPlanDay {
-  const snapshot: UserSnapshot = {
-    dayStatuses:
-      dayStatuses ??
-      (Object.fromEntries(dailyPlan.map((d) => [d.day, d.status])) as Record<
-        number,
-        import("@/types").TaskStatus
-      >),
-    completedTasks: [],
-    solvedProblems: [],
-  };
-  return getTodayPlanMerged(snapshot);
+  return getTodayPlanEngine(dayStatuses ?? defaultDayStatuses());
 }
 
 export function getUpcomingDays(
@@ -220,9 +238,16 @@ export function getUpcomingDays(
   return getUpcomingDaysMerged(count, snapshot);
 }
 
-export function getOverallCompletion(): number {
-  const done = dailyPlan.filter((d) => d.status === "completed").length;
-  return Math.round((done / dailyPlan.length) * 100);
+export function getOverallCompletion(
+  dayStatuses?: Record<number, import("@/types").TaskStatus>
+): number {
+  const statuses =
+    dayStatuses ??
+    (Object.fromEntries(dailyPlan.map((d) => [d.day, d.status])) as Record<
+      number,
+      import("@/types").TaskStatus
+    >);
+  return getPlannerCompletionRate(statuses);
 }
 
 export function computeFocusScore(
@@ -239,28 +264,16 @@ export function computeFocusScore(
 export function getPlanWithStatuses(
   dayStatuses?: Record<number, import("@/types").TaskStatus>
 ) {
-  return getPlanWithStatusesMerged({
-    dayStatuses:
-      dayStatuses ??
-      (Object.fromEntries(dailyPlan.map((d) => [d.day, d.status])) as Record<
-        number,
-        import("@/types").TaskStatus
-      >),
-    completedTasks: [],
-    solvedProblems: [],
-  });
+  return getPlanWithStatusesEngine(dayStatuses ?? defaultDayStatuses());
 }
 
 export function getTopicStatsForSearch(snapshot?: UserSnapshot) {
   return buildTopicProgress(snapshot);
 }
 
-export function getRevisionCount(): number {
-  return revisionTopics.reduce(
-    (sum, item) =>
-      sum + [item.revision1, item.revision2, item.revision3].filter(Boolean).length,
-    0
-  );
+export function getRevisionCount(snapshot?: UserSnapshot): number {
+  const log = snapshot?.solvedProblems ?? [];
+  return getRevisionLoad(log) + getRevisionCycleCount(log);
 }
 
 export function getWeeklySolvedTotal(weeks = 2, snapshot?: UserSnapshot): number {
@@ -284,3 +297,11 @@ export function getDashboardStats(
   };
   return getDashboardStatsMerged(snapshot);
 }
+
+export {
+  getPlanOverallMetrics,
+  getPlanWeekMetrics,
+  getPlanWeekendMissions,
+  getPlanWeekdayMissions,
+  getPlanTopicMetrics,
+};

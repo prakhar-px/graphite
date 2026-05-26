@@ -1,3 +1,4 @@
+import { addDays, format, getDay, parseISO } from "date-fns";
 import * as fs from "fs";
 import * as path from "path";
 import * as xlsx from "xlsx";
@@ -5,6 +6,17 @@ import * as xlsx from "xlsx";
 const ROOT = path.resolve(__dirname, "..");
 const CONFIG_PATH = path.join(ROOT, "excel.config.json");
 const DATA_DIR = path.join(ROOT, "src", "data");
+const ROADMAP_START = parseISO("2026-05-27");
+const DATE_FORMAT = "dd-MMM-yyyy";
+const DAY_NAMES = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
 
 type ExcelConfig = {
   active: string;
@@ -31,8 +43,8 @@ function resolveExcelFile(): { file: string; activeKey: string | null } {
   }
 
   return {
-    file: "FAANG_DSA_Master_Roadmap_v2_sample.xlsx",
-    activeKey: "sample",
+    file: "Graphite_FAANG_Roadmap_Updated.xlsx",
+    activeKey: "updated",
   };
 }
 
@@ -49,37 +61,6 @@ function writeJson(filename: string, data: unknown) {
     JSON.stringify(data, null, 2),
     "utf-8"
   );
-}
-
-function parseProblemTarget(raw: unknown): number {
-  if (typeof raw === "number" && raw > 0 && raw <= 50) return raw;
-  const s = String(raw ?? "").trim();
-  const range = s.match(/(\d+)\s*-\s*(\d+)/);
-  if (range) {
-    return Math.round((Number(range[1]) + Number(range[2])) / 2);
-  }
-  const n = parseInt(s.replace(/\D/g, ""), 10);
-  if (n > 0 && n <= 50) return n;
-  return 10;
-}
-
-function parseStatus(raw: unknown): "pending" | "in-progress" | "completed" {
-  const s = String(raw ?? "").toLowerCase();
-  if (s.includes("complete") || s.includes("done")) return "completed";
-  if (s.includes("progress") || s.includes("partial") || s.includes("active"))
-    return "in-progress";
-  return "pending";
-}
-
-function parseTasks(raw: unknown): string[] {
-  if (Array.isArray(raw)) return raw.map(String).filter(Boolean);
-  if (typeof raw === "string" && raw.trim()) {
-    return raw
-      .split(/[,;|\n]/)
-      .map((t) => t.trim())
-      .filter(Boolean);
-  }
-  return ["Study concepts", "Solve problems", "Revise notes"];
 }
 
 function getField(row: Record<string, unknown>, ...names: string[]): unknown {
@@ -101,32 +82,223 @@ function getField(row: Record<string, unknown>, ...names: string[]): unknown {
   return "";
 }
 
+function parseQuestionList(raw: unknown): string[] {
+  if (Array.isArray(raw)) {
+    return raw.map(String).map((s) => s.trim()).filter(Boolean);
+  }
+  const s = String(raw ?? "").trim();
+  if (!s) return [];
+  return s
+    .split(/[,;|\n]/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+}
+
+function parseDifficulty(raw: unknown): "easy" | "medium" | "hard" {
+  const s = String(raw ?? "").toLowerCase();
+  if (s.includes("hard")) return "hard";
+  if (s.includes("medium") || s.includes("med")) return "medium";
+  return "easy";
+}
+
+function defaultConfidenceForDifficulty(
+  difficulty: "easy" | "medium" | "hard"
+): number {
+  if (difficulty === "easy") return 7;
+  if (difficulty === "medium") return 6;
+  return 5;
+}
+
+function parseRecommendedSolveCount(
+  raw: unknown,
+  dayType: "weekday" | "weekend"
+): number {
+  if (typeof raw === "number" && raw > 0 && raw <= 20) return Math.round(raw);
+
+  const s = String(raw ?? "").toLowerCase();
+  const range = s.match(/(\d+)\s*-\s*(\d+)/);
+  if (range) {
+    const a = Number(range[1]);
+    const b = Number(range[2]);
+    return dayType === "weekend"
+      ? Math.max(a, Math.round((a + b) / 2))
+      : Math.min(a, 1);
+  }
+
+  const nums = s.match(/\d+/g)?.map(Number) ?? [];
+  if (nums.length > 0) {
+    if (dayType === "weekend") {
+      return Math.max(2, Math.min(4, nums[nums.length - 1]));
+    }
+    return Math.min(1, nums[0]);
+  }
+
+  return dayType === "weekend" ? 3 : 1;
+}
+
+function parseSessionType(
+  raw: unknown,
+  dayType: "weekday" | "weekend",
+  topic: string
+): string {
+  const explicit = String(raw ?? "").toLowerCase();
+  if (explicit.includes("contest")) return "contest";
+  if (explicit.includes("revision")) return "revision";
+  if (explicit.includes("mixed")) return "mixed";
+  if (explicit.includes("practice")) return "practice";
+  if (explicit.includes("concept")) return "concept";
+  if (dayType === "weekend") {
+    const t = topic.toLowerCase();
+    if (t.includes("contest") || t.includes("mock")) return "contest";
+    if (t.includes("revision") || t.includes("re-solve")) return "revision";
+    return "mixed";
+  }
+  return "concept";
+}
+
+function parseStatus(raw: unknown): "pending" | "in-progress" | "completed" {
+  const s = String(raw ?? "").toLowerCase();
+  if (s.includes("complete") || s.includes("done")) return "completed";
+  if (s.includes("progress") || s.includes("partial") || s.includes("active"))
+    return "in-progress";
+  return "pending";
+}
+
+function parseDayType(raw: unknown): "weekday" | "weekend" | null {
+  const s = String(raw ?? "").toLowerCase();
+  if (s.includes("weekend") || s === "sat" || s === "sun") return "weekend";
+  if (s.includes("weekday") || s.includes("week day")) return "weekday";
+  return null;
+}
+
+function calendarForSequence(sequence: number, rowDayType?: "weekday" | "weekend" | null) {
+  const date = addDays(ROADMAP_START, Math.max(0, sequence - 1));
+  const dayIndex = getDay(date);
+  const computed: "weekday" | "weekend" =
+    dayIndex === 0 || dayIndex === 6 ? "weekend" : "weekday";
+  const dayType = rowDayType ?? computed;
+
+  return {
+    actualDate: format(date, DATE_FORMAT),
+    dayName: DAY_NAMES[dayIndex],
+    dayType,
+  };
+}
+
 function normalizeDailyPlan(rows: Record<string, unknown>[]) {
   return rows
     .filter((row) => {
-      const day = getField(row, "day");
+      const seq = getField(row, "sequence", "day");
       const topic = getField(row, "topic");
-      return day !== "" || topic !== "";
+      return seq !== "" || topic !== "";
     })
+    .slice(0, 70)
     .map((row, index) => {
-      const dayRaw = getField(row, "day");
-      const day =
-        typeof dayRaw === "number"
-          ? dayRaw
-          : parseInt(String(dayRaw).replace(/\D/g, ""), 10) || index + 1;
+      const seqRaw = getField(row, "sequence", "day");
+      const sequence =
+        typeof seqRaw === "number"
+          ? seqRaw
+          : parseInt(String(seqRaw).replace(/\D/g, ""), 10) || index + 1;
+
+      const rowDayType = parseDayType(
+        getField(row, "daytype", "day type", "day_type")
+      );
+      const calendar = calendarForSequence(sequence, rowDayType);
+      const dayNameFromRow = String(
+        getField(row, "dayname", "day name") || calendar.dayName
+      );
+      const topic = String(getField(row, "topic") || "General");
+      const subtopic = String(
+        getField(row, "subtopic", "sub topic", "session focus") || topic
+      );
+      const difficulty = parseDifficulty(
+        getField(row, "difficulty", "question difficulty")
+      );
+      const suggestedQuestions = parseQuestionList(
+        getField(
+          row,
+          "suggestedquestions",
+          "suggested questions",
+          "suggested"
+        )
+      );
+      const optionalQuestions = parseQuestionList(
+        getField(row, "optionalquestions", "optional questions", "optional")
+      );
+      const estimatedHours = String(
+        getField(row, "estimatedhours", "estimated hours", "time goal", "time") ||
+          (calendar.dayType === "weekday" ? "1 Hour" : "2-4 Hours")
+      );
+      const solveRaw = getField(
+        row,
+        "recommendedsolvecount",
+        "recommended solve count",
+        "problems target",
+        "problem target",
+        "problems"
+      );
+      const recommendedSolveCount =
+        typeof solveRaw === "number" && solveRaw > 0
+          ? Math.round(solveRaw)
+          : parseRecommendedSolveCount(solveRaw, calendar.dayType);
+      const sessionType = parseSessionType(
+        getField(row, "sessiontype", "session type"),
+        calendar.dayType,
+        topic
+      );
+      const defaultConfidenceRaw = getField(
+        row,
+        "defaultconfidence",
+        "default confidence"
+      );
+      const defaultConfidence =
+        typeof defaultConfidenceRaw === "number" && defaultConfidenceRaw > 0
+          ? Math.round(defaultConfidenceRaw)
+          : defaultConfidenceForDifficulty(difficulty);
+      const learningGoal = String(
+        getField(row, "learninggoal", "learning goal") ||
+          `Master ${subtopic} for ${topic}`
+      );
+      const resourceFocus = String(
+        getField(
+          row,
+          "resourcefocus",
+          "resource focus",
+          "recommended resource focus"
+        ) || topic
+      );
+      const revisionFocus = String(
+        getField(row, "revisionfocus", "revision focus", "notes", "note") || ""
+      );
+      const tasks =
+        suggestedQuestions.length > 0
+          ? suggestedQuestions
+          : parseQuestionList(getField(row, "tasks", "task"));
 
       return {
-        day,
-        date: String(getField(row, "date") || ""),
-        topic: String(getField(row, "topic") || "General"),
-        subtopic: String(getField(row, "subtopic", "sub topic") || ""),
-        tasks: parseTasks(getField(row, "tasks", "task")),
-        problemTarget: parseProblemTarget(
-          getField(row, "problems target", "problem target", "problems")
-        ),
-        timeGoal: String(getField(row, "time goal", "time") || "8h"),
-        notes: String(getField(row, "notes", "note") || ""),
+        sequence,
+        day: sequence,
+        actualDate: calendar.actualDate,
+        dayName: dayNameFromRow,
+        dayType: calendar.dayType,
+        topic,
+        subtopic,
+        suggestedQuestions,
+        optionalQuestions,
+        difficulty,
+        learningGoal,
+        resourceFocus,
+        estimatedHours,
+        recommendedSolveCount,
+        sessionType,
+        defaultConfidence,
+        revisionFocus,
         status: parseStatus(getField(row, "status")),
+        notes: revisionFocus,
+        date: calendar.actualDate,
+        tasks,
+        problemTarget: recommendedSolveCount,
+        timeGoal: estimatedHours,
       };
     });
 }
@@ -140,6 +312,7 @@ function main() {
   const workbook = xlsx.readFile(EXCEL_PATH);
   console.log(`Parsing: ${EXCEL_FILE}`);
   if (activeKey) console.log(`Source key: ${activeKey}`);
+  console.log(`Roadmap start: ${format(ROADMAP_START, DATE_FORMAT)}`);
   console.log("Sheets:", workbook.SheetNames);
 
   ensureDir(DATA_DIR);
@@ -181,6 +354,8 @@ function main() {
     sourceFile: EXCEL_FILE,
     activeKey,
     dayCount: dailyPlanLength,
+    roadmapStartDate: format(ROADMAP_START, DATE_FORMAT),
+    foundationSprintDays: 70,
     sheets: workbook.SheetNames,
   });
 }
