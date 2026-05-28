@@ -5,25 +5,62 @@ import { PremiumCard } from "@/components/ui/premium-card";
 export function AiSettingsPanel() {
   return (
     <PremiumCard>
-      <h3 className="font-semibold text-zinc-100">AI Coach (Google Gemini)</h3>
-      <p className="mt-2 text-sm text-zinc-400">
+      <h3 className="font-semibold text-[var(--gp-text)]">AI Coach (Google Gemini)</h3>
+      <p className="mt-2 text-sm text-[var(--gp-text-muted)]">
         The API key stays on the server only. Get a key from{" "}
         <a
           href="https://aistudio.google.com/apikey"
           target="_blank"
           rel="noreferrer"
-          className="text-violet-400 hover:underline"
+          className="text-violet-600 dark:text-violet-400 hover:underline"
         >
           Google AI Studio
         </a>
-        , add it to <code className="rounded bg-zinc-800 px-1 text-xs">.env.local</code>{" "}
-        as <code className="rounded bg-zinc-800 px-1 text-xs">GEMINI_API_KEY</code>, then
-        restart <code className="rounded bg-zinc-800 px-1 text-xs">npm run dev</code>.
+        , add it to{" "}
+        <code
+          className="rounded px-1 text-xs text-[var(--gp-text)]"
+          style={{ backgroundColor: "var(--gp-surface-raised)" }}
+        >
+          .env.local
+        </code>{" "}
+        as{" "}
+        <code
+          className="rounded px-1 text-xs text-[var(--gp-text)]"
+          style={{ backgroundColor: "var(--gp-surface-raised)" }}
+        >
+          GEMINI_API_KEY
+        </code>
+        , then restart{" "}
+        <code
+          className="rounded px-1 text-xs text-[var(--gp-text)]"
+          style={{ backgroundColor: "var(--gp-surface-raised)" }}
+        >
+          npm run dev
+        </code>
+        .
       </p>
-      <p className="mt-2 text-xs text-zinc-500">
-        Optional: <code className="text-zinc-400">GEMINI_MODEL</code> (default{" "}
-        <code className="text-zinc-400">gemini-2.5-flash</code>). Test:{" "}
-        <code className="text-zinc-400">/api/ai/health</code>
+      <p className="mt-2 text-xs text-[var(--gp-text-faint)]">
+        Optional:{" "}
+        <code
+          className="rounded px-1 text-[var(--gp-text-muted)]"
+          style={{ backgroundColor: "var(--gp-surface-raised)" }}
+        >
+          GEMINI_MODEL
+        </code>{" "}
+        (default{" "}
+        <code
+          className="rounded px-1 text-[var(--gp-text-muted)]"
+          style={{ backgroundColor: "var(--gp-surface-raised)" }}
+        >
+          gemini-2.5-flash
+        </code>
+        ). Test:{" "}
+        <code
+          className="rounded px-1 text-[var(--gp-text-muted)]"
+          style={{ backgroundColor: "var(--gp-surface-raised)" }}
+        >
+          /api/ai/health
+        </code>
       </p>
     </PremiumCard>
   );

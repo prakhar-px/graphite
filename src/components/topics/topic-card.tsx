@@ -13,10 +13,10 @@ interface TopicCardProps {
 }
 
 const statusColors = {
-  weak: "text-red-400 border-red-500/30",
-  "in-progress": "text-blue-400 border-blue-500/30",
-  completed: "text-green-400 border-green-500/30",
-  "revision-pending": "text-amber-400 border-amber-500/30",
+  weak: "text-red-600 dark:text-red-400 border-red-500/30",
+  "in-progress": "text-blue-600 dark:text-blue-400 border-blue-500/30",
+  completed: "text-green-600 dark:text-green-400 border-green-500/30",
+  "revision-pending": "text-amber-600 dark:text-amber-400 border-amber-500/30",
 };
 
 export function TopicCard({ topic }: TopicCardProps) {
@@ -26,23 +26,23 @@ export function TopicCard({ topic }: TopicCardProps) {
     <motion.div whileHover={{ scale: 1.02 }}>
       <PremiumCard>
         <div className="mb-3 flex items-start justify-between">
-          <h3 className="font-semibold text-zinc-100">{topic.name}</h3>
+          <h3 className="font-semibold text-[var(--gp-text)]">{topic.name}</h3>
           {topic.status === "weak" ? (
-            <AlertTriangle className="h-4 w-4 text-amber-400" />
+            <AlertTriangle className="h-4 w-4 text-amber-500 dark:text-amber-400" />
           ) : topic.status === "completed" ? (
-            <CheckCircle className="h-4 w-4 text-green-400" />
+            <CheckCircle className="h-4 w-4 text-green-500 dark:text-green-400" />
           ) : null}
         </div>
         <Progress value={pct} className="mb-3 h-2" />
-        <div className="grid grid-cols-2 gap-2 text-xs text-zinc-500">
+        <div className="grid grid-cols-2 gap-2 text-xs text-[var(--gp-text-faint)]">
           <span>
-            <span className="font-mono text-zinc-300">
+            <span className="font-mono text-[var(--gp-text)]">
               {topic.solved}/{topic.total}
             </span>{" "}
             solved
           </span>
           <span>{topic.revisionCount} revisions</span>
-          <span className="font-mono text-zinc-300">{topic.confidence}%</span>
+          <span className="font-mono text-[var(--gp-text)]">{topic.confidence}%</span>
           <span className="truncate">
             Recent: {topic.recentActivity ?? "—"}
           </span>

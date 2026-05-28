@@ -34,21 +34,33 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
 
   if (!mounted || loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#09090B]">
-        <div className="h-5 w-5 animate-spin rounded-full border-2 border-zinc-600 border-t-zinc-200" />
+      <div
+        className="flex min-h-screen items-center justify-center"
+        style={{ backgroundColor: "var(--gp-bg)" }}
+      >
+        <div className="h-5 w-5 animate-spin rounded-full border-2 border-[var(--gp-border)] border-t-[var(--gp-text-muted)]" />
       </div>
     );
   }
 
   if (!user && showOverlay && !dismissed) {
     return (
-      <div className="relative min-h-screen bg-[#09090B]">
+      <div className="relative min-h-screen" style={{ backgroundColor: "var(--gp-bg)" }}>
         {children}
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#09090B]/90 backdrop-blur-sm">
-          <div className="w-full max-w-sm space-y-6 rounded-2xl border border-zinc-800 bg-zinc-950 p-8 shadow-2xl">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm"
+          style={{ backgroundColor: "color-mix(in srgb, var(--gp-bg) 88%, transparent)" }}
+        >
+          <div
+            className="w-full max-w-sm space-y-6 rounded-2xl border p-8 shadow-2xl"
+            style={{
+              backgroundColor: "var(--gp-surface-raised)",
+              borderColor: "var(--gp-border)",
+            }}
+          >
             <div className="space-y-2 text-center">
-              <h2 className="text-2xl font-bold text-zinc-100">Graphite</h2>
-              <p className="text-sm text-zinc-400">
+              <h2 className="text-2xl font-bold text-[var(--gp-text)]">Graphite</h2>
+              <p className="text-sm text-[var(--gp-text-muted)]">
                 Sign in to sync your progress across devices
               </p>
             </div>
@@ -56,7 +68,7 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
             <button
               type="button"
               onClick={() => setDismissed(true)}
-              className="w-full text-center text-xs text-zinc-500 hover:text-zinc-300"
+              className="w-full text-center text-xs text-[var(--gp-text-faint)] hover:text-[var(--gp-text-muted)]"
             >
               Continue as guest
             </button>
@@ -98,16 +110,24 @@ function LoginForm() {
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="w-full rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:border-violet-500/50 focus:outline-none focus:ring-1 focus:ring-violet-500/30"
+        className="w-full rounded-lg border px-3 py-2 text-sm text-[var(--gp-text)] placeholder:text-[var(--gp-text-faint)] focus:border-violet-500/50 focus:outline-none focus:ring-1 focus:ring-violet-500/30"
+        style={{
+          backgroundColor: "var(--gp-input-bg)",
+          borderColor: "var(--gp-input-border)",
+        }}
       />
       <input
         type="password"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        className="w-full rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:border-violet-500/50 focus:outline-none focus:ring-1 focus:ring-violet-500/30"
+        className="w-full rounded-lg border px-3 py-2 text-sm text-[var(--gp-text)] placeholder:text-[var(--gp-text-faint)] focus:border-violet-500/50 focus:outline-none focus:ring-1 focus:ring-violet-500/30"
+        style={{
+          backgroundColor: "var(--gp-input-bg)",
+          borderColor: "var(--gp-input-border)",
+        }}
       />
-      {error ? <p className="text-xs text-red-400">{error}</p> : null}
+      {error ? <p className="text-xs text-red-500">{error}</p> : null}
       <button
         type="submit"
         className="w-full rounded-lg bg-violet-600 px-3 py-2 text-sm font-medium text-white hover:bg-violet-500 transition-colors"
@@ -121,14 +141,15 @@ function LoginForm() {
           const result = await signInWithGoogle();
           if (result.error) setError(result.error);
         }}
-        className="w-full rounded-lg border border-zinc-800 px-3 py-2 text-sm font-medium text-zinc-300 hover:bg-zinc-900 transition-colors"
+        className="w-full rounded-lg border px-3 py-2 text-sm font-medium text-[var(--gp-text-muted)] hover:bg-[var(--gp-surface)] transition-colors"
+        style={{ borderColor: "var(--gp-border)" }}
       >
         Continue with Google
       </button>
       <button
         type="button"
         onClick={() => { setMode(mode === "signin" ? "signup" : "signin"); setError(null); }}
-        className="w-full text-center text-xs text-zinc-500 hover:text-zinc-300"
+        className="w-full text-center text-xs text-[var(--gp-text-faint)] hover:text-[var(--gp-text-muted)]"
       >
         {mode === "signin" ? "No account? Create one" : "Already have an account? Sign in"}
       </button>

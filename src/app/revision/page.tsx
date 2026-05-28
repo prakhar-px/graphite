@@ -31,7 +31,7 @@ export default function RevisionPage() {
     >
       <div className="space-y-8 p-4 lg:p-8">
         <section className="space-y-3">
-          <h2 className="text-sm font-medium uppercase tracking-wide text-zinc-500">
+          <h2 className="text-sm font-medium uppercase tracking-wide text-[var(--gp-text-faint)]">
             Intelligence summary
           </h2>
           <RevisionIntelligenceSummary summary={summary} problems={problems} />
@@ -48,7 +48,7 @@ export default function RevisionPage() {
         <section>
           {problems.length === 0 ? (
             <PremiumCard>
-              <p className="text-sm text-zinc-500">
+              <p className="text-sm text-[var(--gp-text-muted)]">
                 Log named problems (detailed or LeetCode) to build memory
                 telemetry. Re-solving the same problem on any later day increases
                 its derived revision count — duplicates are expected and useful.
@@ -60,7 +60,7 @@ export default function RevisionPage() {
         </section>
 
         {summary.bulkQuickCaptures > 0 ? (
-          <p className="text-xs text-zinc-600">
+          <p className="text-xs text-[var(--gp-text-faint)]">
             {summary.bulkQuickCaptures} bulk day captures in log (not shown —
             no problem identity).
           </p>

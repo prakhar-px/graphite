@@ -20,12 +20,12 @@ export function MemoryDecayWidget({ topics, allProblems }: MemoryDecayWidgetProp
     return (
       <PremiumCard>
         <div className="flex items-center gap-2">
-          <Clock className="h-4 w-4 text-zinc-500" />
-          <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+          <Clock className="h-4 w-4 text-[var(--gp-text-faint)]" />
+          <p className="text-xs font-medium uppercase tracking-wide text-[var(--gp-text-faint)]">
             Topic Freshness
           </p>
         </div>
-        <p className="mt-3 text-sm text-zinc-500">Log problems to track memory freshness.</p>
+        <p className="mt-3 text-sm text-[var(--gp-text-muted)]">Log problems to track memory freshness.</p>
       </PremiumCard>
     );
   }
@@ -34,12 +34,12 @@ export function MemoryDecayWidget({ topics, allProblems }: MemoryDecayWidgetProp
     <>
       <PremiumCard>
         <div className="mb-3 flex items-center gap-2">
-          <Clock className="h-4 w-4 text-zinc-400" />
-          <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+          <Clock className="h-4 w-4 text-[var(--gp-text-muted)]" />
+          <p className="text-xs font-medium uppercase tracking-wide text-[var(--gp-text-faint)]">
             Topic Freshness
           </p>
         </div>
-        <p className="mb-2 text-[10px] text-zinc-600">Days since last solve</p>
+        <p className="mb-2 text-[10px] text-[var(--gp-text-faint)]">Days since last solve</p>
         <div className="space-y-1.5">
           {topics.slice(0, 6).map((t) => (
             <button
@@ -49,10 +49,13 @@ export function MemoryDecayWidget({ topics, allProblems }: MemoryDecayWidgetProp
                 title: `Freshness: ${t.topic}`,
                 list: allProblems.filter((p) => p.parentTopic === t.topic),
               })}
-              className="flex w-full cursor-pointer items-center gap-3 rounded-lg px-1 py-1 text-left transition hover:bg-zinc-800/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500/50"
+              className="flex w-full cursor-pointer items-center gap-3 rounded-lg px-1 py-1 text-left transition hover:bg-[var(--gp-surface-raised)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--gp-border)]"
             >
-              <span className="w-24 truncate text-sm text-zinc-200">{t.topic}</span>
-              <div className="h-2 flex-1 overflow-hidden rounded-full bg-zinc-800">
+              <span className="w-24 truncate text-sm text-[var(--gp-text)]">{t.topic}</span>
+              <div
+                className="h-2 flex-1 overflow-hidden rounded-full"
+                style={{ backgroundColor: "var(--gp-border)" }}
+              >
                 <div
                   className={cn(
                     "h-full rounded-full transition-all",
@@ -71,9 +74,9 @@ export function MemoryDecayWidget({ topics, allProblems }: MemoryDecayWidgetProp
                 title="Days since last solve. Fresh ≤ 7d, Stale > 21d."
                 className={cn(
                 "w-16 text-right font-mono text-[11px]",
-                t.freshness === "fresh" && "text-green-400",
-                t.freshness === "fading" && "text-amber-400",
-                t.freshness === "stale" && "text-red-400",
+                t.freshness === "fresh" && "text-green-600 dark:text-green-400",
+                t.freshness === "fading" && "text-amber-600 dark:text-amber-400",
+                t.freshness === "stale" && "text-red-600 dark:text-red-400",
               )}>
                 {t.daysSinceLastSolve}d
               </span>

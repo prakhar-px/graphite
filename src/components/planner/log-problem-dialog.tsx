@@ -27,7 +27,6 @@ interface LogProblemDialogProps {
   trigger?: React.ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
-  /** When set (e.g. from global log menu), shows Back to return to the capture menu */
   onBack?: () => void;
 }
 
@@ -181,10 +180,10 @@ export function LogProblemDialog({
 
   const difficultyClass =
     preview?.difficulty === "Easy"
-      ? "border-green-500/40 text-green-400"
+      ? "border-green-500/40 text-green-600 dark:text-green-400"
       : preview?.difficulty === "Hard"
-        ? "border-red-500/40 text-red-400"
-        : "border-amber-500/40 text-amber-400";
+        ? "border-red-500/40 text-red-600 dark:text-red-400"
+        : "border-amber-500/40 text-amber-600 dark:text-amber-400";
 
   return (
     <Dialog
@@ -207,7 +206,7 @@ export function LogProblemDialog({
               resetForm();
               onBack();
             }}
-            className="mb-2 flex items-center gap-1.5 text-xs text-zinc-500 transition hover:text-zinc-300"
+            className="mb-2 flex items-center gap-1.5 text-xs text-[var(--gp-text-faint)] transition hover:text-[var(--gp-text-muted)]"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
             Back
@@ -223,10 +222,10 @@ export function LogProblemDialog({
 
         <div className="space-y-3">
           <div className="flex items-center justify-between gap-2">
-            <span className="text-xs text-zinc-500">Day {day}</span>
+            <span className="text-xs text-[var(--gp-text-faint)]">Day {day}</span>
             <button
               type="button"
-              className="text-xs text-violet-400 hover:underline"
+              className="text-xs text-violet-600 dark:text-violet-400 hover:underline"
               onClick={() => {
                 setBulkMode(!bulkMode);
                 setPreview(null);
@@ -243,7 +242,6 @@ export function LogProblemDialog({
               value={input}
               onChange={(e) => setInput(e.target.value)}
               rows={5}
-              className="border-zinc-700 bg-zinc-900/50"
             />
           ) : (
             <div className="flex gap-2">
@@ -259,13 +257,12 @@ export function LogProblemDialog({
                 onKeyDown={(e) => {
                   if (e.key === "Enter") void handleLookup();
                 }}
-                className="border-zinc-700 bg-zinc-900/50"
               />
               <Button
                 type="button"
                 size="sm"
                 variant="outline"
-                className="shrink-0 border-zinc-700"
+                className="shrink-0"
                 disabled={
                   !input.trim() ||
                   fetchState === "loading" ||
@@ -284,28 +281,31 @@ export function LogProblemDialog({
           )}
 
           {fetchError ? (
-            <p className="text-xs text-red-400">{fetchError}</p>
+            <p className="text-xs text-red-600 dark:text-red-400">{fetchError}</p>
           ) : null}
           {!bulkMode &&
           input.trim() &&
           !preview &&
           fetchState === "loading" ? (
-            <p className="text-xs text-zinc-500">Loading problem from LeetCode…</p>
+            <p className="text-xs text-[var(--gp-text-faint)]">Loading problem from LeetCode…</p>
           ) : null}
           {bulkStatus ? (
-            <p className="text-xs text-green-400">{bulkStatus}</p>
+            <p className="text-xs text-green-600 dark:text-green-400">{bulkStatus}</p>
           ) : null}
 
           {preview && !bulkMode ? (
-            <div className="rounded-lg border border-zinc-700/80 bg-zinc-900/60 p-3">
+            <div
+              className="rounded-lg border p-3"
+              style={{ borderColor: "var(--gp-border)", backgroundColor: "var(--gp-surface)" }}
+            >
               <div className="flex flex-wrap items-start justify-between gap-2">
                 <div>
-                  <p className="font-medium text-zinc-100">{preview.title}</p>
+                  <p className="font-medium text-[var(--gp-text)]">{preview.title}</p>
                   <a
                     href={preview.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-xs text-violet-400 hover:underline"
+                    className="text-xs text-violet-600 dark:text-violet-400 hover:underline"
                   >
                     {preview.titleSlug}
                   </a>
@@ -331,36 +331,33 @@ export function LogProblemDialog({
           {!bulkMode ? (
             <div className="grid grid-cols-3 gap-2">
               <div>
-                <label className="mb-1 block text-xs text-zinc-500">Confidence</label>
+                <label className="mb-1 block text-xs text-[var(--gp-text-faint)]">Confidence</label>
                 <Input
                   type="number"
                   min={1}
                   max={10}
                   value={confidence}
                   onChange={(e) => setConfidence(e.target.value)}
-                  className="border-zinc-700 bg-zinc-900/50"
                 />
               </div>
               <div>
-                <label className="mb-1 block text-xs text-zinc-500">Time (min)</label>
+                <label className="mb-1 block text-xs text-[var(--gp-text-faint)]">Time (min)</label>
                 <Input
                   type="number"
                   min={1}
                   placeholder="—"
                   value={timeMinutes}
                   onChange={(e) => setTimeMinutes(e.target.value)}
-                  className="border-zinc-700 bg-zinc-900/50"
                 />
               </div>
               <div className="col-span-1" />
               <div className="col-span-3">
-                <label className="mb-1 block text-xs text-zinc-500">Notes / mistakes</label>
+                <label className="mb-1 block text-xs text-[var(--gp-text-faint)]">Notes / mistakes</label>
                 <Textarea
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   rows={2}
                   placeholder="Optional"
-                  className="border-zinc-700 bg-zinc-900/50"
                 />
               </div>
               <button
@@ -369,9 +366,10 @@ export function LogProblemDialog({
                 className={cn(
                   "col-span-3 rounded-xl border px-3 py-2 text-left text-xs transition",
                   revisionNeeded
-                    ? "border-amber-500/40 bg-amber-500/10 text-amber-200"
-                    : "border-zinc-800 bg-zinc-950/40 text-zinc-500 hover:border-zinc-700"
+                    ? "border-amber-500/40 bg-amber-500/8 text-amber-700 dark:text-amber-200"
+                    : "text-[var(--gp-text-faint)] hover:border-[var(--gp-text-faint)]"
                 )}
+                style={!revisionNeeded ? { borderColor: "var(--gp-border)" } : undefined}
               >
                 {revisionNeeded
                   ? "Revision flagged for this problem"

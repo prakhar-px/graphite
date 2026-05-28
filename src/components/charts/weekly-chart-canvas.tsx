@@ -12,12 +12,22 @@ import {
 } from "recharts";
 import { getWeeklySolvedTrend } from "@/engines/telemetry/selectors";
 import { useUserSnapshot } from "@/store/app-store";
+import { useTheme } from "@/components/theme/theme-provider";
 
 export function WeeklyChartCanvas() {
   const snapshot = useUserSnapshot();
   const data = getWeeklySolvedTrend(snapshot);
+  const { theme } = useTheme();
   const ref = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 860, height: 320 });
+
+  const isDark = theme === "dark";
+
+  const gridColor = isDark ? "#27272A" : "#e4e2de";
+  const tickColor = isDark ? "#71717A" : "#a1a1aa";
+  const tooltipBg = isDark ? "#111113" : "#ffffff";
+  const tooltipBorder = isDark ? "#27272A" : "#e4e2de";
+  const tooltipText = isDark ? "#FAFAFA" : "#18181b";
 
   useEffect(() => {
     const element = ref.current;
@@ -46,32 +56,32 @@ export function WeeklyChartCanvas() {
           <AreaChart data={data}>
             <defs>
               <linearGradient id="graphiteSolved" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0%" stopColor="#7C3AED" stopOpacity={0.7} />
+                <stop offset="0%" stopColor="#7C3AED" stopOpacity={isDark ? 0.7 : 0.5} />
                 <stop offset="100%" stopColor="#7C3AED" stopOpacity={0.02} />
               </linearGradient>
             </defs>
             <CartesianGrid
-              stroke="#27272A"
+              stroke={gridColor}
               strokeDasharray="3 3"
               vertical={false}
             />
             <XAxis
               dataKey="week"
-              tick={{ fill: "#71717A", fontSize: 12 }}
+              tick={{ fill: tickColor, fontSize: 12 }}
               axisLine={false}
               tickLine={false}
             />
             <YAxis
-              tick={{ fill: "#71717A", fontSize: 12 }}
+              tick={{ fill: tickColor, fontSize: 12 }}
               axisLine={false}
               tickLine={false}
             />
             <Tooltip
               contentStyle={{
-                background: "#111113",
-                border: "1px solid #27272A",
+                background: tooltipBg,
+                border: `1px solid ${tooltipBorder}`,
                 borderRadius: 12,
-                color: "#FAFAFA",
+                color: tooltipText,
               }}
             />
             <Area

@@ -11,12 +11,12 @@ export function MotivationCard() {
   const weeklySolved = weeks[weeks.length - 1]?.solved ?? weeks[0]?.solved ?? 0;
 
   return (
-    <PremiumCard className="bg-gradient-to-br from-violet-950/40 to-zinc-900/60">
+    <PremiumCard className="bg-gradient-to-br from-violet-500/8 to-transparent dark:from-violet-950/40 dark:to-zinc-900/60">
       <div className="flex gap-3">
-        <Sparkles className="h-5 w-5 shrink-0 text-violet-400" />
+        <Sparkles className="h-5 w-5 shrink-0 text-violet-500 dark:text-violet-400" />
         <div>
-          <p className="text-sm font-medium text-zinc-200">Elite Insight</p>
-          <p className="mt-1 text-sm text-zinc-400">
+          <p className="text-sm font-medium text-[var(--gp-text)]">Elite Insight</p>
+          <p className="mt-1 text-sm text-[var(--gp-text-muted)]">
             You solved {weeklySolved} problems in your latest plan week. Graph
             mastery is improving — stay consistent through Phase 2.
           </p>

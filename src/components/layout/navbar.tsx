@@ -18,6 +18,7 @@ import { UserMenu } from "@/components/auth/user-menu";
 import { SyncIndicator } from "@/components/sync/sync-indicator";
 import { triggerAuthOverlay } from "@/components/auth/auth-gate";
 import { useAuth } from "@/hooks/use-auth";
+import { ThemeToggle } from "@/components/theme/theme-toggle";
 
 interface NavbarProps {
   title?: string;
@@ -209,27 +210,32 @@ export function Navbar({
   return (
     <header
       ref={headerRef}
-      className="relative z-30 flex h-16 shrink-0 items-center justify-between border-b border-zinc-800/80 bg-[#09090B]/80 px-4 backdrop-blur-md lg:px-8"
+      className="relative z-30 flex h-16 shrink-0 items-center justify-between border-b px-4 backdrop-blur-md lg:px-8"
+      style={{
+        borderColor: "var(--gp-nav-border)",
+        backgroundColor: "color-mix(in srgb, var(--gp-nav-bg) 85%, transparent)",
+      }}
     >
       <div className="flex items-center gap-3">
         <Sheet>
           <SheetTrigger
-            className="lg:hidden inline-flex size-8 items-center justify-center rounded-lg text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
+            className="lg:hidden inline-flex size-8 items-center justify-center rounded-lg text-[var(--gp-text-muted)] hover:bg-[var(--gp-surface-raised)] hover:text-[var(--gp-text)]"
           >
             <Menu className="h-5 w-5" />
           </SheetTrigger>
           <SheetContent
             side="left"
-            className="w-64 border-zinc-800 bg-[#111113] p-0"
+            className="w-64 p-0"
+            style={{ borderColor: "var(--gp-border)", backgroundColor: "var(--gp-surface)" }}
           >
             <Sidebar className="flex h-full border-0" />
           </SheetContent>
         </Sheet>
         <div>
-          <h1 className="text-lg font-semibold tracking-tight text-zinc-100">
+          <h1 className="text-lg font-semibold tracking-tight text-[var(--gp-text)]">
             {title}
           </h1>
-          <p className="text-xs text-zinc-500">{subtitle}</p>
+          <p className="text-xs text-[var(--gp-text-faint)]">{subtitle}</p>
         </div>
       </div>
 
@@ -237,11 +243,12 @@ export function Navbar({
         <div className="relative hidden md:block">
           <div
             className={cn(
-              "flex items-center gap-2 rounded-xl border border-zinc-800 bg-zinc-900/50 px-3 py-1.5",
+              "flex items-center gap-2 rounded-xl border px-3 py-1.5",
+              "bg-[var(--gp-surface-raised)] border-[var(--gp-border)]",
               searchOpen && "ring-1 ring-violet-500/40"
             )}
           >
-            <Search className="h-4 w-4 shrink-0 text-zinc-500" />
+            <Search className="h-4 w-4 shrink-0 text-[var(--gp-text-faint)]" />
             <input
               value={query}
               onFocus={() => openPanel("search")}
@@ -250,7 +257,7 @@ export function Navbar({
                 openPanel("search");
               }}
               placeholder="Search topics..."
-              className="w-44 bg-transparent text-sm text-zinc-200 outline-none placeholder:text-zinc-500 lg:w-52"
+              className="w-44 bg-transparent text-sm text-[var(--gp-text)] outline-none placeholder:text-[var(--gp-text-faint)] lg:w-52"
             />
             {query ? (
               <button
@@ -259,13 +266,14 @@ export function Navbar({
                   setQuery("");
                   setSearchOpen(false);
                 }}
-                className="text-zinc-500 hover:text-zinc-200"
+                className="text-[var(--gp-text-faint)] hover:text-[var(--gp-text)]"
               >
                 <X className="h-3.5 w-3.5" />
               </button>
             ) : (
               <kbd
-                className="cursor-pointer rounded bg-zinc-800 px-1.5 text-[10px] text-zinc-500"
+                className="cursor-pointer rounded px-1.5 text-[10px] text-[var(--gp-text-faint)]"
+                style={{ backgroundColor: "var(--gp-surface)" }}
                 onClick={() => openPanel("command")}
               >
                 ⌘K
@@ -273,7 +281,13 @@ export function Navbar({
             )}
           </div>
           {searchOpen && results.length > 0 ? (
-            <div className="absolute right-0 top-[calc(100%+6px)] z-50 w-80 rounded-xl border border-zinc-800 bg-zinc-950 p-2 shadow-2xl">
+            <div
+              className="absolute right-0 top-[calc(100%+6px)] z-50 w-80 rounded-xl border p-2 shadow-2xl"
+              style={{
+                backgroundColor: "var(--gp-surface-raised)",
+                borderColor: "var(--gp-border)",
+              }}
+            >
               {results.map((result) => (
                 <button
                   key={result.id}
@@ -283,13 +297,13 @@ export function Navbar({
                     setQuery("");
                     closeAll();
                   }}
-                  className="flex w-full items-start justify-between rounded-lg px-2 py-2 text-left hover:bg-zinc-900"
+                  className="flex w-full items-start justify-between rounded-lg px-2 py-2 text-left hover:bg-[var(--gp-surface)]"
                 >
                   <div>
-                    <div className="text-sm text-zinc-100">{result.label}</div>
-                    <div className="text-xs text-zinc-500">{result.detail}</div>
+                    <div className="text-sm text-[var(--gp-text)]">{result.label}</div>
+                    <div className="text-xs text-[var(--gp-text-faint)]">{result.detail}</div>
                   </div>
-                  <span className="text-[10px] uppercase tracking-wider text-zinc-500">
+                  <span className="text-[10px] uppercase tracking-wider text-[var(--gp-text-faint)]">
                     {result.type}
                   </span>
                 </button>
@@ -308,17 +322,20 @@ export function Navbar({
           <button
             type="button"
             onClick={() => triggerAuthOverlay()}
-            className="hidden md:inline-flex items-center rounded-lg border border-zinc-800 px-3 py-1.5 text-xs font-medium text-zinc-300 hover:bg-zinc-900 transition-colors"
+            className="hidden md:inline-flex items-center rounded-lg border px-3 py-1.5 text-xs font-medium text-[var(--gp-text-muted)] hover:bg-[var(--gp-surface-raised)] transition-colors"
+            style={{ borderColor: "var(--gp-border)" }}
           >
             Sign In
           </button>
         )}
 
+        <ThemeToggle />
+
         <Button
           type="button"
           variant="ghost"
           size="icon"
-          className="hidden text-zinc-400 hover:text-zinc-200 md:inline-flex"
+          className="hidden text-[var(--gp-text-muted)] hover:text-[var(--gp-text)] md:inline-flex"
           onClick={() => togglePanel("command")}
           aria-label="Command palette"
         >
@@ -329,7 +346,7 @@ export function Navbar({
           type="button"
           variant="ghost"
           size="icon"
-          className="relative text-zinc-400 hover:text-zinc-200"
+          className="relative text-[var(--gp-text-muted)] hover:text-[var(--gp-text)]"
           onClick={() => togglePanel("notifications")}
           aria-label="Notifications"
         >
@@ -343,8 +360,14 @@ export function Navbar({
       </div>
 
       {commandOpen ? (
-        <div className="absolute inset-x-4 top-[calc(100%+8px)] z-50 mx-auto max-w-md rounded-xl border border-zinc-800 bg-zinc-950 p-2 shadow-2xl md:inset-x-auto md:right-28 md:left-auto">
-          <p className="px-2 py-1 text-[10px] uppercase tracking-wider text-zinc-500">
+        <div
+          className="absolute inset-x-4 top-[calc(100%+8px)] z-50 mx-auto max-w-md rounded-xl border p-2 shadow-2xl md:inset-x-auto md:right-28 md:left-auto"
+          style={{
+            backgroundColor: "var(--gp-surface-raised)",
+            borderColor: "var(--gp-border)",
+          }}
+        >
+          <p className="px-2 py-1 text-[10px] uppercase tracking-wider text-[var(--gp-text-faint)]">
             Commands
           </p>
           {commandActions.map((action) => (
@@ -355,7 +378,7 @@ export function Navbar({
                 action.run();
                 closeAll();
               }}
-              className="w-full rounded-lg px-3 py-2 text-left text-sm text-zinc-200 hover:bg-zinc-900"
+              className="w-full rounded-lg px-3 py-2 text-left text-sm text-[var(--gp-text)] hover:bg-[var(--gp-surface)]"
             >
               {action.label}
             </button>
@@ -364,22 +387,28 @@ export function Navbar({
       ) : null}
 
       {notificationOpen ? (
-        <div className="absolute right-4 top-[calc(100%+8px)] z-50 w-[min(360px,calc(100vw-2rem))] rounded-xl border border-zinc-800 bg-zinc-950 p-3 shadow-2xl lg:right-8">
+        <div
+          className="absolute right-4 top-[calc(100%+8px)] z-50 w-[min(360px,calc(100vw-2rem))] rounded-xl border p-3 shadow-2xl lg:right-8"
+          style={{
+            backgroundColor: "var(--gp-surface-raised)",
+            borderColor: "var(--gp-border)",
+          }}
+        >
           <div className="mb-3 flex items-center justify-between">
-            <div className="text-sm font-medium text-zinc-100">Notifications</div>
+            <div className="text-sm font-medium text-[var(--gp-text)]">Notifications</div>
             <button
               type="button"
               onClick={() =>
                 markAllNotificationsRead(notifications.map((item) => item.id))
               }
-              className="text-xs text-zinc-400 hover:text-zinc-200"
+              className="text-xs text-[var(--gp-text-muted)] hover:text-[var(--gp-text)]"
             >
               Mark all read
             </button>
           </div>
           <div className="graphite-scrollbar-inset max-h-80 space-y-2 overflow-y-auto pr-1">
             {notifications.length === 0 ? (
-              <p className="px-2 py-4 text-center text-sm text-zinc-500">
+              <p className="px-2 py-4 text-center text-sm text-[var(--gp-text-muted)]">
                 You&apos;re all caught up.
               </p>
             ) : (
@@ -391,12 +420,17 @@ export function Navbar({
                   className={cn(
                     "w-full rounded-lg border px-3 py-2 text-left transition",
                     readNotifications.includes(item.id)
-                      ? "border-zinc-800/80 bg-zinc-950/50 text-zinc-500"
-                      : "border-zinc-700 bg-zinc-900 text-zinc-200"
+                      ? "border-[var(--gp-border-subtle)] text-[var(--gp-text-faint)]"
+                      : "border-[var(--gp-border)] text-[var(--gp-text)]"
                   )}
+                  style={{
+                    backgroundColor: readNotifications.includes(item.id)
+                      ? "transparent"
+                      : "var(--gp-surface)",
+                  }}
                 >
                   <div className="text-sm">{item.title}</div>
-                  <div className="mt-1 text-xs text-zinc-400">{item.detail}</div>
+                  <div className="mt-1 text-xs text-[var(--gp-text-muted)]">{item.detail}</div>
                 </button>
               ))
             )}

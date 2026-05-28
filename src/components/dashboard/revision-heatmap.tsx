@@ -13,14 +13,17 @@ export function RevisionHeatmap() {
 
   return (
     <PremiumCard>
-      <h3 className="mb-1 text-lg font-semibold text-zinc-100">
+      <h3 className="mb-1 text-lg font-semibold text-[var(--gp-text)]">
         Confidence Heatmap
       </h3>
-      <p className="mb-4 text-sm text-zinc-500">
+      <p className="mb-4 text-sm text-[var(--gp-text-muted)]">
         Topic mastery from logged problems
       </p>
       {cells.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-zinc-800 px-4 py-8 text-center text-sm text-zinc-500">
+        <p
+          className="rounded-xl border border-dashed px-4 py-8 text-center text-sm text-[var(--gp-text-muted)]"
+          style={{ borderColor: "var(--gp-border)" }}
+        >
           Log problems with confidence to populate this heatmap.
         </p>
       ) : (
@@ -29,21 +32,26 @@ export function RevisionHeatmap() {
             <div
               key={cell.topic}
               className={cn(
-                "rounded-xl border border-zinc-800/80 px-3 py-2 text-center transition-transform hover:scale-[1.02]",
+                "rounded-xl border px-3 py-2 text-center transition-transform hover:scale-[1.02]",
                 cell.confidence >= 70
-                  ? "bg-green-500/15"
+                  ? "bg-green-500/15 border-green-500/20"
                   : cell.confidence >= 50
-                    ? "bg-amber-500/10"
+                    ? "bg-amber-500/10 border-amber-500/15"
                     : cell.confidence > 0
-                      ? "bg-red-500/10"
-                      : "bg-zinc-900/60"
+                      ? "bg-red-500/10 border-red-500/15"
+                      : "border-[var(--gp-border)]"
               )}
+              style={
+                cell.confidence === 0
+                  ? { backgroundColor: "var(--gp-surface)" }
+                  : undefined
+              }
             >
-              <p className="truncate text-xs text-zinc-400">{cell.topic}</p>
-              <p className="font-mono text-lg font-bold text-zinc-100">
+              <p className="truncate text-xs text-[var(--gp-text-muted)]">{cell.topic}</p>
+              <p className="font-mono text-lg font-bold text-[var(--gp-text)]">
                 {cell.confidence > 0 ? `${cell.confidence}%` : "—"}
               </p>
-              <p className="text-[10px] text-zinc-600">{cell.exposure} solved</p>
+              <p className="text-[10px] text-[var(--gp-text-faint)]">{cell.exposure} solved</p>
             </div>
           ))}
         </div>

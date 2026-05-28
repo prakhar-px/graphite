@@ -26,7 +26,7 @@ function DialogBackButton({ onBack }: { onBack: () => void }) {
     <button
       type="button"
       onClick={onBack}
-      className="mb-2 flex items-center gap-1.5 text-xs text-zinc-500 transition hover:text-zinc-300"
+      className="mb-2 flex items-center gap-1.5 text-xs text-[var(--gp-text-faint)] transition hover:text-[var(--gp-text)]"
     >
       <ArrowLeft className="h-3.5 w-3.5" />
       Back
@@ -103,6 +103,11 @@ export function GlobalLogAction() {
     setView("menu");
   };
 
+  const activeClass = "border-violet-500 bg-violet-500/15 text-violet-700 dark:text-violet-200";
+  const inactiveClass = "border-[var(--gp-border)] text-[var(--gp-text-faint)] hover:border-[var(--gp-text-faint)]";
+  const menuItemClass =
+    "flex w-full items-center gap-3 rounded-2xl border px-4 py-3 text-left transition hover:border-violet-500/50";
+
   return (
     <>
       <Dialog open={open} onOpenChange={handleOpenChange}>
@@ -132,14 +137,15 @@ export function GlobalLogAction() {
                 <button
                   type="button"
                   onClick={() => setView("quick")}
-                  className="flex w-full items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-950/60 px-4 py-3 text-left transition hover:border-violet-500/50"
+                  className={menuItemClass}
+                  style={{ borderColor: "var(--gp-border)", backgroundColor: "var(--gp-surface)" }}
                 >
-                  <Zap className="h-5 w-5 text-violet-400" />
+                  <Zap className="h-5 w-5 text-violet-500 dark:text-violet-400" />
                   <span>
-                    <span className="block text-sm font-medium text-zinc-100">
+                    <span className="block text-sm font-medium text-[var(--gp-text)]">
                       Fast count + confidence
                     </span>
-                    <span className="text-xs text-zinc-500">
+                    <span className="text-xs text-[var(--gp-text-faint)]">
                       Day {selectedDay} · optional 1–10 confidence
                     </span>
                   </span>
@@ -147,17 +153,18 @@ export function GlobalLogAction() {
                 <button
                   type="button"
                   onClick={() => setView("manual")}
-                  className="flex w-full items-center justify-between rounded-2xl border border-zinc-800 bg-zinc-900/50 px-4 py-3 text-left transition hover:border-violet-500/50 hover:bg-zinc-900"
+                  className={menuItemClass}
+                  style={{ borderColor: "var(--gp-border)", backgroundColor: "var(--gp-surface)" }}
                 >
                   <span>
-                    <span className="block text-sm font-medium text-zinc-100">
+                    <span className="block text-sm font-medium text-[var(--gp-text)]">
                       Detailed problem log
                     </span>
-                    <span className="text-xs text-zinc-500">
+                    <span className="text-xs text-[var(--gp-text-faint)]">
                       Titles, topics, notes — re-logging same problem = revision
                     </span>
                   </span>
-                  <Command className="h-4 w-4 text-zinc-500" />
+                  <Command className="ml-auto h-4 w-4 text-[var(--gp-text-faint)]" />
                 </button>
                 <button
                   type="button"
@@ -165,14 +172,15 @@ export function GlobalLogAction() {
                     setOpen(false);
                     setLeetcodeOpen(true);
                   }}
-                  className="flex w-full items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-950/60 px-4 py-3 text-left transition hover:border-violet-500/50"
+                  className={menuItemClass}
+                  style={{ borderColor: "var(--gp-border)", backgroundColor: "var(--gp-surface)" }}
                 >
-                  <Link2 className="h-5 w-5 shrink-0 text-violet-400" />
+                  <Link2 className="h-5 w-5 shrink-0 text-violet-500 dark:text-violet-400" />
                   <span>
-                    <span className="block text-sm font-medium text-zinc-100">
+                    <span className="block text-sm font-medium text-[var(--gp-text)]">
                       LeetCode metadata lookup
                     </span>
-                    <span className="text-xs text-zinc-500">
+                    <span className="text-xs text-[var(--gp-text-faint)]">
                       Paste URL, slug, or title — auto-fills difficulty & tags
                     </span>
                   </span>
@@ -197,7 +205,6 @@ export function GlobalLogAction() {
                     min={1}
                     value={solvedCount}
                     onChange={(event) => setSolvedCount(event.target.value)}
-                    className="border-zinc-700 bg-zinc-900/70"
                     aria-label="Solved count"
                   />
                   <Input
@@ -206,7 +213,7 @@ export function GlobalLogAction() {
                     max={10}
                     value={quickConfidence}
                     onChange={(event) => setQuickConfidence(event.target.value)}
-                    className="w-24 border-zinc-700 bg-zinc-900/70"
+                    className="w-24"
                     aria-label="Confidence"
                     placeholder="Conf"
                   />
@@ -214,7 +221,7 @@ export function GlobalLogAction() {
                 <Button type="button" className="w-full" onClick={saveQuick}>
                   {saved ? <Check className="h-4 w-4" /> : "Log count"}
                 </Button>
-                <p className="text-xs text-zinc-500">
+                <p className="text-xs text-[var(--gp-text-faint)]">
                   Attaches to Day {selectedDay}. Same problem on another day can be
                   logged again as a revision.
                 </p>
@@ -236,14 +243,12 @@ export function GlobalLogAction() {
                   value={title}
                   onChange={(event) => setTitle(event.target.value)}
                   placeholder="Problem title"
-                  className="border-zinc-700 bg-zinc-900/70"
                 />
                 <div className="grid grid-cols-2 gap-2">
                   <Input
                     value={topics}
                     onChange={(event) => setTopics(event.target.value)}
                     placeholder="Topics: arrays, hashing"
-                    className="border-zinc-700 bg-zinc-900/70"
                   />
                   <Input
                     type="number"
@@ -251,7 +256,6 @@ export function GlobalLogAction() {
                     value={timeSpentMinutes}
                     onChange={(event) => setTimeSpentMinutes(event.target.value)}
                     placeholder="Time min"
-                    className="border-zinc-700 bg-zinc-900/70"
                   />
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -262,9 +266,7 @@ export function GlobalLogAction() {
                         type="button"
                         onClick={() => setSource(item)}
                         className={`rounded-full border px-3 py-1 text-xs capitalize ${
-                          source === item
-                            ? "border-violet-500 bg-violet-500/15 text-violet-200"
-                            : "border-zinc-800 text-zinc-500 hover:border-zinc-700"
+                          source === item ? activeClass : inactiveClass
                         }`}
                       >
                         {item}
@@ -279,9 +281,7 @@ export function GlobalLogAction() {
                       type="button"
                       onClick={() => setDifficulty(item)}
                       className={`rounded-xl border px-3 py-2 text-xs capitalize ${
-                        difficulty === item
-                          ? "border-violet-500 bg-violet-500/15 text-violet-200"
-                          : "border-zinc-800 text-zinc-500 hover:border-zinc-700"
+                        difficulty === item ? activeClass : inactiveClass
                       }`}
                     >
                       {item}
@@ -295,22 +295,20 @@ export function GlobalLogAction() {
                   value={confidence}
                   onChange={(event) => setConfidence(event.target.value)}
                   placeholder="Confidence 1-10"
-                  className="border-zinc-700 bg-zinc-900/70"
                 />
                 <Textarea
                   value={notes}
                   onChange={(event) => setNotes(event.target.value)}
                   placeholder="Notes / mistake pattern"
                   rows={3}
-                  className="border-zinc-700 bg-zinc-900/70"
                 />
                 <button
                   type="button"
                   onClick={() => setRevisionNeeded((value) => !value)}
                   className={`w-full rounded-xl border px-3 py-2 text-left text-xs transition ${
                     revisionNeeded
-                      ? "border-amber-500/40 bg-amber-500/10 text-amber-200"
-                      : "border-zinc-800 text-zinc-500 hover:border-zinc-700"
+                      ? "border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-200"
+                      : inactiveClass
                   }`}
                 >
                   {revisionNeeded ? "Revision flagged" : "Flag for revision"}

@@ -33,10 +33,10 @@ export function ProblemMemoryTimeline({
     <PremiumCard>
       <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h3 className="text-lg font-semibold text-zinc-100">
+          <h3 className="text-lg font-semibold text-[var(--gp-text)]">
             Problem memory timeline
           </h3>
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-[var(--gp-text-muted)]">
             Each card is one canonical problem — revision count is derived from
             solve events
           </p>
@@ -45,12 +45,15 @@ export function ProblemMemoryTimeline({
           placeholder="Search problems…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="max-w-xs border-zinc-800 bg-zinc-950/80"
+          className="max-w-xs"
         />
       </div>
 
       {filtered.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-zinc-800 px-4 py-8 text-center text-sm text-zinc-500">
+        <p
+          className="rounded-xl border border-dashed px-4 py-8 text-center text-sm text-[var(--gp-text-muted)]"
+          style={{ borderColor: "var(--gp-border)" }}
+        >
           {problems.length === 0
             ? "Log named problems to build memory telemetry. Same problem on different days counts as revision."
             : "No problems match your search."}
@@ -60,18 +63,22 @@ export function ProblemMemoryTimeline({
           {filtered.map((problem) => (
             <li
               key={problem.identityKey}
-              className="rounded-xl border border-zinc-800/80 bg-zinc-950/50 px-4 py-4"
+              className="rounded-xl border px-4 py-4"
+              style={{
+                borderColor: "var(--gp-border)",
+                backgroundColor: "var(--gp-surface)",
+              }}
             >
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <p className="font-medium text-zinc-100">{problem.title}</p>
-                  <p className="text-xs text-zinc-500">
+                  <p className="font-medium text-[var(--gp-text)]">{problem.title}</p>
+                  <p className="text-xs text-[var(--gp-text-faint)]">
                     {problem.parentTopic}
                     {problem.difficulty
                       ? ` · ${formatDifficulty(problem.difficulty)}`
                       : ""}
                   </p>
-                  <p className="mt-1 text-xs text-zinc-400">
+                  <p className="mt-1 text-xs text-[var(--gp-text-muted)]">
                     {problem.solveCount} solve
                     {problem.solveCount === 1 ? "" : "s"}
                     {problem.revisionCount > 0
@@ -88,25 +95,25 @@ export function ProblemMemoryTimeline({
                   </div>
                 </div>
                 <div className="flex flex-col items-end gap-1">
-                  <span className="font-mono text-sm text-violet-300">
+                  <span className="font-mono text-sm text-violet-600 dark:text-violet-300">
                     {problem.recallStrength}% memory
                   </span>
                   {problem.confidence > 0 ? (
-                    <span className="font-mono text-xs text-zinc-500">
+                    <span className="font-mono text-xs text-[var(--gp-text-faint)]">
                       {problem.confidence}% avg confidence
                     </span>
                   ) : null}
                   {problem.needsReinforcement ? (
                     <Badge
                       variant="outline"
-                      className="border-amber-500/40 text-amber-300"
+                      className="border-amber-500/40 text-amber-600 dark:text-amber-300"
                     >
                       Needs reinforcement
                     </Badge>
                   ) : problem.recallStrength >= 60 ? (
                     <Badge
                       variant="outline"
-                      className="border-green-500/30 text-green-300"
+                      className="border-green-500/30 text-green-600 dark:text-green-300"
                     >
                       Strong recall
                     </Badge>
@@ -120,9 +127,14 @@ export function ProblemMemoryTimeline({
                     className={cn(
                       "rounded-md border px-2 py-0.5 text-[10px]",
                       solve.revisionNeeded
-                        ? "border-amber-500/30 bg-amber-500/10 text-amber-200"
-                        : "border-zinc-800 text-zinc-500"
+                        ? "border-amber-500/30 bg-amber-500/8 text-amber-700 dark:text-amber-200"
+                        : "text-[var(--gp-text-faint)]"
                     )}
+                    style={
+                      !solve.revisionNeeded
+                        ? { borderColor: "var(--gp-border)" }
+                        : undefined
+                    }
                     title={
                       solve.plannerDay
                         ? `Planner day ${solve.plannerDay} (metadata)`

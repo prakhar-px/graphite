@@ -119,14 +119,14 @@ export function CompleteDayDialog({ day, disabled }: CompleteDayDialogProps) {
                 <button
                   type="button"
                   onClick={() => setStep("rough")}
-                  className="flex w-full items-center gap-3 rounded-2xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-left transition hover:border-emerald-400/50"
+                  className="flex w-full items-center gap-3 rounded-2xl border border-emerald-500/20 bg-emerald-500/8 px-4 py-3 text-left transition hover:border-emerald-400/50"
                 >
-                  <CheckCircle2 className="h-5 w-5 text-emerald-400" />
+                  <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
                   <span>
-                    <span className="block text-sm font-medium text-zinc-100">
+                    <span className="block text-sm font-medium text-[var(--gp-text)]">
                       Roughly completed
                     </span>
-                    <span className="text-xs text-zinc-500">
+                    <span className="text-xs text-[var(--gp-text-faint)]">
                       Rate confidence for each suggested problem you did.
                     </span>
                   </span>
@@ -134,14 +134,15 @@ export function CompleteDayDialog({ day, disabled }: CompleteDayDialogProps) {
                 <button
                   type="button"
                   onClick={() => setStep("actual")}
-                  className="flex w-full items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-900/50 px-4 py-3 text-left transition hover:border-violet-500/50"
+                  className="flex w-full items-center gap-3 rounded-2xl border px-4 py-3 text-left transition hover:border-violet-500/50"
+                  style={{ borderColor: "var(--gp-border)", backgroundColor: "var(--gp-surface)" }}
                 >
-                  <Edit3 className="h-5 w-5 text-violet-400" />
+                  <Edit3 className="h-5 w-5 text-violet-600 dark:text-violet-400" />
                   <span>
-                    <span className="block text-sm font-medium text-zinc-100">
+                    <span className="block text-sm font-medium text-[var(--gp-text)]">
                       Actual count
                     </span>
-                    <span className="text-xs text-zinc-500">
+                    <span className="text-xs text-[var(--gp-text-faint)]">
                       Select which problems you solved and set confidence each.
                     </span>
                   </span>
@@ -149,14 +150,15 @@ export function CompleteDayDialog({ day, disabled }: CompleteDayDialogProps) {
                 <button
                   type="button"
                   onClick={openDetailed}
-                  className="flex w-full items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-900/50 px-4 py-3 text-left transition hover:border-blue-500/50"
+                  className="flex w-full items-center gap-3 rounded-2xl border px-4 py-3 text-left transition hover:border-blue-500/50"
+                  style={{ borderColor: "var(--gp-border)", backgroundColor: "var(--gp-surface)" }}
                 >
-                  <ListPlus className="h-5 w-5 text-blue-400" />
+                  <ListPlus className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                   <span>
-                    <span className="block text-sm font-medium text-zinc-100">
+                    <span className="block text-sm font-medium text-[var(--gp-text)]">
                       Log detailed problems
                     </span>
-                    <span className="text-xs text-zinc-500">
+                    <span className="text-xs text-[var(--gp-text-faint)]">
                       LeetCode lookup with notes and revision flags.
                     </span>
                   </span>

@@ -39,7 +39,7 @@ export function StatsGrid() {
       key: "problems",
       label: "Problems Solved",
       icon: Target,
-      color: "text-violet-400",
+      color: "text-violet-500 dark:text-violet-400",
       value: ctx.solved,
       sub: `${stats.uniqueTracked} unique tracked`,
     },
@@ -47,7 +47,7 @@ export function StatsGrid() {
       key: "weekly",
       label: "Weekly Progress",
       icon: TrendingUp,
-      color: "text-blue-400",
+      color: "text-blue-500 dark:text-blue-400",
       value: getWeeklySolvedTotal(snapshot, 1),
       sub: `2-wk: ${getWeeklySolvedTotal(snapshot, 2)}`,
     },
@@ -55,7 +55,7 @@ export function StatsGrid() {
       key: "revision",
       label: "Revision Count",
       icon: RefreshCw,
-      color: "text-green-400",
+      color: "text-green-500 dark:text-green-400",
       value: stats.revisionCount,
       sub: "From problem telemetry",
     },
@@ -63,7 +63,7 @@ export function StatsGrid() {
       key: "streak",
       label: "Current Streak",
       icon: Flame,
-      color: "text-amber-400",
+      color: "text-amber-500 dark:text-amber-400",
       value: ctx.streak,
       sub: "Keep the momentum",
     },
@@ -71,7 +71,7 @@ export function StatsGrid() {
       key: "topic",
       label: "Active Topic",
       icon: Brain,
-      color: "text-violet-400",
+      color: "text-violet-500 dark:text-violet-400",
       value: ctx.topic.split("+")[0]?.trim() ?? ctx.topic,
       sub: "Today's focus",
       mono: false,
@@ -80,7 +80,7 @@ export function StatsGrid() {
       key: "focus",
       label: "Focus Score",
       icon: Zap,
-      color: "text-emerald-400",
+      color: "text-emerald-500 dark:text-emerald-400",
       value: stats.focusScore,
       sub: `${stats.missionsCompleted}/70 missions · ${stats.averageConfidence}% conf`,
       suffix: "/99",
@@ -110,11 +110,11 @@ export function StatsGrid() {
                 <PremiumCard className="h-full transition hover:border-violet-500/30">
                   <div className="flex items-start justify-between">
                     <div>
-                      <p className="text-xs text-zinc-500">{stat.label}</p>
-                      <p className="mt-2 font-mono text-2xl font-bold text-zinc-100">
+                      <p className="text-xs text-[var(--gp-text-faint)]">{stat.label}</p>
+                      <p className="mt-2 font-mono text-2xl font-bold text-[var(--gp-text)]">
                         {stat.value}
                       </p>
-                      <p className="mt-1 text-xs text-zinc-500">{stat.sub}</p>
+                      <p className="mt-1 text-xs text-[var(--gp-text-faint)]">{stat.sub}</p>
                     </div>
                     <Icon className={`h-5 w-5 ${stat.color}`} />
                   </div>
@@ -124,19 +124,19 @@ export function StatsGrid() {
               <PremiumCard className="h-full">
                 <div className="flex items-start justify-between">
                   <div>
-                    <p className="text-xs text-zinc-500">{stat.label}</p>
+                    <p className="text-xs text-[var(--gp-text-faint)]">{stat.label}</p>
                     <p
-                      className={`mt-2 text-2xl font-bold text-zinc-100 ${stat.key === "topic" ? "" : "font-mono"}`}
+                      className={`mt-2 text-2xl font-bold text-[var(--gp-text)] ${stat.key === "topic" ? "" : "font-mono"}`}
                       title={stat.key === "focus" ? "Based on mission completion, average confidence, and revision consistency." : undefined}
                     >
                       {stat.value}
                       {"suffix" in stat && stat.suffix ? (
-                        <span className="text-sm font-normal text-zinc-500">
+                        <span className="text-sm font-normal text-[var(--gp-text-faint)]">
                           {stat.suffix}
                         </span>
                       ) : null}
                     </p>
-                    <p className="mt-1 text-xs text-zinc-500">{stat.sub}</p>
+                    <p className="mt-1 text-xs text-[var(--gp-text-faint)]">{stat.sub}</p>
                   </div>
                   <Icon className={`h-5 w-5 ${stat.color}`} />
                 </div>

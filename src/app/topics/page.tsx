@@ -35,8 +35,8 @@ export default function TopicsPage() {
               className={cn(
                 "rounded-xl border px-3 py-1.5 text-sm capitalize transition-colors",
                 filter === f
-                  ? "border-violet-500 bg-violet-600/20 text-violet-300"
-                  : "border-zinc-800 text-zinc-400 hover:border-zinc-600"
+                  ? "border-violet-500 bg-violet-500/15 text-violet-700 dark:text-violet-300"
+                  : "border-[var(--gp-border)] text-[var(--gp-text-muted)] hover:border-[var(--gp-text-faint)]"
               )}
             >
               {f.replace("-", " ")}

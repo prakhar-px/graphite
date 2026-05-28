@@ -19,10 +19,10 @@ export function RecallTrendLabel({
     <span
       className={cn(
         "text-xs font-medium",
-        trend === "improving" && "text-green-400",
-        trend === "stable" && "text-zinc-400",
-        trend === "declining" && "text-amber-400",
-        trend === "unknown" && "text-zinc-600",
+        trend === "improving" && "text-green-600 dark:text-green-400",
+        trend === "stable" && "text-[var(--gp-text-muted)]",
+        trend === "declining" && "text-amber-600 dark:text-amber-400",
+        trend === "unknown" && "text-[var(--gp-text-faint)]",
         className
       )}
     >

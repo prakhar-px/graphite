@@ -34,7 +34,7 @@ export function SyncIndicator() {
       title={label}
     >
       <span className={cn("h-2 w-2 rounded-full", dotColor)} />
-      <span className="hidden text-[10px] text-zinc-500 md:inline">{label}</span>
+      <span className="hidden text-[10px] text-[var(--gp-text-faint)] md:inline">{label}</span>
     </div>
   );
 }

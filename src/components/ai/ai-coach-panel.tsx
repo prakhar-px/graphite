@@ -58,11 +58,11 @@ export function AiCoachPanel({
     <div className={cn("space-y-4", compact && "space-y-3")}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <Sparkles className="h-5 w-5 text-violet-400" />
+          <Sparkles className="h-5 w-5 text-violet-500 dark:text-violet-400" />
           <div>
-            <p className="font-semibold text-zinc-100">AI Coach</p>
+            <p className="font-semibold text-[var(--gp-text)]">AI Coach</p>
             {!compact ? (
-              <p className="text-xs text-zinc-500">
+              <p className="text-xs text-[var(--gp-text-faint)]">
                 Personalized from your planner, log, and revision data
               </p>
             ) : null}
@@ -100,41 +100,46 @@ export function AiCoachPanel({
               className={cn(
                 "rounded-xl border px-3 py-2 text-left transition-colors",
                 (mode ?? defaultMode) === m.id
-                  ? "border-violet-500/50 bg-violet-950/40"
-                  : "border-zinc-800 bg-zinc-900/40 hover:border-zinc-700"
+                  ? "border-violet-500/50 bg-violet-500/10"
+                  : "border-[var(--gp-border)] hover:border-[var(--gp-text-faint)]"
               )}
+              style={
+                (mode ?? defaultMode) !== m.id
+                  ? { backgroundColor: "var(--gp-surface)" }
+                  : undefined
+              }
             >
-              <p className="text-sm font-medium text-zinc-200">{m.label}</p>
-              <p className="text-xs text-zinc-500">{m.description}</p>
+              <p className="text-sm font-medium text-[var(--gp-text)]">{m.label}</p>
+              <p className="text-xs text-[var(--gp-text-faint)]">{m.description}</p>
             </button>
           ))}
         </div>
       ) : null}
 
       {error ? (
-        <PremiumCard className="border-red-900/50 bg-red-950/20">
-          <p className="text-sm text-red-300">{error}</p>
+        <PremiumCard className="border-red-500/40 bg-red-500/8">
+          <p className="text-sm text-red-700 dark:text-red-300">{error}</p>
           {errorCode === "rate_limit" ? (
-            <p className="mt-2 text-xs text-zinc-500">
+            <p className="mt-2 text-xs text-[var(--gp-text-faint)]">
               Gemini quota or rate limit — wait a minute or check{" "}
               <a
                 href="https://aistudio.google.com/"
                 target="_blank"
                 rel="noreferrer"
-                className="text-violet-400 hover:underline"
+                className="text-violet-600 dark:text-violet-400 hover:underline"
               >
                 Google AI Studio
               </a>
               .
             </p>
           ) : errorCode === "invalid_api_key" || errorCode === "missing_api_key" ? (
-            <p className="mt-2 text-xs text-zinc-500">
+            <p className="mt-2 text-xs text-[var(--gp-text-faint)]">
               Set GEMINI_API_KEY in `.env.local` and restart `npm run dev`.
             </p>
           ) : (
-            <p className="mt-2 text-xs text-zinc-500">
+            <p className="mt-2 text-xs text-[var(--gp-text-faint)]">
               Test setup: open{" "}
-              <a href="/api/ai/health" className="text-violet-400 hover:underline">
+              <a href="/api/ai/health" className="text-violet-600 dark:text-violet-400 hover:underline">
                 /api/ai/health
               </a>{" "}
               in the browser after restarting the dev server.
@@ -145,7 +150,7 @@ export function AiCoachPanel({
 
       {!report && !loading && !error ? (
         <PremiumCard className="text-center">
-          <p className="text-sm text-zinc-400">
+          <p className="text-sm text-[var(--gp-text-muted)]">
             Generate a coaching report based on your current progress.
           </p>
         </PremiumCard>
@@ -153,14 +158,14 @@ export function AiCoachPanel({
 
       {loading && !report ? (
         <PremiumCard className="flex items-center justify-center py-12">
-          <Loader2 className="h-8 w-8 animate-spin text-violet-400" />
+          <Loader2 className="h-8 w-8 animate-spin text-violet-500 dark:text-violet-400" />
         </PremiumCard>
       ) : null}
 
       {report ? (
         <>
           {generatedAt ? (
-            <p className="text-xs text-zinc-600">
+            <p className="text-xs text-[var(--gp-text-faint)]">
               Generated {new Date(generatedAt).toLocaleString()}
               {mode ? ` · ${mode}` : ""}
             </p>

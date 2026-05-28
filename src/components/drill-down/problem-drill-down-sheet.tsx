@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -35,33 +34,43 @@ export function ProblemDrillDownSheet({
             {problems.map((p) => (
               <div
                 key={p.identityKey}
-                className="rounded-xl border border-zinc-800/60 bg-zinc-900/40 px-3 py-2.5"
+                className="rounded-xl border px-3 py-2.5"
+                style={{
+                  borderColor: "var(--gp-border)",
+                  backgroundColor: "var(--gp-surface)",
+                }}
               >
                 <div className="flex items-center justify-between">
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium text-zinc-200">
+                    <p className="truncate text-sm font-medium text-[var(--gp-text)]">
                       {p.title}
                     </p>
-                    <p className="text-xs text-zinc-500">{p.parentTopic}</p>
+                    <p className="text-xs text-[var(--gp-text-faint)]">{p.parentTopic}</p>
                   </div>
-                  <span className="ml-3 font-mono text-sm text-zinc-100">
+                  <span className="ml-3 font-mono text-sm text-[var(--gp-text)]">
                     {p.recallStrength}%
                   </span>
                 </div>
                 <div className="mt-1 flex flex-wrap gap-1.5">
-                  <span className="rounded-md bg-zinc-800/60 px-1.5 py-0.5 text-[10px] text-zinc-400">
+                  <span
+                    className="rounded-md px-1.5 py-0.5 text-[10px] text-[var(--gp-text-muted)]"
+                    style={{ backgroundColor: "var(--gp-surface-raised)" }}
+                  >
                     {p.solveCount} solve{p.solveCount === 1 ? "" : "s"}
                   </span>
-                  <span className="rounded-md bg-zinc-800/60 px-1.5 py-0.5 text-[10px] text-zinc-400">
+                  <span
+                    className="rounded-md px-1.5 py-0.5 text-[10px] text-[var(--gp-text-muted)]"
+                    style={{ backgroundColor: "var(--gp-surface-raised)" }}
+                  >
                     {p.daysSinceLastSolve}d ago
                   </span>
                   {p.isOverdue && (
-                    <span className="rounded-md bg-rose-900/30 px-1.5 py-0.5 text-[10px] text-rose-400">
+                    <span className="rounded-md bg-rose-500/15 px-1.5 py-0.5 text-[10px] text-rose-600 dark:text-rose-400">
                       overdue
                     </span>
                   )}
                   {p.needsReinforcement && (
-                    <span className="rounded-md bg-amber-900/30 px-1.5 py-0.5 text-[10px] text-amber-400">
+                    <span className="rounded-md bg-amber-500/15 px-1.5 py-0.5 text-[10px] text-amber-600 dark:text-amber-400">
                       reinforce
                     </span>
                   )}

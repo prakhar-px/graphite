@@ -31,7 +31,7 @@ export function RevisionIntelligenceSummary({
       label: "Unique problems",
       value: summary.uniqueProblems,
       hint: "canonical identities in log",
-      accent: "text-zinc-100",
+      accent: "text-[var(--gp-text)]",
       glow: true,
       filter: () => true,
     },
@@ -39,77 +39,73 @@ export function RevisionIntelligenceSummary({
       label: "Repeat solves",
       value: summary.repeatSolves,
       hint: "re-solves after first pass",
-      accent: "text-violet-400",
+      accent: "text-violet-600 dark:text-violet-400",
       filter: (p) => p.revisionCount > 0,
     },
     {
       label: "Revision rate",
       value: `${summary.revisionRatePercent}%`,
       hint: "problems revisited at least once",
-      accent: "text-sky-400",
+      accent: "text-sky-600 dark:text-sky-400",
       filter: (p) => p.revisionCount > 0,
     },
     {
       label: "Overdue",
       value: summary.overdueRevisions,
       hint: "long gap or weak retention",
-      accent: "text-rose-400",
+      accent: "text-rose-600 dark:text-rose-400",
       filter: (p) => p.isOverdue,
     },
     {
       label: "Needs reinforcement",
       value: summary.needsReinforcement,
-      hint: "flagged, weak, or stale",
-      accent: "text-amber-400",
+      hint: "weak or flagged",
+      accent: "text-amber-600 dark:text-amber-400",
       filter: (p) => p.needsReinforcement,
     },
     {
-      label: "Strong recall",
-      value: summary.strongRecall,
-      hint: "memory strength ≥ 60%",
-      accent: "text-green-400",
-      filter: (p) => p.recallStrength >= 60,
+      label: "Avg recall",
+      value: `${summary.avgRecallStrength}%`,
+      hint: "memory score across all tracked",
+      accent: "text-emerald-600 dark:text-emerald-400",
     },
   ];
 
   return (
-    <div className="space-y-3">
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+    <>
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
         {cards.map((card) => (
           <button
             key={card.label}
             type="button"
             onClick={() => {
-              if (card.filter && typeof card.value === "number") {
-                setDrill({ title: card.label, list: problems.filter(card.filter) });
-              }
+              if (!card.filter) return;
+              setDrill({
+                title: card.label,
+                list: problems.filter(card.filter),
+              });
             }}
-            className="cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500/50 rounded-xl"
+            disabled={!card.filter}
+            className="rounded-xl border p-3 text-left transition hover:scale-[1.02] disabled:cursor-default disabled:hover:scale-100"
+            style={{
+              borderColor: "var(--gp-border)",
+              backgroundColor: "var(--gp-surface)",
+            }}
           >
-            <PremiumCard glow={card.glow} className="transition hover:border-zinc-700/60">
-              <p className="text-xs text-zinc-500">{card.label}</p>
-              <p className={`font-mono text-2xl font-bold ${card.accent}`}>
-                {card.value}
-              </p>
-              <p className="text-[11px] text-zinc-600">{card.hint}</p>
-            </PremiumCard>
+            <p className="text-[11px] text-[var(--gp-text-faint)]">{card.label}</p>
+            <p className={`mt-1 font-mono text-xl font-bold ${card.accent}`}>
+              {card.value}
+            </p>
+            <p className="mt-0.5 text-[10px] text-[var(--gp-text-faint)]">{card.hint}</p>
           </button>
         ))}
       </div>
-      {summary.avgRecallStrength > 0 ? (
-        <p className="text-sm text-zinc-500">
-          Average memory strength across tracked problems:{" "}
-          <span className="font-mono text-zinc-300">
-            {summary.avgRecallStrength}%
-          </span>
-        </p>
-      ) : null}
       <ProblemDrillDownSheet
         open={!!drill}
         onOpenChange={(o) => { if (!o) setDrill(null); }}
         title={drill?.title ?? ""}
         problems={drill?.list ?? []}
       />
-    </div>
+    </>
   );
 }

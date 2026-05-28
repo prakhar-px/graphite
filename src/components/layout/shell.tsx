@@ -33,9 +33,10 @@ export function Shell({ children, title, subtitle }: ShellProps) {
   return (
     <div
       className={cn(
-        "flex min-h-screen bg-[#09090B] text-zinc-100",
+        "flex min-h-screen text-[var(--gp-text)]",
         focusMode && "[&_main>div]:transition-opacity [&_main>div]:duration-200"
       )}
+      style={{ backgroundColor: "var(--gp-bg)" }}
     >
       <Sidebar />
       <div className="flex min-h-0 min-w-0 flex-1 flex-col">

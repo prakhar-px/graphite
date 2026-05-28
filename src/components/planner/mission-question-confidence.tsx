@@ -32,7 +32,7 @@ export function MissionQuestionConfidence({
 }: MissionQuestionConfidenceProps) {
   if (questions.length === 0) {
     return (
-      <p className="text-sm text-zinc-500">
+      <p className="text-sm text-[var(--gp-text-muted)]">
         No suggested problems for this mission — completion will mark the session only.
       </p>
     );
@@ -60,9 +60,13 @@ export function MissionQuestionConfidence({
             className={cn(
               "rounded-xl border p-3 transition",
               selectable && !selected
-                ? "border-zinc-800/60 bg-zinc-950/30 opacity-60"
-                : "border-zinc-700 bg-zinc-900/40"
+                ? "opacity-60"
+                : ""
             )}
+            style={{
+              borderColor: selected ? "var(--gp-border)" : "var(--gp-border-subtle)",
+              backgroundColor: selected ? "var(--gp-surface)" : "transparent",
+            }}
           >
             <div className="mb-2 flex items-center gap-2">
               {selectable ? (
@@ -74,7 +78,7 @@ export function MissionQuestionConfidence({
                   aria-label={`Include ${title}`}
                 />
               ) : null}
-              <span className="text-sm font-medium text-zinc-200">{title}</span>
+              <span className="text-sm font-medium text-[var(--gp-text)]">{title}</span>
             </div>
             {(!selectable || selected) && (
               <ConfidenceChips

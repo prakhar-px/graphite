@@ -27,10 +27,10 @@ export function SubapassPanel() {
   const isOffline = typeof navigator !== "undefined" && !navigator.onLine;
 
   const statusColor =
-    syncStatus === "syncing" ? "text-blue-400" :
-    syncStatus === "error" ? "text-red-400" :
-    isOffline ? "text-amber-400" :
-    "text-green-400";
+    syncStatus === "syncing" ? "text-blue-600 dark:text-blue-400" :
+    syncStatus === "error" ? "text-red-600 dark:text-red-400" :
+    isOffline ? "text-amber-600 dark:text-amber-400" :
+    "text-green-600 dark:text-green-400";
 
   const statusLabel =
     syncStatus === "syncing" ? "Syncing..." :
@@ -57,8 +57,8 @@ export function SubapassPanel() {
       <PremiumCard>
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-2">
-            <h3 className="font-semibold text-zinc-100">Subapass Database</h3>
-            <p className="text-sm text-zinc-400">
+            <h3 className="font-semibold text-[var(--gp-text)]">Subapass Database</h3>
+            <p className="text-sm text-[var(--gp-text-muted)]">
               Sign in to sync your planner, problem log, and preferences across
               devices via Supabase cloud storage.
             </p>
@@ -76,8 +76,8 @@ export function SubapassPanel() {
       <div className="space-y-4">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h3 className="font-semibold text-zinc-100">Subapass Database</h3>
-            <p className="mt-1 text-xs text-zinc-500">
+            <h3 className="font-semibold text-[var(--gp-text)]">Subapass Database</h3>
+            <p className="mt-1 text-xs text-[var(--gp-text-faint)]">
               Signed in as {user.email}
             </p>
           </div>
@@ -95,14 +95,14 @@ export function SubapassPanel() {
             />
             <span className={`text-sm ${statusColor}`}>{statusLabel}</span>
             {lastSyncedAt ? (
-              <span className="text-xs text-zinc-500">
+              <span className="text-xs text-[var(--gp-text-faint)]">
                 · last synced {formatTimeAgo(lastSyncedAt)}
               </span>
             ) : null}
           </div>
         </div>
 
-        <p className="text-sm text-zinc-400">
+        <p className="text-sm text-[var(--gp-text-muted)]">
           Your data is stored in a Supabase PostgreSQL database. Any changes you
           make on this device are automatically synced to the cloud.
         </p>
@@ -129,7 +129,7 @@ export function SubapassPanel() {
             type="button"
             size="sm"
             variant="outline"
-            className="border-red-800/50 text-red-400 hover:border-red-500/80 hover:bg-red-950/30"
+            className="border-red-500/40 text-red-600 dark:text-red-400 hover:border-red-500/70 hover:bg-red-500/10"
             title="Sign out from cloud sync (local data stays)"
             onClick={() => {
               signOut();
@@ -141,7 +141,7 @@ export function SubapassPanel() {
         </div>
 
         {statusMsg ? (
-          <p className="text-sm text-zinc-400">{statusMsg}</p>
+          <p className="text-sm text-[var(--gp-text-muted)]">{statusMsg}</p>
         ) : null}
       </div>
     </PremiumCard>

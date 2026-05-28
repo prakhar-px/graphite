@@ -26,8 +26,8 @@ export function ConfidenceChips({ value, onChange, className }: ConfidenceChipsP
           className={cn(
             "rounded-full border px-3 py-1.5 text-sm transition",
             value === preset.value
-              ? "border-violet-500 bg-violet-600/20 text-zinc-100"
-              : "border-zinc-700 bg-zinc-900/60 text-zinc-400 hover:border-zinc-500"
+              ? "border-violet-500 bg-violet-500/15 text-violet-700 dark:text-violet-200"
+              : "border-[var(--gp-border)] text-[var(--gp-text-faint)] hover:border-[var(--gp-text-faint)]"
           )}
         >
           {preset.label}
@@ -42,7 +42,7 @@ export function ConfidenceChips({ value, onChange, className }: ConfidenceChipsP
         className="h-1.5 flex-1 min-w-[80px] accent-violet-500"
         aria-label="Confidence slider"
       />
-      <span className="w-8 font-mono text-xs text-zinc-400">{value}</span>
+      <span className="w-8 font-mono text-xs text-[var(--gp-text-faint)]">{value}</span>
     </div>
   );
 }

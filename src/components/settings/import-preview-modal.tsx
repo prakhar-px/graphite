@@ -85,62 +85,83 @@ export function ImportPreviewModal({ data, onClose }: ImportPreviewModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#09090B]/80 backdrop-blur-sm">
-      <div className="w-full max-w-lg rounded-2xl border border-zinc-800 bg-zinc-950 p-6 shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm" style={{ backgroundColor: "color-mix(in srgb, var(--gp-bg) 85%, transparent)" }}>
+      <div
+        className="w-full max-w-lg rounded-2xl border p-6 shadow-2xl"
+        style={{
+          borderColor: "var(--gp-border)",
+          backgroundColor: "var(--gp-surface-raised)",
+        }}
+      >
         <div className="mb-4">
-          <h3 className="text-lg font-semibold text-zinc-100">Preparation Intelligence Preview</h3>
-          <p className="mt-1 text-sm text-zinc-400">
-            Found <span className="text-zinc-200 font-medium">{data.totalAccepted}</span> unique problems across{" "}
-            <span className="text-zinc-200 font-medium">{data.totalSubmissions}</span> submissions.
+          <h3 className="text-lg font-semibold text-[var(--gp-text)]">Preparation Intelligence Preview</h3>
+          <p className="mt-1 text-sm text-[var(--gp-text-muted)]">
+            Found <span className="font-medium text-[var(--gp-text)]">{data.totalAccepted}</span> unique problems across{" "}
+            <span className="font-medium text-[var(--gp-text)]">{data.totalSubmissions}</span> submissions.
           </p>
         </div>
 
         <div className="grid grid-cols-2 gap-3 mb-4">
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-3">
-            <Repeat className="h-4 w-4 text-violet-400 mb-1" />
-            <p className="font-mono text-lg font-bold text-zinc-100">{data.repeatedCount}</p>
-            <p className="text-xs text-zinc-500">Repeated solves</p>
+          <div
+            className="rounded-xl border p-3"
+            style={{ borderColor: "var(--gp-border)", backgroundColor: "var(--gp-surface)" }}
+          >
+            <Repeat className="h-4 w-4 text-violet-500 dark:text-violet-400 mb-1" />
+            <p className="font-mono text-lg font-bold text-[var(--gp-text)]">{data.repeatedCount}</p>
+            <p className="text-xs text-[var(--gp-text-faint)]">Repeated solves</p>
           </div>
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-3">
-            <Clock className="h-4 w-4 text-amber-400 mb-1" />
-            <p className="font-mono text-lg font-bold text-zinc-100">{data.revisionTimeGaps}</p>
-            <p className="text-xs text-zinc-500">Long-term revisions</p>
+          <div
+            className="rounded-xl border p-3"
+            style={{ borderColor: "var(--gp-border)", backgroundColor: "var(--gp-surface)" }}
+          >
+            <Clock className="h-4 w-4 text-amber-500 dark:text-amber-400 mb-1" />
+            <p className="font-mono text-lg font-bold text-[var(--gp-text)]">{data.revisionTimeGaps}</p>
+            <p className="text-xs text-[var(--gp-text-faint)]">Long-term revisions</p>
           </div>
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-3">
-            <BarChart3 className="h-4 w-4 text-blue-400 mb-1" />
-            <p className="font-mono text-lg font-bold text-zinc-100">{data.activeDays}</p>
-            <p className="text-xs text-zinc-500">Active days</p>
+          <div
+            className="rounded-xl border p-3"
+            style={{ borderColor: "var(--gp-border)", backgroundColor: "var(--gp-surface)" }}
+          >
+            <BarChart3 className="h-4 w-4 text-blue-500 dark:text-blue-400 mb-1" />
+            <p className="font-mono text-lg font-bold text-[var(--gp-text)]">{data.activeDays}</p>
+            <p className="text-xs text-[var(--gp-text-faint)]">Active days</p>
           </div>
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-3">
-            <Trophy className="h-4 w-4 text-emerald-400 mb-1" />
-            <p className="font-mono text-lg font-bold text-zinc-100">
+          <div
+            className="rounded-xl border p-3"
+            style={{ borderColor: "var(--gp-border)", backgroundColor: "var(--gp-surface)" }}
+          >
+            <Trophy className="h-4 w-4 text-emerald-500 dark:text-emerald-400 mb-1" />
+            <p className="font-mono text-lg font-bold text-[var(--gp-text)]">
               {data.difficultyBreakdown.easy}/{data.difficultyBreakdown.medium}/{data.difficultyBreakdown.hard}
             </p>
-            <p className="text-xs text-zinc-500">E / M / H</p>
+            <p className="text-xs text-[var(--gp-text-faint)]">E / M / H</p>
           </div>
         </div>
 
         {data.repeated.length > 0 ? (
-          <div className="mb-4 max-h-32 overflow-y-auto space-y-1 rounded-xl border border-zinc-800 bg-zinc-900/30 p-2">
+          <div
+            className="mb-4 max-h-32 overflow-y-auto space-y-1 rounded-xl border p-2"
+            style={{ borderColor: "var(--gp-border)", backgroundColor: "var(--gp-surface)" }}
+          >
             {data.repeated.slice(0, 8).map((r) => (
               <div key={r.titleSlug} className="flex items-center justify-between px-2 py-1">
-                <span className="text-xs text-zinc-300 truncate">{r.title}</span>
+                <span className="text-xs text-[var(--gp-text-muted)] truncate">{r.title}</span>
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-[10px] text-violet-400 font-mono">{r.solveCount}x</span>
+                  <span className="text-[10px] text-violet-600 dark:text-violet-400 font-mono">{r.solveCount}x</span>
                   {r.maxGapDays >= 90 ? (
-                    <span className="text-[10px] text-amber-400 font-mono">{r.maxGapDays}d gap</span>
+                    <span className="text-[10px] text-amber-600 dark:text-amber-400 font-mono">{r.maxGapDays}d gap</span>
                   ) : null}
                 </div>
               </div>
             ))}
             {data.repeated.length > 8 ? (
-              <p className="px-2 text-[10px] text-zinc-500">+{data.repeated.length - 8} more</p>
+              <p className="px-2 text-[10px] text-[var(--gp-text-faint)]">+{data.repeated.length - 8} more</p>
             ) : null}
           </div>
         ) : null}
 
         {result ? (
-          <p className="mb-4 text-sm text-violet-300">{result}</p>
+          <p className="mb-4 text-sm text-violet-600 dark:text-violet-300">{result}</p>
         ) : (
           <div className="flex items-center gap-2 mb-4">
             <Button type="button" size="sm" disabled={importing} onClick={() => setMode("all")} variant={mode === "all" ? "default" : "outline"}>

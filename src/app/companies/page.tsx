@@ -21,20 +21,20 @@ export default function CompaniesPage() {
         </div>
 
         <div>
-          <h2 className="mb-4 text-lg font-semibold text-zinc-100">
+          <h2 className="mb-4 text-lg font-semibold text-[var(--gp-text)]">
             Master Plan Phases
           </h2>
           <div className="grid gap-4 md:grid-cols-3">
             {masterPlan.map((phase) => (
               <PremiumCard key={phase.phase} glow>
-                <p className="text-sm font-medium text-violet-400">
+                <p className="text-sm font-medium text-violet-600 dark:text-violet-400">
                   {phase.phase}
                 </p>
-                <p className="mt-1 text-xs text-zinc-500">{phase.timeline}</p>
-                <h3 className="mt-2 font-semibold text-zinc-100">
+                <p className="mt-1 text-xs text-[var(--gp-text-faint)]">{phase.timeline}</p>
+                <h3 className="mt-2 font-semibold text-[var(--gp-text)]">
                   {phase.focus}
                 </h3>
-                <p className="mt-2 text-sm text-zinc-400">{phase.goal}</p>
+                <p className="mt-2 text-sm text-[var(--gp-text-muted)]">{phase.goal}</p>
               </PremiumCard>
             ))}
           </div>

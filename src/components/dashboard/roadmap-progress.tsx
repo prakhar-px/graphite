@@ -1,7 +1,5 @@
 "use client";
 
-/** Phase 2: optional hero roadmap viz (arc + 70-day dot grid). Not used in hero yet. */
-
 import { dailyPlan } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import type { TaskStatus } from "@/types";
@@ -15,7 +13,7 @@ type RoadmapProgressProps = {
 function cellColor(status: TaskStatus): string {
   if (status === "completed") return "bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.45)]";
   if (status === "in-progress") return "bg-violet-500 shadow-[0_0_8px_rgba(124,58,237,0.4)]";
-  return "bg-zinc-800/90";
+  return "bg-[var(--gp-border)]";
 }
 
 export function RoadmapProgress({
@@ -34,7 +32,7 @@ export function RoadmapProgress({
             cy="50"
             r="42"
             fill="none"
-            stroke="#27272A"
+            stroke="var(--gp-border)"
             strokeWidth="6"
           />
           <circle
@@ -56,10 +54,10 @@ export function RoadmapProgress({
           </defs>
         </svg>
         <div className="relative z-10 text-center">
-          <div className="font-mono text-3xl font-bold text-zinc-50">
+          <div className="font-mono text-3xl font-bold text-[var(--gp-text)]">
             {completion}%
           </div>
-          <div className="mt-1 text-[10px] uppercase tracking-[0.2em] text-zinc-500">
+          <div className="mt-1 text-[10px] uppercase tracking-[0.2em] text-[var(--gp-text-faint)]">
             roadmap
           </div>
         </div>
@@ -85,7 +83,7 @@ export function RoadmapProgress({
         })}
       </div>
 
-      <div className="mt-3 flex gap-4 text-[10px] text-zinc-500">
+      <div className="mt-3 flex gap-4 text-[10px] text-[var(--gp-text-faint)]">
         <span className="flex items-center gap-1.5">
           <span className="h-2 w-2 rounded-sm bg-emerald-500" />
           Done
@@ -95,7 +93,7 @@ export function RoadmapProgress({
           Active
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="h-2 w-2 rounded-sm bg-zinc-700" />
+          <span className="h-2 w-2 rounded-sm bg-[var(--gp-border)]" />
           Queued
         </span>
       </div>

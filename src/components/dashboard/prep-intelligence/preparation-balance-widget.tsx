@@ -21,12 +21,12 @@ export function PreparationBalanceWidget({ items, allProblems }: PreparationBala
     return (
       <PremiumCard>
         <div className="flex items-center gap-2">
-          <Scale className="h-4 w-4 text-zinc-500" />
-          <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+          <Scale className="h-4 w-4 text-[var(--gp-text-faint)]" />
+          <p className="text-xs font-medium uppercase tracking-wide text-[var(--gp-text-faint)]">
             Preparation Balance
           </p>
         </div>
-        <p className="mt-3 text-sm text-zinc-500">Log more problems to see balance insights.</p>
+        <p className="mt-3 text-sm text-[var(--gp-text-muted)]">Log more problems to see balance insights.</p>
       </PremiumCard>
     );
   }
@@ -35,15 +35,15 @@ export function PreparationBalanceWidget({ items, allProblems }: PreparationBala
     <>
       <PremiumCard>
         <div className="mb-3 flex items-center gap-2">
-          <Scale className="h-4 w-4 text-zinc-400" />
-          <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+          <Scale className="h-4 w-4 text-[var(--gp-text-muted)]" />
+          <p className="text-xs font-medium uppercase tracking-wide text-[var(--gp-text-faint)]">
             Preparation Balance
           </p>
         </div>
         <div className="space-y-2">
           {overfocused.length > 0 ? (
             <div>
-              <p className="mb-1 text-[10px] font-medium uppercase tracking-wide text-violet-400" title="Solved more than planned for this topic.">
+              <p className="mb-1 text-[10px] font-medium uppercase tracking-wide text-violet-600 dark:text-violet-400" title="Solved more than planned for this topic.">
                 Overfocused
               </p>
               {overfocused.slice(0, 3).map((t) => (
@@ -54,26 +54,34 @@ export function PreparationBalanceWidget({ items, allProblems }: PreparationBala
                     title: `Overfocused: ${t.topic}`,
                     list: allProblems.filter((p) => p.parentTopic === t.topic),
                   })}
-                  className="flex w-full cursor-pointer items-center justify-between rounded-lg border border-violet-800/30 bg-violet-950/20 px-3 py-1.5 text-left transition hover:border-violet-700/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/50"
+                  className="flex w-full cursor-pointer items-center justify-between rounded-lg border px-3 py-1.5 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/50"
+                  style={{
+                    borderColor: "rgba(124,58,237,0.3)",
+                    backgroundColor: "rgba(124,58,237,0.06)",
+                  }}
                 >
-                  <span className="text-sm text-zinc-200">{t.topic}</span>
-                  <span className="font-mono text-xs text-violet-400">{t.solvedCount} solves</span>
+                  <span className="text-sm text-[var(--gp-text)]">{t.topic}</span>
+                  <span className="font-mono text-xs text-violet-600 dark:text-violet-400">{t.solvedCount} solves</span>
                 </button>
               ))}
             </div>
           ) : null}
           {underprepared.length > 0 ? (
             <div>
-              <p className="mb-1 text-[10px] font-medium uppercase tracking-wide text-amber-400" title="Solved less than planned for this topic.">
+              <p className="mb-1 text-[10px] font-medium uppercase tracking-wide text-amber-600 dark:text-amber-400" title="Solved less than planned for this topic.">
                 Underprepared
               </p>
               {underprepared.slice(0, 3).map((t) => (
                 <div
                   key={t.topic}
-                  className="flex items-center justify-between rounded-lg border border-amber-800/30 bg-amber-950/20 px-3 py-1.5"
+                  className="flex items-center justify-between rounded-lg border px-3 py-1.5"
+                  style={{
+                    borderColor: "rgba(245,158,11,0.3)",
+                    backgroundColor: "rgba(245,158,11,0.06)",
+                  }}
                 >
-                  <span className="text-sm text-zinc-200">{t.topic}</span>
-                  <span className="font-mono text-xs text-amber-400">{t.solvedCount} solves</span>
+                  <span className="text-sm text-[var(--gp-text)]">{t.topic}</span>
+                  <span className="font-mono text-xs text-amber-600 dark:text-amber-400">{t.solvedCount} solves</span>
                 </div>
               ))}
             </div>

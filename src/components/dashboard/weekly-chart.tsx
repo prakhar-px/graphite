@@ -11,7 +11,13 @@ const WeeklyChartCanvas = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="h-full rounded-2xl border border-zinc-800 bg-zinc-950/40" />
+      <div
+        className="h-full rounded-2xl border"
+        style={{
+          backgroundColor: "var(--gp-surface)",
+          borderColor: "var(--gp-border)",
+        }}
+      />
     ),
   }
 );
@@ -20,8 +26,8 @@ export function WeeklyChart() {
   return (
     <PremiumCard className="min-w-0 xl:col-span-2">
       <div className="mb-5">
-        <p className="text-sm text-zinc-500">Telemetry Velocity</p>
-        <h3 className="mt-1 text-lg font-semibold text-zinc-100">
+        <p className="text-sm text-[var(--gp-text-faint)]">Telemetry Velocity</p>
+        <h3 className="mt-1 text-lg font-semibold text-[var(--gp-text)]">
           Solved velocity
         </h3>
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ExternalLink, Loader2, Trophy, Target, Brain, RefreshCw, BarChart3, Clock } from "lucide-react";
+import { ExternalLink, Loader2, Trophy, Target, Brain } from "lucide-react";
 import { useAppStore } from "@/store/app-store";
 import { PremiumCard } from "@/components/ui/premium-card";
 import { Button } from "@/components/ui/button";
@@ -103,8 +103,8 @@ export function LeetCodePanel() {
   return (
     <>
       <PremiumCard>
-        <h3 className="font-semibold text-zinc-100">LeetCode telemetry</h3>
-        <p className="mt-2 text-sm text-zinc-400">
+        <h3 className="font-semibold text-[var(--gp-text)]">LeetCode telemetry</h3>
+        <p className="mt-2 text-sm text-[var(--gp-text-muted)]">
           Fetches your full accepted submission history, detects repeated solves,
           and imports them as solve events for memory intelligence.
         </p>
@@ -113,7 +113,7 @@ export function LeetCodePanel() {
             placeholder="leetcode-username"
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
-            className="max-w-xs border-zinc-700 bg-zinc-900/50"
+            className="max-w-xs"
           />
           <Button type="button" size="sm" variant="outline" title="Save LeetCode username to your preferences" onClick={handleSaveUsername}>
             Save username
@@ -157,62 +157,68 @@ export function LeetCodePanel() {
         </div>
 
         {loadingProfile ? (
-          <div className="mt-4 flex items-center gap-2 text-sm text-zinc-500">
+          <div className="mt-4 flex items-center gap-2 text-sm text-[var(--gp-text-faint)]">
             <Loader2 className="h-4 w-4 animate-spin" />
             Loading profile...
           </div>
         ) : profile ? (
-          <div className="mt-4 space-y-3 rounded-xl border border-zinc-800 bg-zinc-950/50 p-4">
+          <div
+            className="mt-4 space-y-3 rounded-xl border p-4"
+            style={{
+              borderColor: "var(--gp-border)",
+              backgroundColor: "var(--gp-surface)",
+            }}
+          >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Target className="h-4 w-4 text-violet-400" />
-                <span className="text-sm font-medium text-zinc-200">{profile.username}</span>
+                <Target className="h-4 w-4 text-violet-500 dark:text-violet-400" />
+                <span className="text-sm font-medium text-[var(--gp-text)]">{profile.username}</span>
               </div>
               <a
                 href={`https://leetcode.com/u/${profile.username}/`}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-1 text-xs text-zinc-500 hover:text-zinc-300"
+                className="flex items-center gap-1 text-xs text-[var(--gp-text-faint)] hover:text-[var(--gp-text-muted)]"
               >
                 profile <ExternalLink className="h-3 w-3" />
               </a>
             </div>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
               <div>
-                <p className="text-xs text-zinc-500" title="Total problems accepted">Solved</p>
-                <p className="font-mono text-lg font-bold text-zinc-100">{profile.totalSolved}</p>
+                <p className="text-xs text-[var(--gp-text-faint)]" title="Total problems accepted">Solved</p>
+                <p className="font-mono text-lg font-bold text-[var(--gp-text)]">{profile.totalSolved}</p>
               </div>
               <div>
-                <p className="text-xs text-zinc-500" title="Easy problems solved">Easy</p>
-                <p className="font-mono text-lg font-bold text-green-400">{profile.easySolved}</p>
+                <p className="text-xs text-[var(--gp-text-faint)]" title="Easy problems solved">Easy</p>
+                <p className="font-mono text-lg font-bold text-green-600 dark:text-green-400">{profile.easySolved}</p>
               </div>
               <div>
-                <p className="text-xs text-zinc-500" title="Medium problems solved">Medium</p>
-                <p className="font-mono text-lg font-bold text-amber-400">{profile.mediumSolved}</p>
+                <p className="text-xs text-[var(--gp-text-faint)]" title="Medium problems solved">Medium</p>
+                <p className="font-mono text-lg font-bold text-amber-600 dark:text-amber-400">{profile.mediumSolved}</p>
               </div>
               <div>
-                <p className="text-xs text-zinc-500" title="Hard problems solved">Hard</p>
-                <p className="font-mono text-lg font-bold text-red-400">{profile.hardSolved}</p>
+                <p className="text-xs text-[var(--gp-text-faint)]" title="Hard problems solved">Hard</p>
+                <p className="font-mono text-lg font-bold text-red-600 dark:text-red-400">{profile.hardSolved}</p>
               </div>
             </div>
             {profile.ranking ? (
-              <div className="flex items-center gap-2 text-xs text-zinc-500">
+              <div className="flex items-center gap-2 text-xs text-[var(--gp-text-faint)]">
                 <Trophy className="h-3.5 w-3.5 text-amber-500" />
                 Rank #{profile.ranking.toLocaleString()}
               </div>
             ) : null}
           </div>
         ) : leetcodeUsername ? (
-          <p className="mt-3 text-xs text-zinc-500">
+          <p className="mt-3 text-xs text-[var(--gp-text-faint)]">
             Could not load profile for &quot;{leetcodeUsername}&quot;
           </p>
         ) : null}
 
-        <p className="mt-3 text-xs text-zinc-500">
+        <p className="mt-3 text-xs text-[var(--gp-text-faint)]">
           {problemLog.length} problem{problemLog.length === 1 ? "" : "s"} in your
           log. Duplicates are skipped automatically.
         </p>
-        {message ? <p className="mt-2 text-sm text-violet-300">{message}</p> : null}
+        {message ? <p className="mt-2 text-sm text-violet-600 dark:text-violet-300">{message}</p> : null}
       </PremiumCard>
 
       {telemetry ? (

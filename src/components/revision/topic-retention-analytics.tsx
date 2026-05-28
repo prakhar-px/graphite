@@ -28,10 +28,10 @@ export function TopicRetentionAnalytics({
     <>
       <PremiumCard>
         <div className="mb-4">
-          <h3 className="text-lg font-semibold text-zinc-100">
+          <h3 className="text-lg font-semibold text-[var(--gp-text)]">
             Topic retention analytics
           </h3>
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-[var(--gp-text-muted)]">
             Topics aggregate problem telemetry — click repeat solves to see which
             problems drove revisions
           </p>
@@ -50,12 +50,16 @@ export function TopicRetentionAnalytics({
             return (
               <li
                 key={group.topic}
-                className="rounded-xl border border-zinc-800/80 bg-zinc-950/40 px-4 py-3"
+                className="rounded-xl border px-4 py-3"
+                style={{
+                  borderColor: "var(--gp-border)",
+                  backgroundColor: "var(--gp-surface)",
+                }}
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div>
-                    <p className="font-medium text-zinc-100">{group.topic}</p>
-                    <p className="text-xs text-zinc-500">
+                    <p className="font-medium text-[var(--gp-text)]">{group.topic}</p>
+                    <p className="text-xs text-[var(--gp-text-faint)]">
                       {group.uniqueProblems} problems
                       {group.confidence > 0
                         ? ` · ${group.confidence}% recall`
@@ -67,7 +71,7 @@ export function TopicRetentionAnalytics({
                     {group.revisionPending > 0 ? (
                       <Badge
                         variant="outline"
-                        className="border-amber-500/40 text-amber-300"
+                        className="border-amber-500/40 text-amber-600 dark:text-amber-300"
                       >
                         {group.revisionPending} need reinforcement
                       </Badge>
@@ -76,7 +80,7 @@ export function TopicRetentionAnalytics({
                       type="button"
                       onClick={() => setBreakdown(group)}
                       className={cn(
-                        "rounded-lg border border-violet-500/30 bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-200 transition hover:border-violet-400/50",
+                        "rounded-lg border border-violet-500/30 bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-700 dark:text-violet-200 transition hover:border-violet-400/50",
                         group.totalRevisions === 0 &&
                           "pointer-events-none opacity-40"
                       )}
@@ -97,19 +101,19 @@ export function TopicRetentionAnalytics({
         open={breakdown !== null}
         onOpenChange={(open) => !open && setBreakdown(null)}
       >
-        <DialogContent className="max-h-[85vh] overflow-y-auto border-zinc-800 bg-zinc-950">
+        <DialogContent className="max-h-[85vh] overflow-y-auto">
           {breakdown ? (
             <>
               <DialogHeader>
-                <DialogTitle className="text-zinc-100">
+                <DialogTitle className="text-[var(--gp-text)]">
                   {breakdown.topic} — revision breakdown
                 </DialogTitle>
                 <DialogDescription>
                   Most revisited problems in this topic ({breakdown.totalRevisions}{" "}
                   repeat solves across {breakdown.uniqueProblems} problems).
                 </DialogDescription>
-                <p className="text-xs text-zinc-600">
-                  <span className="text-zinc-400">Memory strength</span> is derived
+                <p className="text-xs text-[var(--gp-text-faint)]">
+                  <span className="text-[var(--gp-text-muted)]">Memory strength</span> is derived
                   from your logs (not stored manually): average confidence, repeat
                   solve count, and days since last solve. Higher % = stronger
                   retention signal.
@@ -121,23 +125,28 @@ export function TopicRetentionAnalytics({
                   .map((problem) => (
                     <li
                       key={problem.identityKey}
-                      className="rounded-lg border border-zinc-800/80 bg-zinc-900/50 px-3 py-3"
+                      className="rounded-lg border px-3 py-3"
+                      style={{
+                        borderColor: "var(--gp-border)",
+                        backgroundColor: "var(--gp-surface)",
+                      }}
                     >
-                      <p className="font-medium text-zinc-100">{problem.title}</p>
-                      <p className="mt-0.5 text-xs text-zinc-500">
+                      <p className="font-medium text-[var(--gp-text)]">{problem.title}</p>
+                      <p className="mt-0.5 text-xs text-[var(--gp-text-faint)]">
                         {problem.revisionCount} revision
                         {problem.revisionCount === 1 ? "" : "s"} ·{" "}
                         {problem.solveCount} solves · {problem.recallStrength}%
                         memory strength
                       </p>
-                      <p className="mt-2 text-[10px] font-medium uppercase tracking-wide text-zinc-600">
+                      <p className="mt-2 text-[10px] font-medium uppercase tracking-wide text-[var(--gp-text-faint)]">
                         Solve history
                       </p>
                       <div className="mt-1 flex flex-wrap gap-1.5">
                         {problem.solves.map((solve) => (
                           <span
                             key={solve.id}
-                            className="rounded-md border border-zinc-800 px-2 py-0.5 text-[10px] text-zinc-400"
+                            className="rounded-md border px-2 py-0.5 text-[10px] text-[var(--gp-text-muted)]"
+                            style={{ borderColor: "var(--gp-border)" }}
                           >
                             {format(new Date(solve.solvedAt), "MMM d, yyyy")}
                             {solve.confidence
@@ -149,7 +158,7 @@ export function TopicRetentionAnalytics({
                     </li>
                   ))}
                 {breakdown.problems.every((p) => p.revisionCount === 0) ? (
-                  <p className="text-sm text-zinc-500">
+                  <p className="text-sm text-[var(--gp-text-muted)]">
                     No repeat solves in this topic yet.
                   </p>
                 ) : null}

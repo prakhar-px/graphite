@@ -13,18 +13,19 @@ export default function SettingsPage() {
         <AiSettingsPanel />
 
         <PremiumCard>
-          <h3 className="font-semibold text-zinc-100">Focus Mode</h3>
-          <p className="mt-2 text-sm text-zinc-400">
+          <h3 className="font-semibold text-[var(--gp-text)]">Focus Mode</h3>
+          <p className="mt-2 text-sm text-[var(--gp-text-muted)]">
             Toggle from the sidebar (bottom-left). When on, the dashboard shows
             only the cockpit and daily focus blocks.
           </p>
         </PremiumCard>
 
         <PremiumCard>
-          <h3 className="font-semibold text-zinc-100">Coming in Phase 2</h3>
-          <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-zinc-400">
-            <li>Light theme</li>
-          </ul>
+          <h3 className="font-semibold text-[var(--gp-text)]">Theme</h3>
+          <p className="mt-2 text-sm text-[var(--gp-text-muted)]">
+            Toggle between dark and light mode using the sun/moon button in the
+            top navigation bar. Your preference is saved locally.
+          </p>
         </PremiumCard>
       </div>
     </Shell>

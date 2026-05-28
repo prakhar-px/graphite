@@ -34,7 +34,7 @@ export function DataPanels() {
     <div className="max-w-2xl space-y-4">
       {seedMismatch ? (
         <PremiumCard className="border-amber-500/40 bg-amber-500/10">
-          <p className="text-sm text-amber-100">
+          <p className="text-sm text-amber-800 dark:text-amber-100">
             Roadmap data changed (Excel re-parsed). Your saved progress may not
             match the new plan. Export a backup if needed, or reset progress.
           </p>
@@ -51,8 +51,8 @@ export function DataPanels() {
       ) : null}
 
       <PremiumCard>
-        <h3 className="font-semibold text-zinc-100">Progress backup (V1.2)</h3>
-        <p className="mt-2 text-sm text-zinc-400">
+        <h3 className="font-semibold text-[var(--gp-text)]">Progress backup (V1.2)</h3>
+        <p className="mt-2 text-sm text-[var(--gp-text-muted)]">
           Planner status, LeetCode problem log, tasks, and preferences are saved
           in your browser. Export before switching Excel files or clearing site
           data.
@@ -74,7 +74,7 @@ export function DataPanels() {
             type="button"
             size="sm"
             variant="outline"
-            className="border-red-800/50 text-red-400 hover:border-red-500/80 hover:bg-red-950/30"
+            className="border-red-500/40 text-red-600 dark:text-red-400 hover:border-red-500/70 hover:bg-red-500/10"
             title="Wipe planner state back to the original roadmap"
             onClick={() => {
               if (
@@ -98,17 +98,17 @@ export function DataPanels() {
           onChange={(e) => handleImport(e.target.files?.[0])}
         />
         {message ? (
-          <p className="mt-3 text-sm text-zinc-400">{message}</p>
+          <p className="mt-3 text-sm text-[var(--gp-text-muted)]">{message}</p>
         ) : null}
       </PremiumCard>
 
       <LeetCodePanel />
 
       <PremiumCard>
-        <h3 className="font-semibold text-zinc-100">Excel sources</h3>
-        <p className="mt-2 text-sm text-zinc-400">
+        <h3 className="font-semibold text-[var(--gp-text)]">Excel sources</h3>
+        <p className="mt-2 text-sm text-[var(--gp-text-muted)]">
           Active:{" "}
-          <span className="text-zinc-200">
+          <span className="text-[var(--gp-text)]">
             {active.label} ({meta.sourceFile})
           </span>
           {meta.parsedAt ? (
@@ -119,21 +119,34 @@ export function DataPanels() {
             </>
           ) : null}
         </p>
-        <ul className="mt-3 space-y-2 text-sm text-zinc-400">
+        <ul className="mt-3 space-y-2 text-sm text-[var(--gp-text-muted)]">
           {Object.entries(EXCEL_SOURCES).map(([key, source]) => (
             <li key={key}>
-              <code className="rounded bg-zinc-800 px-1 font-mono text-xs">
+              <code
+                className="rounded px-1 font-mono text-xs text-[var(--gp-text)]"
+                style={{ backgroundColor: "var(--gp-surface-raised)" }}
+              >
                 npm run excel:{key}
               </code>{" "}
               — {source.label}
             </li>
           ))}
         </ul>
-        <p className="mt-4 text-xs text-zinc-500">
+        <p className="mt-4 text-xs text-[var(--gp-text-faint)]">
           After switching, restart{" "}
-          <code className="rounded bg-zinc-800 px-1">npm run dev</code> and
-          refresh. Config file:{" "}
-          <code className="rounded bg-zinc-800 px-1">excel.config.json</code>
+          <code
+            className="rounded px-1 font-mono text-[var(--gp-text)]"
+            style={{ backgroundColor: "var(--gp-surface-raised)" }}
+          >
+            npm run dev
+          </code>{" "}
+          and refresh. Config file:{" "}
+          <code
+            className="rounded px-1 font-mono text-[var(--gp-text)]"
+            style={{ backgroundColor: "var(--gp-surface-raised)" }}
+          >
+            excel.config.json
+          </code>
         </p>
       </PremiumCard>
     </div>

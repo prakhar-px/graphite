@@ -27,16 +27,19 @@ export function RevisionReinforcementQueue({
   return (
     <PremiumCard>
       <div className="mb-4">
-        <h3 className="text-lg font-semibold text-zinc-100">
+        <h3 className="text-lg font-semibold text-[var(--gp-text)]">
           Needs reinforcement
         </h3>
-        <p className="text-sm text-zinc-500">
+        <p className="text-sm text-[var(--gp-text-muted)]">
           Derived from solve history — low recall, long gaps, single passes, or
           flags
         </p>
       </div>
       {queue.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-zinc-800 px-4 py-6 text-center text-sm text-zinc-500">
+        <p
+          className="rounded-xl border border-dashed px-4 py-6 text-center text-sm text-[var(--gp-text-muted)]"
+          style={{ borderColor: "var(--gp-border)" }}
+        >
           No problems need reinforcement right now. Re-solve any problem on a
           later day to build revision telemetry.
         </p>
@@ -45,35 +48,36 @@ export function RevisionReinforcementQueue({
           {queue.map((problem) => (
             <li
               key={problem.identityKey}
-              className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-zinc-800/80 bg-zinc-950/50 px-4 py-3"
+              className="flex flex-wrap items-center justify-between gap-2 rounded-xl border px-4 py-3"
+              style={{
+                borderColor: "var(--gp-border)",
+                backgroundColor: "var(--gp-surface)",
+              }}
             >
               <div>
-                <p className="font-medium text-zinc-100">{problem.title}</p>
-                <p className="text-xs text-zinc-500">
+                <p className="font-medium text-[var(--gp-text)]">{problem.title}</p>
+                <p className="text-xs text-[var(--gp-text-faint)]">
                   {problem.parentTopic}
                   {problem.difficulty
                     ? ` · ${formatDifficulty(problem.difficulty)}`
                     : ""}
                 </p>
-                <p className="mt-0.5 text-xs text-amber-200/90">
+                <p className="mt-0.5 text-xs text-amber-600 dark:text-amber-200/90">
                   {reinforcementReason(problem)}
                 </p>
-                <span className="mt-1 inline-block rounded-md bg-zinc-800/60 px-1.5 py-0.5 text-[10px] text-zinc-400">
-                  {problem.solveCount} solve{problem.solveCount === 1 ? "" : "s"}
-                </span>
               </div>
-              <div className="flex flex-wrap items-center gap-2">
-                {problem.revisionPending ? (
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-sm text-[var(--gp-text)]">
+                  {problem.recallStrength}%
+                </span>
+                {problem.difficulty ? (
                   <Badge
                     variant="outline"
-                    className="border-amber-500/40 text-amber-300"
+                    className="text-[10px]"
                   >
-                    Flagged
+                    {formatDifficulty(problem.difficulty)}
                   </Badge>
                 ) : null}
-                <span className="font-mono text-xs text-zinc-500">
-                  {problem.recallStrength}% memory
-                </span>
               </div>
             </li>
           ))}
