@@ -68,7 +68,7 @@ export function TopicDistributionCanvas() {
                 color: "#FAFAFA",
               }}
             />
-            <Bar dataKey="target" fill="#22C55E" radius={[6, 6, 0, 0]} />
+            <Bar dataKey="solved" fill="#22C55E" radius={[6, 6, 0, 0]} name="solved" />
           </BarChart>
         </ResponsiveContainer>
       </div>

@@ -155,6 +155,8 @@ export interface RevisionTopicGroup {
   uniqueProblems: number;
   totalRevisions: number;
   revisionPending: number;
+  overdueRevisions: number;
+  lastActivityDays: number;
 }
 
 function resolveParentTopic(problem: ProblemLog): string {
@@ -265,6 +267,8 @@ export function buildRevisionTopicGroups(
       uniqueProblems: items.length,
       totalRevisions: items.reduce((sum, p) => sum + p.revisionCount, 0),
       revisionPending: items.filter((p) => p.revisionPending).length,
+      overdueRevisions: items.filter((p) => p.isOverdue).length,
+      lastActivityDays: Math.min(...items.map((p) => p.daysSinceLastSolve)),
     }))
     .sort((a, b) => b.totalRevisions - a.totalRevisions);
 }

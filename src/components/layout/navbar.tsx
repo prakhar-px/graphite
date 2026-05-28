@@ -14,6 +14,10 @@ import {
   useUserSnapshot,
 } from "@/store/app-store";
 import { Sidebar } from "./sidebar";
+import { UserMenu } from "@/components/auth/user-menu";
+import { SyncIndicator } from "@/components/sync/sync-indicator";
+import { triggerAuthOverlay } from "@/components/auth/auth-gate";
+import { useAuth } from "@/hooks/use-auth";
 
 interface NavbarProps {
   title?: string;
@@ -28,6 +32,7 @@ export function Navbar({
   const headerRef = useRef<HTMLElement>(null);
   const [query, setQuery] = useState("");
 
+  const { user: authUser } = useAuth();
   const snapshot = useUserSnapshot();
   const dayStatuses = snapshot.dayStatuses;
   const setCommandOpen = useAppStore((s) => s.setCommandOpen);
@@ -292,6 +297,22 @@ export function Navbar({
             </div>
           ) : null}
         </div>
+
+        <div className="hidden md:flex items-center gap-2 mr-2">
+          <SyncIndicator />
+        </div>
+
+        {authUser ? (
+          <UserMenu />
+        ) : (
+          <button
+            type="button"
+            onClick={() => triggerAuthOverlay()}
+            className="hidden md:inline-flex items-center rounded-lg border border-zinc-800 px-3 py-1.5 text-xs font-medium text-zinc-300 hover:bg-zinc-900 transition-colors"
+          >
+            Sign In
+          </button>
+        )}
 
         <Button
           type="button"

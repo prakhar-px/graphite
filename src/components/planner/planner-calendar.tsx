@@ -4,7 +4,6 @@ import { useMemo } from "react";
 import { dailyPlan } from "@/lib/data";
 import { useAppStore } from "@/store/app-store";
 import { cn } from "@/lib/utils";
-import { PremiumCard } from "@/components/ui/premium-card";
 import { getMissionWorkloadLabel } from "@/engines/planner/mission";
 import { isMissionPastDue } from "@/engines/planner/selectors";
 
@@ -16,7 +15,10 @@ interface PlannerCalendarProps {
 function groupByWeek(plan: typeof dailyPlan) {
   const weeks: { weekIndex: number; days: typeof plan }[] = [];
   for (let i = 0; i < plan.length; i += 7) {
-    weeks.push({ weekIndex: Math.floor(i / 7) + 1, days: plan.slice(i, i + 7) });
+    weeks.push({
+      weekIndex: Math.floor(i / 7) + 1,
+      days: plan.slice(i, i + 7),
+    });
   }
   return weeks;
 }
@@ -38,8 +40,10 @@ export function PlannerCalendar({
   }
 
   return (
-    <PremiumCard className="h-full">
-      <h3 className="mb-1 text-lg font-semibold text-zinc-100">70-Day Sprint</h3>
+    <div className="h-full rounded-lg border border-zinc-800 bg-zinc-950/50 p-4 shadow-md">
+      <h3 className="mb-1 text-lg font-semibold text-zinc-100">
+        70-Day Sprint
+      </h3>
       <p className="mb-4 text-xs text-zinc-500">
         Each square is one study mission — not a single problem.
       </p>
@@ -76,9 +80,12 @@ export function PlannerCalendar({
                           ? "border-violet-500 bg-violet-600/20 shadow-[0_0_20px_rgba(124,58,237,0.2)]"
                           : "border-zinc-800 bg-zinc-950/50 hover:border-zinc-600",
                         isWeekend && "bg-indigo-950/20",
-                        status === "completed" && "border-emerald-500/40 bg-emerald-950/10",
+                        status === "completed" &&
+                          "border-emerald-500/40 bg-emerald-950/10",
                         status === "in-progress" && "border-blue-500/40",
-                        pastDue && status !== "completed" && "border-amber-500/30"
+                        pastDue &&
+                          status !== "completed" &&
+                          "border-amber-500/30",
                       )}
                     >
                       <span className="font-mono text-[10px] text-zinc-500">
@@ -92,7 +99,7 @@ export function PlannerCalendar({
                           "mt-0.5 h-1.5 w-1.5 rounded-full",
                           status === "completed" && "bg-emerald-400",
                           status === "in-progress" && "bg-blue-400",
-                          status === "pending" && "bg-zinc-600"
+                          status === "pending" && "bg-zinc-600",
                         )}
                       />
                       {isWeekend ? (
@@ -108,6 +115,6 @@ export function PlannerCalendar({
           );
         })}
       </div>
-    </PremiumCard>
+    </div>
   );
 }

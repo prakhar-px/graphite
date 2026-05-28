@@ -127,6 +127,7 @@ export function StatsGrid() {
                     <p className="text-xs text-zinc-500">{stat.label}</p>
                     <p
                       className={`mt-2 text-2xl font-bold text-zinc-100 ${stat.key === "topic" ? "" : "font-mono"}`}
+                      title={stat.key === "focus" ? "Based on mission completion, average confidence, and revision consistency." : undefined}
                     >
                       {stat.value}
                       {"suffix" in stat && stat.suffix ? (

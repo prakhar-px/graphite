@@ -6,6 +6,8 @@ import { Code2, Sparkles, Target, User } from "lucide-react";
 import { mainNav } from "@/config/navigation";
 import { cn } from "@/lib/utils";
 import { useAppStore } from "@/store/app-store";
+import { useAuth } from "@/hooks/use-auth";
+import { useSync } from "@/hooks/use-sync";
 
 interface SidebarProps {
   className?: string;
@@ -15,6 +17,12 @@ export function Sidebar({ className }: SidebarProps) {
   const pathname = usePathname();
   const focusMode = useAppStore((state) => state.focusMode);
   const toggleFocusMode = useAppStore((state) => state.toggleFocusMode);
+  const { user } = useAuth();
+  const { syncStatus } = useSync();
+
+  const userName = user?.user_metadata?.full_name ?? user?.email?.split("@")[0] ?? null;
+  const avatarUrl = user?.user_metadata?.avatar_url ?? null;
+  const isSynced = syncStatus === "syncing" ? "Syncing..." : syncStatus === "error" ? "Sync error" : "Synced";
 
   return (
     <aside
@@ -87,12 +95,23 @@ export function Sidebar({ className }: SidebarProps) {
           GitHub
         </a>
         <div className="flex items-center gap-3 rounded-xl px-3 py-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-800 text-zinc-400">
-            <User className="h-4 w-4" />
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-800 text-zinc-400 shrink-0 overflow-hidden">
+            {avatarUrl ? (
+              <img src={avatarUrl} alt="" className="h-full w-full object-cover" />
+            ) : (
+              <User className="h-4 w-4" />
+            )}
           </div>
-          <div>
-            <p className="text-sm text-zinc-200">Engineer</p>
-            <p className="text-xs text-zinc-500">Elite Mode</p>
+          <div className="min-w-0">
+            <p className="text-sm text-zinc-200 truncate">
+              {userName || "Guest Mode"}
+            </p>
+            <p className="text-xs text-zinc-500">
+              {user
+                ? (syncStatus === "syncing" ? "Syncing..." :
+                   syncStatus === "error" ? "Sync error" : `Synced`)
+                : "Local-only persistence"}
+            </p>
           </div>
         </div>
       </div>

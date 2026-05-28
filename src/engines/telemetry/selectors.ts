@@ -11,6 +11,9 @@ import {
 } from "@/engines/problems/helpers";
 import type { ProblemLog } from "@/engines/problems/types";
 import type { WeeklyProgressPoint } from "@/types";
+import {
+  buildRevisionTopicGroups,
+} from "@/engines/revision/selectors";
 
 export {
   getAverageProblemConfidence,
@@ -262,4 +265,88 @@ export function getPlanTopicMetrics(): PlanTopicMetrics[] {
   }
 
   return [...map.values()].sort((a, b) => b.totalDays - a.totalDays);
+}
+
+// ── Intelligence widgets (preparation intelligence, not raw telemetry) ──
+
+export interface WeakRecallTopic {
+  topic: string;
+  recallPercent: number;
+  problemCount: number;
+  overdueCount: number;
+}
+
+export function getWeakRecallTopics(snapshot: UserSnapshot): WeakRecallTopic[] {
+  const groups = buildRevisionTopicGroups(snapshot);
+  return groups
+    .filter((g) => g.confidence > 0 && g.confidence < 60)
+    .map((g) => ({
+      topic: g.topic,
+      recallPercent: g.confidence,
+      problemCount: g.uniqueProblems,
+      overdueCount: g.overdueRevisions,
+    }))
+    .sort((a, b) => a.recallPercent - b.recallPercent)
+    .slice(0, 5);
+}
+
+export interface TopicFreshness {
+  topic: string;
+  daysSinceLastSolve: number;
+  problemCount: number;
+  freshness: "fresh" | "fading" | "stale";
+}
+
+export function getTopicFreshness(snapshot: UserSnapshot): TopicFreshness[] {
+  const groups = buildRevisionTopicGroups(snapshot);
+  return groups
+    .filter((g) => g.uniqueProblems > 0)
+    .map((g) => ({
+      topic: g.topic,
+      daysSinceLastSolve: g.lastActivityDays,
+      problemCount: g.uniqueProblems,
+      freshness: g.lastActivityDays <= 7 ? "fresh" as const
+        : g.lastActivityDays <= 21 ? "fading" as const
+        : "stale" as const,
+    }))
+    .sort((a, b) => b.daysSinceLastSolve - a.daysSinceLastSolve);
+}
+
+export interface PreparationBalance {
+  topic: string;
+  planDays: number;
+  solvedCount: number;
+  ratio: number;
+  imbalance: "overfocused" | "underprepared" | "on-track";
+}
+
+export function getPreparationBalance(snapshot: UserSnapshot): PreparationBalance[] {
+  const planTopics = getPlanTopicMetrics();
+  const topicCounts = new Map<string, number>();
+  for (const p of snapshot.solvedProblems) {
+    const tags = p.topics ?? p.topicTags ?? [];
+    const count = typeof p.solvedCount === "number" ? p.solvedCount : 1;
+    for (const t of tags) {
+      const key = t.trim();
+      if (key) topicCounts.set(key, (topicCounts.get(key) ?? 0) + count);
+    }
+  }
+
+  return planTopics
+    .map((pt) => {
+      const solved = topicCounts.get(pt.topic) ?? 0;
+      const planTarget = pt.recommendedSolves;
+      const ratio = planTarget > 0 ? solved / planTarget : 0;
+      return {
+        topic: pt.topic,
+        planDays: pt.totalDays,
+        solvedCount: solved,
+        ratio: Math.round(ratio * 100) / 100,
+        imbalance: ratio > 1.5 ? "overfocused" as const
+          : ratio < 0.5 ? "underprepared" as const
+          : "on-track" as const,
+      };
+    })
+    .filter((t) => t.solvedCount > 0 || t.ratio < 0.5)
+    .sort((a, b) => a.ratio - b.ratio);
 }

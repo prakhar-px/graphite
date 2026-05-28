@@ -47,11 +47,11 @@ export function getDashboardStats(snapshot: UserSnapshot) {
   const focusScore = Math.min(
     99,
     Math.round(
-      completedDays * 4 +
-        averageConfidence * 0.25 +
-        revisionCycles * 1.5 +
-        uniqueTracked * 0.4 +
-        streak * 2
+      (completion / 100) * 30 +
+        (averageConfidence / 100) * 25 +
+        Math.min(streak / 10, 1) * 20 +
+        Math.min(weeklySolved / 20, 1) * 15 +
+        Math.min(averageConfidence > 50 ? 1 : averageConfidence / 100, 1) * 10
     )
   );
 

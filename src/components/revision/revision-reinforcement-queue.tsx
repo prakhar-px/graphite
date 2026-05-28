@@ -58,6 +58,9 @@ export function RevisionReinforcementQueue({
                 <p className="mt-0.5 text-xs text-amber-200/90">
                   {reinforcementReason(problem)}
                 </p>
+                <span className="mt-1 inline-block rounded-md bg-zinc-800/60 px-1.5 py-0.5 text-[10px] text-zinc-400">
+                  {problem.solveCount} solve{problem.solveCount === 1 ? "" : "s"}
+                </span>
               </div>
               <div className="flex flex-wrap items-center gap-2">
                 {problem.revisionPending ? (

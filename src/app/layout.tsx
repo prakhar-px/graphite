@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { AuthGate } from "@/components/auth/auth-gate";
+import { SyncManager } from "@/components/sync/sync-manager";
 import "./globals.css";
 
 const inter = Inter({
@@ -29,7 +31,12 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} min-h-screen bg-[#09090B] font-sans text-zinc-100 antialiased`}
       >
-        <TooltipProvider>{children}</TooltipProvider>
+        <TooltipProvider>
+          <AuthGate>
+            {children}
+            <SyncManager />
+          </AuthGate>
+        </TooltipProvider>
       </body>
     </html>
   );

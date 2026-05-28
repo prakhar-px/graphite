@@ -4,9 +4,9 @@ import { Hero } from "@/components/dashboard/hero";
 import { StatsGrid } from "@/components/dashboard/stats-grid";
 import { WeeklyChart } from "@/components/dashboard/weekly-chart";
 import { DailyFocus } from "@/components/dashboard/daily-focus";
-import { TopicDistributionChart } from "@/components/dashboard/topic-distribution-chart";
 import { RevisionHeatmap } from "@/components/dashboard/revision-heatmap";
 import { AiInsightCard } from "@/components/dashboard/ai-insight-card";
+import { PrepIntelligenceGrid } from "@/components/dashboard/prep-intelligence/prep-intelligence-grid";
 import { useAppStore } from "@/store/app-store";
 
 export function DashboardView() {
@@ -31,8 +31,8 @@ export function DashboardView() {
         <DailyFocus />
       </div>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <TopicDistributionChart />
+      <div className="grid grid-cols-1 gap-6 items-start lg:grid-cols-2">
+        <PrepIntelligenceGrid />
         <RevisionHeatmap />
       </div>
 

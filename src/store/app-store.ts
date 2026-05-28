@@ -43,6 +43,14 @@ import type {
   ProblemSource,
   SolvedProblem,
 } from "@/types/problem-log";
+import { syncQueue } from "@/lib/sync/sync-queue";
+import {
+  pullFromCloud as fetchCloudState,
+  pushFullState as uploadFullState,
+  setSyncStatus,
+} from "@/lib/sync/sync-engine";
+import { mergeStates } from "@/lib/sync/conflict-resolver";
+import type { SyncStatus } from "@/lib/sync/sync-engine";
 
 type AppNotification = {
   id: string;
@@ -122,6 +130,10 @@ interface AppState extends PersistedUserState {
   ) => { ok: boolean; message: string };
   removeSolvedProblem: (id: string) => void;
   syncLeetCodeSubmissions: (limit?: number) => Promise<{ ok: boolean; message: string }>;
+  syncStatus: SyncStatus;
+  lastSyncedAt: string | null;
+  pullFromCloud: () => Promise<boolean>;
+  pushFullState: () => Promise<void>;
 }
 
 const initialDayStatuses = Object.fromEntries(
@@ -177,6 +189,8 @@ function createInitialState(): Omit<
   | "addSolvedProblem"
   | "removeSolvedProblem"
   | "syncLeetCodeSubmissions"
+  | "pullFromCloud"
+  | "pushFullState"
 > {
   const snapshot = {
     dayStatuses: initialDayStatuses,
@@ -199,6 +213,8 @@ function createInitialState(): Omit<
     commandOpen: false,
     searchOpen: false,
     notificationOpen: false,
+    syncStatus: "idle",
+    lastSyncedAt: null,
   };
 }
 
@@ -213,6 +229,7 @@ export const useAppStore = create<AppState>()(
             ? state.completedTasks.filter((id) => id !== taskId)
             : [...state.completedTasks, taskId];
           const snapshot = snapshotFromState({ ...state, completedTasks });
+          syncQueue.enqueue({ type: "update_profile", patch: { completedTasks } });
           return { completedTasks, ...deriveFromSnapshot(snapshot) };
         }),
 
@@ -220,6 +237,7 @@ export const useAppStore = create<AppState>()(
         set((state) => {
           const dayStatuses = { ...state.dayStatuses, [day]: status };
           const snapshot = snapshotFromState({ ...state, dayStatuses });
+          syncQueue.enqueue({ type: "upsert_day", day, status });
           return { dayStatuses, ...deriveFromSnapshot(snapshot) };
         }),
 
@@ -228,14 +246,27 @@ export const useAppStore = create<AppState>()(
         set(deriveFromSnapshot(snapshotFromState(state)));
       },
 
-      setActiveTopic: (topic) => set({ activeTopic: topic }),
+      setActiveTopic: (topic) => {
+        set({ activeTopic: topic });
+        syncQueue.enqueue({ type: "update_profile", patch: { activeTopic: topic } });
+      },
 
       toggleFocusMode: () =>
-        set((state) => ({ focusMode: !state.focusMode })),
+        set((state) => {
+          const focusMode = !state.focusMode;
+          syncQueue.enqueue({ type: "update_profile", patch: { focusMode } });
+          return { focusMode };
+        }),
 
-      setFocusMode: (enabled) => set({ focusMode: enabled }),
+      setFocusMode: (enabled) => {
+        set({ focusMode: enabled });
+        syncQueue.enqueue({ type: "update_profile", patch: { focusMode: enabled } });
+      },
 
-      setPlannerSelectedDay: (day) => set({ plannerSelectedDay: day }),
+      setPlannerSelectedDay: (day) => {
+        set({ plannerSelectedDay: day });
+        syncQueue.enqueue({ type: "update_profile", patch: { plannerSelectedDay: day } });
+      },
 
       markNotificationRead: (id) =>
         set((state) => ({
@@ -255,12 +286,17 @@ export const useAppStore = create<AppState>()(
       setSearchOpen: (open) => set({ searchOpen: open }),
       setNotificationOpen: (open) => set({ notificationOpen: open }),
 
-      setLeetcodeUsername: (username) => set({ leetcodeUsername: username.trim() }),
+      setLeetcodeUsername: (username) => {
+        const leetcodeUsername = username.trim();
+        set({ leetcodeUsername });
+        syncQueue.enqueue({ type: "update_profile", patch: { leetcodeUsername } });
+      },
 
       addProblemLog: (entry) =>
         set((state) => {
           const problemLog = [entry, ...state.problemLog];
           const snapshot = snapshotFromState({ ...state, problemLog });
+          syncQueue.enqueue({ type: "upsert_problem", problem: entry });
           return { problemLog, ...deriveFromSnapshot(snapshot) };
         }),
 
@@ -281,6 +317,7 @@ export const useAppStore = create<AppState>()(
           });
           const problemLog = [entry, ...state.problemLog];
           const snapshot = snapshotFromState({ ...state, problemLog });
+          syncQueue.enqueue({ type: "upsert_problem", problem: entry });
           return { problemLog, ...deriveFromSnapshot(snapshot) };
         }),
 
@@ -298,6 +335,7 @@ export const useAppStore = create<AppState>()(
         const problemLog = [entry, ...state.problemLog];
         const snapshot = snapshotFromState({ ...state, problemLog });
         set({ problemLog, ...deriveFromSnapshot(snapshot) });
+        syncQueue.enqueue({ type: "upsert_problem", problem: entry });
         return { ok: true, message: `Logged ${title}.` };
       },
 
@@ -309,6 +347,8 @@ export const useAppStore = create<AppState>()(
           const logs = buildMissionCompletionLogs(planDay, entries);
           const problemLog = mergeMissionLogs(state.problemLog, day, logs);
           const snapshot = snapshotFromState({ ...state, dayStatuses, problemLog });
+          syncQueue.enqueue({ type: "upsert_day", day, status: "completed" });
+          for (const log of logs) syncQueue.enqueue({ type: "upsert_problem", problem: log });
           return { dayStatuses, problemLog, ...deriveFromSnapshot(snapshot) };
         }),
 
@@ -320,6 +360,8 @@ export const useAppStore = create<AppState>()(
           const logs = buildMissionCompletionLogs(planDay, entries);
           const problemLog = mergeMissionLogs(state.problemLog, day, logs);
           const snapshot = snapshotFromState({ ...state, dayStatuses, problemLog });
+          syncQueue.enqueue({ type: "upsert_day", day, status: "completed" });
+          for (const log of logs) syncQueue.enqueue({ type: "upsert_problem", problem: log });
           return { dayStatuses, problemLog, ...deriveFromSnapshot(snapshot) };
         }),
 
@@ -351,6 +393,7 @@ export const useAppStore = create<AppState>()(
         const problemLog = [entry, ...state.problemLog];
         const snapshot = snapshotFromState({ ...state, problemLog });
         set({ problemLog, ...deriveFromSnapshot(snapshot) });
+        syncQueue.enqueue({ type: "upsert_problem", problem: entry });
         return { ok: true, message: `Logged ${meta.title}.` };
       },
 
@@ -358,6 +401,7 @@ export const useAppStore = create<AppState>()(
         set((state) => {
           const problemLog = state.problemLog.filter((p) => p.id !== id);
           const snapshot = snapshotFromState({ ...state, problemLog });
+          syncQueue.enqueue({ type: "delete_problem", id });
           return { problemLog, ...deriveFromSnapshot(snapshot) };
         }),
 
@@ -456,6 +500,7 @@ export const useAppStore = create<AppState>()(
             lastDataSeedId: currentSeedId,
             seedMismatch: parsed.lastDataSeedId !== currentSeedId,
           });
+          get().pushFullState();
           return { ok: true, message: "Progress restored successfully." };
         } catch {
           return { ok: false, message: "Could not read the file." };
@@ -465,10 +510,72 @@ export const useAppStore = create<AppState>()(
       resetProgress: () => {
         const fresh = createInitialState();
         set({ ...fresh, lastDataSeedId: currentSeedId });
+        get().pushFullState();
       },
 
-      acknowledgeSeed: () =>
-        set({ seedMismatch: false, lastDataSeedId: currentSeedId }),
+      acknowledgeSeed: () => {
+        set({ seedMismatch: false, lastDataSeedId: currentSeedId });
+        syncQueue.enqueue({ type: "update_profile", patch: { lastDataSeedId: currentSeedId } });
+      },
+
+      pullFromCloud: async () => {
+        const supabase = (await import("@/lib/supabase/client")).getSupabaseClient();
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return false;
+        setSyncStatus("syncing");
+        set({ syncStatus: "syncing" });
+
+        const cloudState = await fetchCloudState(user.id);
+        if (!cloudState) {
+          setSyncStatus("idle");
+          set({ syncStatus: "idle" });
+          return false;
+        }
+
+        const current = get();
+        const local: PersistedUserState = {
+          dayStatuses: current.dayStatuses,
+          completedTasks: current.completedTasks,
+          problemLog: current.problemLog,
+          leetcodeUsername: current.leetcodeUsername,
+          activeTopic: current.activeTopic,
+          focusMode: current.focusMode,
+          plannerSelectedDay: current.plannerSelectedDay,
+          readNotifications: current.readNotifications,
+          lastDataSeedId: current.lastDataSeedId,
+        };
+
+        const merged = mergeStates(local, cloudState);
+        const snapshot = snapshotFromState(merged);
+        setSyncStatus("idle");
+        set({
+          ...merged,
+          ...deriveFromSnapshot(snapshot),
+          lastSyncedAt: new Date().toISOString(),
+          syncStatus: "idle",
+        });
+        return true;
+      },
+
+      pushFullState: async () => {
+        const current = get();
+        const state: PersistedUserState = {
+          dayStatuses: current.dayStatuses,
+          completedTasks: current.completedTasks,
+          problemLog: current.problemLog,
+          leetcodeUsername: current.leetcodeUsername,
+          activeTopic: current.activeTopic,
+          focusMode: current.focusMode,
+          plannerSelectedDay: current.plannerSelectedDay,
+          readNotifications: current.readNotifications,
+          lastDataSeedId: current.lastDataSeedId,
+        };
+        setSyncStatus("syncing");
+        set({ syncStatus: "syncing" });
+        await uploadFullState(state);
+        setSyncStatus("idle");
+        set({ syncStatus: "idle", lastSyncedAt: new Date().toISOString() });
+      },
     }),
     {
       name: GRAPHITE_STORAGE_KEY,

@@ -34,7 +34,7 @@ export default function RevisionPage() {
           <h2 className="text-sm font-medium uppercase tracking-wide text-zinc-500">
             Intelligence summary
           </h2>
-          <RevisionIntelligenceSummary summary={summary} />
+          <RevisionIntelligenceSummary summary={summary} problems={problems} />
         </section>
 
         <section>

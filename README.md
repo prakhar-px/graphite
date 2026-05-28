@@ -1,13 +1,16 @@
 # Graphite — FAANG DSA Mission Control
 
-Premium developer productivity dashboard for structured FAANG / Microsoft DSA interview preparation. Tracks a 70-day study plan with per-day missions, problem logging (manual + LeetCode sync), revision intelligence, confidence tracking, and AI coaching.
+Premium developer productivity dashboard for structured FAANG / Microsoft DSA interview preparation. Tracks a 70-day study plan with per-day missions, problem logging (manual + LeetCode telemetry import), revision intelligence, confidence tracking, AI coaching, and multi-device cloud sync.
 
 ## Stack
 
 - **Next.js 16** (App Router) + **TypeScript 5**
 - **Tailwind CSS 4** + **shadcn/ui** + **Framer Motion**
 - **Zustand** (localStorage persistence) + **Recharts**
-- **Google Gemini** (AI coach) + **LeetCode GraphQL API** (submission sync)
+- **Google Gemini** (AI coach)
+- **LeetCode GraphQL + Alfa API** (submission sync & full telemetry scan)
+- **Supabase** (auth + cloud sync — pull-on-focus)
+- **Google OAuth** (sign-in)
 
 ## Quick Start
 
@@ -25,10 +28,10 @@ Excel  ──►  scripts/parse-excel.ts  ──►  src/data/*.json  (70-day pl
                     ▼
          src/engines/*/selectors.ts   Business logic (telemetry, analytics, revision, topics)
                     │
-         ┌──────────┼──────────┐
-         ▼          ▼          ▼
-   Zustand      Components     AI Coach
-(localStorage)  (React 19)   (Gemini API)
+         ┌──────────┼──────────┬──────────┐
+         ▼          ▼          ▼          ▼
+   Zustand      Components     AI Coach   Supabase
+(localStorage)  (React 19)   (Gemini)   (cloud sync)
 ```
 
 ### Engines
@@ -75,16 +78,16 @@ The roadmap is authored in Excel and parsed to JSON:
 | `/mistakes` | Mistake log with category stats |
 | `/companies` | Company-specific prep tracking |
 | `/coach` | AI coach powered by Gemini (your telemetry as context) |
-| `/settings` | LeetCode username, backup export/import, Excel info |
+| `/settings` | Sync status, LeetCode telemetry import, backup export/import, Excel sources |
 
 ## Features
 
-- **70-day structured sprint** — weekday (1 core problem) and weekend (3 problems, mixed session) missions
-- **Week-grouped calendar** — weekly completion progress, weekend indicators
+- **70-day structured sprint** — weekday (1 core problem) and weekend (3 problems, mixed session) missions with week-grouped calendar
 - **Confidence logging** — rate per-problem confidence (Low/Med/High + slider) on mission completion
-- **LeetCode sync** — auto-import accepted submissions from your LeetCode profile
-- **Revision intelligence** — recall strength, spaced repetition signals, reinforcement queue
-- **AI coach** — Gemini-powered contextual advice based on your progress and telemetry
+- **LeetCode telemetry import** — full accepted submission history scan via Alfa API; detects repeated solves (2×, 3× problems) and long-term revision gaps (90d+); imports as timestamped solve events that feed directly into memory strength and recall analytics
+- **Revision intelligence** — recall strength score, spaced repetition signals, reinforcement queue sorted by revision priority
+- **Cloud sync** — Supabase-backed (pull-on-focus, push-on-action); Google OAuth sign-in with guest mode fallback
+- **AI coach** — Gemini-powered contextual advice based on full analytics snapshot and problem telemetry
 - **Telemetry system** — plan-sourced metrics (weekend/weekday distribution, estimated hours, topic breakdown, session types) + user action-driven analytics
 - **Progress backup** — full export/import (JSON) for switching data sources or devices
 - **Excel-driven roadmap** — update the spreadsheet, re-parse, and the app reflects changes
@@ -103,16 +106,24 @@ User actions (complete day, log problem, rate confidence)
       ▼
 Zustand store  →  localStorage  (persisted progress)
       │
+      ├──────────────────────────────┐
+      ▼                              ▼
+Engines (UserSnapshot)         Supabase cloud sync
+      │                    (pull on visibilitychange)
       ▼
-Engines (UserSnapshot)  →  Components
+Components
 ```
 
 ## Env
 
 ```env
+# Required — Supabase cloud sync
+NEXT_PUBLIC_SUPABASE_URL=your_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+
 # Optional — AI coach
 GEMINI_API_KEY=your_key
 
 # Optional — LeetCode sync
-# Works without env, uses public GraphQL API
+# Works without env, uses public GraphQL + Alfa API
 ```

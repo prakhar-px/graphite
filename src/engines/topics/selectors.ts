@@ -68,9 +68,7 @@ export function buildTopicProgress(snapshot: UserSnapshot): TopicProgress[] {
             ? "completed"
             : logSolved > 0 || completed > 0
               ? "in-progress"
-              : days.length > 0
-                ? "revision-pending"
-                : "in-progress";
+              : "in-progress";
 
     return {
       name,
@@ -106,10 +104,10 @@ export function getTopicDistributionForChart(snapshot: UserSnapshot) {
   }
 
   return [...byTag.entries()]
-    .map(([topic, target]) => ({
+    .map(([topic, count]) => ({
       topic: topic.replace(" + ", " / "),
-      target,
+      solved: count,
     }))
-    .sort((a, b) => b.target - a.target)
+    .sort((a, b) => b.solved - a.solved)
     .slice(0, 12);
 }

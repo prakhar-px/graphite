@@ -18,12 +18,17 @@ export function getPlanWithStatuses(dayStatuses: Record<number, TaskStatus>) {
 }
 
 export function computeStreak(dayStatuses: Record<number, TaskStatus>): number {
-  let streak = 0;
-  for (const day of dailyPlan) {
-    if (dayStatuses[day.day] === "completed") streak++;
-    else break;
+  for (let i = dailyPlan.length - 1; i >= 0; i--) {
+    if (dayStatuses[dailyPlan[i].day] === "completed") {
+      let streak = 0;
+      for (let j = i; j >= 0; j--) {
+        if (dayStatuses[dailyPlan[j].day] === "completed") streak++;
+        else break;
+      }
+      return streak;
+    }
   }
-  return streak;
+  return 0;
 }
 
 export function getPlannerCompletionRate(

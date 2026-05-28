@@ -5,9 +5,92 @@ import { format } from "date-fns";
 import { EXCEL_SOURCES } from "@/config/excel-sources";
 import { getExcelMeta } from "@/lib/data-seed";
 import { useAppStore } from "@/store/app-store";
+import { useAuth } from "@/hooks/use-auth";
+import { useSync } from "@/hooks/use-sync";
 import { LeetCodePanel } from "@/components/settings/leetcode-panel";
 import { PremiumCard } from "@/components/ui/premium-card";
 import { Button } from "@/components/ui/button";
+
+function SyncStatusSection() {
+  const { user, signOut } = useAuth();
+  const { syncStatus, lastSyncedAt } = useSync();
+  const pushFullState = useAppStore((s) => s.pushFullState);
+  const pullFromCloud = useAppStore((s) => s.pullFromCloud);
+  const [statusMsg, setStatusMsg] = useState<string | null>(null);
+
+  if (!user) {
+    return (
+      <p className="text-sm text-zinc-400">
+        Not signed in. Progress is stored locally only.
+      </p>
+    );
+  }
+
+  const isOffline = typeof navigator !== "undefined" && !navigator.onLine;
+
+  const statusColor =
+    syncStatus === "syncing" ? "text-blue-400" :
+    syncStatus === "error" ? "text-red-400" :
+    isOffline ? "text-amber-400" :
+    "text-green-400";
+
+  const statusLabel =
+    syncStatus === "syncing" ? "Syncing..." :
+    syncStatus === "error" ? "Error" :
+    isOffline ? "Offline" :
+    "Connected";
+
+  const handleSyncNow = async () => {
+    setStatusMsg("Pulling latest from cloud...");
+    await pullFromCloud();
+    setStatusMsg("Synced!");
+    setTimeout(() => setStatusMsg(null), 2000);
+  };
+
+  const handlePushNow = async () => {
+    setStatusMsg("Pushing local data to cloud...");
+    await pushFullState();
+    setStatusMsg("Uploaded!");
+    setTimeout(() => setStatusMsg(null), 2000);
+  };
+
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center gap-2">
+        <span className={`h-2 w-2 rounded-full ${syncStatus === "syncing" ? "bg-blue-400 animate-pulse" : syncStatus === "error" ? "bg-red-500" : isOffline ? "bg-amber-500" : "bg-green-500"}`} />
+        <span className={`text-sm ${statusColor}`}>{statusLabel}</span>
+        {lastSyncedAt ? (
+          <span className="text-xs text-zinc-500">· last synced {formatTimeAgo(lastSyncedAt)}</span>
+        ) : null}
+      </div>
+      <div className="flex flex-wrap gap-2">
+        <Button type="button" size="sm" title="Pull latest cloud data to this device" onClick={handleSyncNow}>
+          Sync Now
+        </Button>
+        <Button type="button" size="sm" variant="outline" title="Upload this device's data to cloud backup" onClick={handlePushNow}>
+          Push Local
+        </Button>
+        <Button type="button" size="sm" variant="outline" className="border-red-800/50 text-red-400 hover:border-red-500/80 hover:bg-red-950/30" title="Sign out from cloud sync (local data stays)" onClick={() => { signOut(); setStatusMsg("Signed out"); }}>
+          Sign Out
+        </Button>
+      </div>
+      {statusMsg ? <p className="text-sm text-zinc-400">{statusMsg}</p> : null}
+      <p className="text-xs text-zinc-500">
+        Signed in as {user.email}
+      </p>
+    </div>
+  );
+}
+
+function formatTimeAgo(iso: string): string {
+  const diff = Date.now() - new Date(iso).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return "just now";
+  if (mins < 60) return `${mins}m ago`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours}h ago`;
+  return `${Math.floor(hours / 24)}d ago`;
+}
 
 export function DataPanels() {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -51,6 +134,11 @@ export function DataPanels() {
       ) : null}
 
       <PremiumCard>
+        <h3 className="font-semibold text-zinc-100">Sync Status</h3>
+        <SyncStatusSection />
+      </PremiumCard>
+
+      <PremiumCard>
         <h3 className="font-semibold text-zinc-100">Progress backup (V1.2)</h3>
         <p className="mt-2 text-sm text-zinc-400">
           Planner status, LeetCode problem log, tasks, and preferences are saved
@@ -58,13 +146,14 @@ export function DataPanels() {
           data.
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
-          <Button type="button" size="sm" onClick={() => exportProgress()}>
+          <Button type="button" size="sm" title="Download a .json backup of all your data" onClick={() => exportProgress()}>
             Export progress
           </Button>
           <Button
             type="button"
             size="sm"
             variant="outline"
+            title="Restore data from a .json backup file"
             onClick={() => fileInputRef.current?.click()}
           >
             Import progress
@@ -72,8 +161,9 @@ export function DataPanels() {
           <Button
             type="button"
             size="sm"
-            variant="ghost"
-            className="text-zinc-400"
+            variant="outline"
+            className="border-red-800/50 text-red-400 hover:border-red-500/80 hover:bg-red-950/30"
+            title="Wipe planner state back to the original roadmap"
             onClick={() => {
               if (
                 window.confirm(

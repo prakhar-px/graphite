@@ -5,7 +5,7 @@ import { Flame, Sparkles, Target } from "lucide-react";
 import { getDashboardStats } from "@/engines/dashboard/selectors";
 import { ProblemLogDialog } from "@/components/problems/problem-log-dialog";
 import { PremiumCard } from "@/components/ui/premium-card";
-import { ProgressRing } from "@/components/ui/progress-ring";
+import { SegmentedBeadArc } from "@/components/charts/SegmentedBeadArc";
 import { ToneBadge } from "@/components/ui/tone-badge";
 import { useUserSnapshot } from "@/store/app-store";
 import { cn } from "@/lib/utils";
@@ -60,7 +60,7 @@ export function Hero() {
                 problems solved · view log
               </div>
             </button>
-            <div className="rounded-2xl border border-zinc-800 bg-zinc-950/50 p-4">
+            <div className="rounded-2xl border border-zinc-800 bg-zinc-950/50 p-4" title="Based on mission completion, average confidence, and revision consistency.">
               <Sparkles className="h-5 w-5 text-emerald-400" />
               <div className="mt-3 font-mono text-2xl font-bold text-zinc-100 md:text-3xl">
                 {stats.focusScore}
@@ -71,16 +71,25 @@ export function Hero() {
         </PremiumCard>
 
         <PremiumCard className="flex flex-col items-center justify-center py-6">
-          <ProgressRing
+          <SegmentedBeadArc
             value={stats.completion}
             size={168}
-            stroke={12}
+            segments={24}
+            colorScheme="green"
             label="roadmap"
           />
           <div className="mt-5 text-center">
-            <div className="text-lg font-semibold text-zinc-100">Ahead of baseline</div>
+            <div className="text-lg font-semibold text-zinc-100">
+              {stats.completion >= stats.streak
+                ? `${stats.completion}% roadmap done`
+                : `${stats.streak}-day streak`}
+            </div>
             <p className="mt-2 max-w-xs text-sm leading-relaxed text-zinc-500">
-              Graph mastery improving. Keep today small, complete, and visible.
+              {stats.completion >= 80
+                ? "Final stretch — maintain momentum."
+                : stats.streak >= 5
+                  ? `${stats.streak} days strong — keep the chain alive.`
+                  : `Day ${stats.completedDays} · ${stats.uniqueTracked} unique problems tracked.`}
             </p>
           </div>
         </PremiumCard>

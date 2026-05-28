@@ -166,6 +166,23 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  [role="button"],
+  [role="tab"],
+  [role="menuitem"],
+  [role="option"],
+  summary,
+  label,
+  input[type="checkbox"],
+  input[type="radio"],
+  input[type="submit"],
+  input[type="button"],
+  input[type="reset"],
+  select,
+  button:not(:disabled),
+  a:not([href=""]) {
+    cursor: pointer;
+  }
   html {
     @apply font-sans;
     scrollbar-gutter: stable;
