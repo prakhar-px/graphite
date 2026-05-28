@@ -103,14 +103,14 @@ export function MemoryPulse({
         )}
       </svg>
       <div className="absolute text-center">
-        <div className="font-mono text-2xl font-bold tracking-tight text-zinc-50">
+        <div className="font-mono text-2xl font-bold tracking-tight text-[var(--gp-text)]">
           {value}%
         </div>
-        <div className="mt-0.5 text-[10px] font-medium uppercase tracking-[0.12em] text-green-400">
+        <div className="mt-0.5 text-[10px] font-medium uppercase tracking-[0.12em] text-green-600 dark:text-green-400">
           {stateLabel(value)}
         </div>
         {label && (
-          <div className="mt-2 text-[9px] uppercase tracking-[0.18em] text-zinc-600">
+          <div className="mt-2 text-[9px] uppercase tracking-[0.18em] text-[var(--gp-text-faint)]">
             {label}
           </div>
         )}

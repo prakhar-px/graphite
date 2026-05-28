@@ -31,7 +31,7 @@ export function DataPanels() {
   };
 
   return (
-    <div className="max-w-2xl space-y-4">
+    <div className="w-full space-y-4">
       {seedMismatch ? (
         <PremiumCard className="border-amber-500/40 bg-amber-500/10">
           <p className="text-sm text-amber-800 dark:text-amber-100">

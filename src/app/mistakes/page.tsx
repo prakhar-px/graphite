@@ -66,19 +66,19 @@ export default function MistakesPage() {
     <Shell title="Mistake Analytics" subtitle="Improvement intelligence">
       <div className="space-y-6 p-4 lg:p-8">
         <PremiumCard className="xl:col-span-2">
-          <h3 className="mb-4 text-lg font-semibold text-zinc-100">
+          <h3 className="mb-4 text-lg font-semibold text-[var(--gp-text)]">
             Error Frequency
           </h3>
           {categoryStats.length > 0 ? (
             <ResponsiveContainer width="100%" height={260}>
               <BarChart data={categoryStats}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#27272A" />
-                <XAxis dataKey="type" stroke="#71717A" fontSize={11} />
-                <YAxis stroke="#71717A" fontSize={11} />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--gp-border)" />
+                <XAxis dataKey="type" stroke="var(--gp-text-muted)" fontSize={11} />
+                <YAxis stroke="var(--gp-text-muted)" fontSize={11} />
                 <Tooltip
                   contentStyle={{
-                    background: "#18181B",
-                    border: "1px solid #27272A",
+                    background: "var(--gp-surface-raised)",
+                    border: "1px solid var(--gp-border)",
                     borderRadius: 12,
                   }}
                 />
@@ -86,7 +86,7 @@ export default function MistakesPage() {
               </BarChart>
             </ResponsiveContainer>
           ) : (
-            <p className="py-8 text-center text-sm text-zinc-500">
+            <p className="py-8 text-center text-sm text-[var(--gp-text-muted)]">
               No flagged problems yet. Mark problems as needing revision or log
               low confidence to see patterns here.
             </p>
@@ -94,22 +94,23 @@ export default function MistakesPage() {
         </PremiumCard>
 
         <PremiumCard>
-          <h3 className="mb-4 text-lg font-semibold text-zinc-100">
+          <h3 className="mb-4 text-lg font-semibold text-[var(--gp-text)]">
             Recent Learnings
           </h3>
           <div className="space-y-3">
             {entries.slice(0, 8).map((m, i) => (
               <div
                 key={i}
-                className="rounded-xl border border-zinc-800/80 p-4"
+                className="rounded-xl border p-4"
+                style={{ borderColor: "var(--gp-border)" }}
               >
                 <div className="flex justify-between text-sm">
-                  <span className="text-zinc-300">{m.problem}</span>
-                  <span className="text-zinc-500">{m.topic}</span>
+                  <span className="text-[var(--gp-text)]">{m.problem}</span>
+                  <span className="text-[var(--gp-text-muted)]">{m.topic}</span>
                 </div>
-                <p className="mt-1 text-xs text-red-400/80">{m.mistakeType}</p>
+                <p className="mt-1 text-xs text-red-500 dark:text-red-400/80">{m.mistakeType}</p>
                 {m.learning && (
-                  <p className="mt-2 text-sm text-zinc-500">{m.learning}</p>
+                  <p className="mt-2 text-sm text-[var(--gp-text-muted)]">{m.learning}</p>
                 )}
               </div>
             ))}

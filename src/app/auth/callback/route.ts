@@ -7,6 +7,8 @@ export async function GET(request: NextRequest) {
   const next = searchParams.get("next") ?? "/dashboard";
 
   if (code) {
+    const cookieOptions = new Map<string, any>();
+
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -16,9 +18,10 @@ export async function GET(request: NextRequest) {
             return request.cookies.getAll();
           },
           setAll(cookiesToSet) {
-            cookiesToSet.forEach(({ name, value }) =>
-              request.cookies.set(name, value)
-            );
+            cookiesToSet.forEach(({ name, value, options }) => {
+              request.cookies.set(name, value);
+              cookieOptions.set(name, options);
+            });
           },
         },
       }
@@ -27,7 +30,7 @@ export async function GET(request: NextRequest) {
     if (!error) {
       const response = NextResponse.redirect(`${origin}${next}`);
       request.cookies.getAll().forEach(({ name, value }) => {
-        response.cookies.set(name, value);
+        response.cookies.set(name, value, cookieOptions.get(name));
       });
       return response;
     }

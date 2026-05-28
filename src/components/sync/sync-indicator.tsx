@@ -1,12 +1,16 @@
 "use client";
 
+import { useAuth } from "@/hooks/use-auth";
 import { useSync } from "@/hooks/use-sync";
 import { cn } from "@/lib/utils";
 
 export function SyncIndicator() {
+  const { user } = useAuth();
   const { syncStatus, lastSyncedAt } = useSync();
 
   const isOffline = typeof navigator !== "undefined" && !navigator.onLine;
+
+  if (!user) return null;
 
   const dotColor =
     syncStatus === "syncing"

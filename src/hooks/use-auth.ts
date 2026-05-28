@@ -34,12 +34,16 @@ export function useAuth() {
 
   const signUp = useCallback(async (email: string, password: string) => {
     const supabase = getSupabaseClient();
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: { emailRedirectTo: `${window.location.origin}/auth/callback` },
     });
-    return { ok: !error, error: error?.message };
+    return {
+      ok: !error,
+      error: error?.message,
+      needsEmailConfirmation: !error && !data.session,
+    };
   }, []);
 
   const signInWithGoogle = useCallback(async () => {

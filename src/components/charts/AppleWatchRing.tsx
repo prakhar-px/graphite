@@ -87,12 +87,10 @@ export function AppleWatchRing({
         />
       </svg>
       <div className="absolute text-center">
-        <div className="font-mono text-2xl font-bold text-zinc-50">{value}%</div>
-        {label && (
-          <div className="mt-1 text-[10px] uppercase tracking-[0.18em] text-zinc-500">
-            {label}
-          </div>
-        )}
+        <div className="font-mono text-2xl font-bold text-[var(--gp-text)]">{value}%</div>
+          {label && (
+            <div className="mt-1 text-[10px] uppercase tracking-[0.18em] text-[var(--gp-text-faint)]">{label}</div>
+          )}
       </div>
     </div>
   );

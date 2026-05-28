@@ -50,7 +50,7 @@ export default function TopicsPage() {
               <TopicCard key={topic.name} topic={topic} />
             ))}
           </div>
-          <MasteryChart />
+          <div className="self-start"><MasteryChart /></div>
         </div>
       </div>
     </Shell>

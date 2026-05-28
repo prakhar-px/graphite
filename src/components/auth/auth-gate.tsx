@@ -86,11 +86,14 @@ function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [mode, setMode] = useState<"signin" | "signup">("signin");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    setSuccessMessage(null);
     if (!email || !password) {
       setError("Email and password are required.");
       return;
@@ -99,9 +102,29 @@ function LoginForm() {
       setError("Password must be at least 6 characters.");
       return;
     }
+    setLoading(true);
     const result = mode === "signin" ? await signIn(email, password) : await signUp(email, password);
-    if (result.error) setError(result.error);
+    setLoading(false);
+    if (result.error) {
+      if (result.error.toLowerCase().includes("email not confirmed")) {
+        setError("Please check your email for the confirmation link before signing in.");
+      } else {
+        setError(result.error);
+      }
+    } else if (mode === "signup" && (result as any).needsEmailConfirmation) {
+      setSuccessMessage("Check your email for the confirmation link.");
+    }
   };
+
+  if (successMessage) {
+    return (
+      <div className="space-y-4 text-center">
+        <div className="rounded-lg border p-4" style={{ borderColor: "var(--gp-border)" }}>
+          <p className="text-sm text-[var(--gp-text)]">{successMessage}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -110,7 +133,8 @@ function LoginForm() {
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="w-full rounded-lg border px-3 py-2 text-sm text-[var(--gp-text)] placeholder:text-[var(--gp-text-faint)] focus:border-violet-500/50 focus:outline-none focus:ring-1 focus:ring-violet-500/30"
+        disabled={loading}
+        className="w-full rounded-lg border px-3 py-2 text-sm text-[var(--gp-text)] placeholder:text-[var(--gp-text-faint)] focus:border-violet-500/50 focus:outline-none focus:ring-1 focus:ring-violet-500/30 disabled:opacity-50"
         style={{
           backgroundColor: "var(--gp-input-bg)",
           borderColor: "var(--gp-input-border)",
@@ -121,7 +145,8 @@ function LoginForm() {
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        className="w-full rounded-lg border px-3 py-2 text-sm text-[var(--gp-text)] placeholder:text-[var(--gp-text-faint)] focus:border-violet-500/50 focus:outline-none focus:ring-1 focus:ring-violet-500/30"
+        disabled={loading}
+        className="w-full rounded-lg border px-3 py-2 text-sm text-[var(--gp-text)] placeholder:text-[var(--gp-text-faint)] focus:border-violet-500/50 focus:outline-none focus:ring-1 focus:ring-violet-500/30 disabled:opacity-50"
         style={{
           backgroundColor: "var(--gp-input-bg)",
           borderColor: "var(--gp-input-border)",
@@ -130,26 +155,36 @@ function LoginForm() {
       {error ? <p className="text-xs text-red-500">{error}</p> : null}
       <button
         type="submit"
-        className="w-full rounded-lg bg-violet-600 px-3 py-2 text-sm font-medium text-white hover:bg-violet-500 transition-colors"
+        disabled={loading}
+        className="w-full rounded-lg bg-violet-600 px-3 py-2 text-sm font-medium text-white hover:bg-violet-500 transition-colors disabled:opacity-50"
       >
-        {mode === "signin" ? "Sign In" : "Create Account"}
+        {loading ? (
+          <span className="inline-flex items-center gap-2">
+            <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+            {mode === "signin" ? "Signing in..." : "Creating account..."}
+          </span>
+        ) : (
+          mode === "signin" ? "Sign In" : "Create Account"
+        )}
       </button>
       <button
         type="button"
+        disabled={loading}
         onClick={async () => {
           setError(null);
           const result = await signInWithGoogle();
           if (result.error) setError(result.error);
         }}
-        className="w-full rounded-lg border px-3 py-2 text-sm font-medium text-[var(--gp-text-muted)] hover:bg-[var(--gp-surface)] transition-colors"
+        className="w-full rounded-lg border px-3 py-2 text-sm font-medium text-[var(--gp-text-muted)] hover:bg-[var(--gp-surface)] transition-colors disabled:opacity-50"
         style={{ borderColor: "var(--gp-border)" }}
       >
         Continue with Google
       </button>
       <button
         type="button"
+        disabled={loading}
         onClick={() => { setMode(mode === "signin" ? "signup" : "signin"); setError(null); }}
-        className="w-full text-center text-xs text-[var(--gp-text-faint)] hover:text-[var(--gp-text-muted)]"
+        className="w-full text-center text-xs text-[var(--gp-text-faint)] hover:text-[var(--gp-text-muted)] disabled:opacity-50"
       >
         {mode === "signin" ? "No account? Create one" : "Already have an account? Sign in"}
       </button>

@@ -117,9 +117,9 @@ export function SegmentedBeadArc({ value, size = 168, segments = 24, label, clas
         })}
       </svg>
       <div className="absolute text-center">
-        <div className="font-mono text-2xl font-bold text-zinc-50">{value}%</div>
+        <div className="font-mono text-2xl font-bold text-[var(--gp-text)]">{value}%</div>
         {label && (
-          <div className="mt-1 text-[10px] uppercase tracking-[0.18em] text-zinc-500">
+          <div className="mt-1 text-[10px] uppercase tracking-[0.18em] text-[var(--gp-text-faint)]">
             {label}
           </div>
         )}

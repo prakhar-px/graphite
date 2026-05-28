@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { useAppStore } from "@/store/app-store";
 import { useAuth } from "@/hooks/use-auth";
 import { useSync } from "@/hooks/use-sync";
+import { triggerAuthOverlay } from "@/components/auth/auth-gate";
 
 interface SidebarProps {
   className?: string;
@@ -95,7 +96,7 @@ export function Sidebar({ className }: SidebarProps) {
           {focusMode ? "Focus Mode On" : "Focus Mode"}
         </button>
         <a
-          href="https://github.com"
+          href="https://github.com/prakhar-px/graphite"
           target="_blank"
           rel="noreferrer"
           className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-[var(--gp-text-muted)] transition-colors hover:bg-[var(--gp-surface-raised)] hover:text-[var(--gp-text)]"
@@ -103,29 +104,36 @@ export function Sidebar({ className }: SidebarProps) {
           <Code2 className="h-4 w-4" />
           GitHub
         </a>
-        <div className="flex items-center gap-3 rounded-xl px-3 py-2.5">
-          <div
-            className="flex h-8 w-8 items-center justify-center rounded-full text-[var(--gp-text-muted)] shrink-0 overflow-hidden"
-            style={{ backgroundColor: "var(--gp-surface-raised)" }}
+        {user ? (
+          <div className="flex items-center gap-3 rounded-xl px-3 py-2.5">
+            <div
+              className="flex h-8 w-8 items-center justify-center rounded-full text-[var(--gp-text-muted)] shrink-0 overflow-hidden"
+              style={{ backgroundColor: "var(--gp-surface-raised)" }}
+            >
+              {avatarUrl ? (
+                <img src={avatarUrl} alt="" className="h-full w-full object-cover" />
+              ) : (
+                <span className="text-xs font-medium">{userName?.charAt(0).toUpperCase()}</span>
+              )}
+            </div>
+            <div className="min-w-0">
+              <p className="text-sm text-[var(--gp-text)] truncate">{userName}</p>
+              <p className="text-xs text-[var(--gp-text-faint)]">
+                {syncStatus === "syncing" ? "Syncing..." :
+                 syncStatus === "error" ? "Sync error" : "Synced"}
+              </p>
+            </div>
+          </div>
+        ) : (
+          <button
+            type="button"
+            onClick={() => triggerAuthOverlay()}
+            className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-[var(--gp-text-muted)] hover:bg-[var(--gp-surface-raised)] hover:text-[var(--gp-text)] transition-colors"
           >
-            {avatarUrl ? (
-              <img src={avatarUrl} alt="" className="h-full w-full object-cover" />
-            ) : (
-              <User className="h-4 w-4" />
-            )}
-          </div>
-          <div className="min-w-0">
-            <p className="text-sm text-[var(--gp-text)] truncate">
-              {userName || "Guest Mode"}
-            </p>
-            <p className="text-xs text-[var(--gp-text-faint)]">
-              {user
-                ? (syncStatus === "syncing" ? "Syncing..." :
-                   syncStatus === "error" ? "Sync error" : "Synced")
-                : "Local-only persistence"}
-            </p>
-          </div>
-        </div>
+            <User className="h-4 w-4 shrink-0" />
+            Sign in to sync
+          </button>
+        )}
       </div>
     </aside>
   );

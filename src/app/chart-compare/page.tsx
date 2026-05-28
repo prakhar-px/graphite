@@ -77,18 +77,18 @@ export default function ChartComparePage() {
   return (
     <div className="mx-auto max-w-4xl space-y-12 p-8">
       <div>
-        <h1 className="text-2xl font-bold text-zinc-100">Chart Comparison</h1>
-        <p className="mt-1 text-sm text-zinc-500">
-          Roadmap = <span className="text-zinc-300">74%</span> · Memory Strength ={" "}
-          <span className="text-zinc-300">49%</span>
+        <h1 className="text-2xl font-bold text-[var(--gp-text)]">Chart Comparison</h1>
+        <p className="mt-1 text-sm text-[var(--gp-text-muted)]">
+          Roadmap = <span className="text-[var(--gp-text)]">74%</span> · Memory Strength ={" "}
+          <span className="text-[var(--gp-text)]">49%</span>
         </p>
       </div>
 
       {roadmapVariants.map((v) => (
         <PremiumCard key={v.name} className="overflow-hidden">
           <div className="mb-2">
-            <h2 className="text-lg font-semibold text-zinc-100">{v.name}</h2>
-            <p className="text-sm text-zinc-500">{v.desc}</p>
+            <h2 className="text-lg font-semibold text-[var(--gp-text)]">{v.name}</h2>
+            <p className="text-sm text-[var(--gp-text-muted)]">{v.desc}</p>
           </div>
           <div className="flex items-center justify-center py-8">
             {v.comp(roadmap)}
@@ -98,17 +98,17 @@ export default function ChartComparePage() {
 
       {/* ── Bead Arc color options ── */}
       <section className="space-y-6">
-        <h2 className="text-lg font-semibold text-zinc-100">
+        <h2 className="text-lg font-semibold text-[var(--gp-text)]">
           Segmented Bead Arc — color comparison for roadmap
         </h2>
-        <p className="-mt-4 text-sm text-zinc-500">
+        <p className="-mt-4 text-sm text-[var(--gp-text-muted)]">
           Same chart shape, different palettes. All at 74%.
         </p>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {beadColorSchemes.map((s) => (
             <PremiumCard key={s.scheme}>
-              <p className="mb-1 text-xs text-zinc-500">{s.name}</p>
-              <p className="mb-2 text-[10px] text-zinc-600">{s.desc}</p>
+              <p className="mb-1 text-xs text-[var(--gp-text-muted)]">{s.name}</p>
+              <p className="mb-2 text-[10px] text-[var(--gp-text-faint)]">{s.desc}</p>
               <div className="flex justify-center py-4">
                 <SegmentedBeadArc
                   value={roadmap}
@@ -124,60 +124,60 @@ export default function ChartComparePage() {
 
       {/* ── Memory Strength variants ── */}
       <section className="space-y-6">
-        <h2 className="text-lg font-semibold text-zinc-100">
+        <h2 className="text-lg font-semibold text-[var(--gp-text)]">
           Memory Strength widget (49%)
         </h2>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <PremiumCard>
-            <p className="mb-1 text-xs text-zinc-500">Original</p>
+            <p className="mb-1 text-xs text-[var(--gp-text-muted)]">Original</p>
             <div className="flex justify-center py-4">
               <ProgressRing value={49} size={120} stroke={10} label="recall" />
             </div>
           </PremiumCard>
           <PremiumCard className="ring-2 ring-green-500/40">
-            <p className="mb-1 text-xs text-green-400">✓ Orb Core — selected</p>
+            <p className="mb-1 text-xs text-green-600 dark:text-green-400">✓ Orb Core — selected</p>
             <div className="flex justify-center py-4">
               <OrbCore value={49} size={120} label="recall" />
             </div>
           </PremiumCard>
           <PremiumCard>
-            <p className="mb-1 text-xs text-zinc-500">Glow Arc</p>
+            <p className="mb-1 text-xs text-[var(--gp-text-muted)]">Glow Arc</p>
             <div className="flex justify-center py-4">
               <GlowArcRing value={49} size={120} label="recall" />
             </div>
           </PremiumCard>
           <PremiumCard>
-            <p className="mb-1 text-xs text-zinc-500">Bead Arc (circular)</p>
+            <p className="mb-1 text-xs text-[var(--gp-text-muted)]">Bead Arc (circular)</p>
             <div className="flex justify-center py-4">
               <SegmentedBeadArc value={49} size={120} segments={20} label="recall" />
             </div>
           </PremiumCard>
           <PremiumCard>
-            <p className="mb-1 text-xs text-zinc-500">Bead Arc (oval)</p>
+            <p className="mb-1 text-xs text-[var(--gp-text-muted)]">Bead Arc (oval)</p>
             <div className="flex justify-center py-4">
               <OvalBeadArc value={49} size={120} segments={20} label="recall" />
             </div>
           </PremiumCard>
           <PremiumCard>
-            <p className="mb-1 text-xs text-zinc-500">Heat Intensity</p>
+            <p className="mb-1 text-xs text-[var(--gp-text-muted)]">Heat Intensity</p>
             <div className="flex justify-center py-4">
               <HeatIntensityRing value={49} size={120} segments={30} label="recall" />
             </div>
           </PremiumCard>
           <PremiumCard>
-            <p className="mb-1 text-xs text-zinc-500">Glassmorphism</p>
+            <p className="mb-1 text-xs text-[var(--gp-text-muted)]">Glassmorphism</p>
             <div className="flex justify-center py-4">
               <GlassmorphismRing value={49} size={120} label="recall" />
             </div>
           </PremiumCard>
           <PremiumCard>
-            <p className="mb-1 text-xs text-zinc-500">Memory Pulse</p>
+            <p className="mb-1 text-xs text-[var(--gp-text-muted)]">Memory Pulse</p>
             <div className="flex justify-center py-4">
               <MemoryPulse value={49} size={120} segments={30} label="recall" />
             </div>
           </PremiumCard>
           <PremiumCard>
-            <p className="mb-1 text-xs text-zinc-500">Apple Watch</p>
+            <p className="mb-1 text-xs text-[var(--gp-text-muted)]">Apple Watch</p>
             <div className="flex justify-center py-4">
               <AppleWatchRing value={49} size={120} segments={24} label="recall" />
             </div>
@@ -186,8 +186,8 @@ export default function ChartComparePage() {
       </section>
 
       {/* ── State label demo ── */}
-      <section className="space-y-4 rounded-2xl border border-zinc-800 bg-zinc-950/40 p-6">
-        <h2 className="text-lg font-semibold text-zinc-100">
+      <section className="space-y-4 rounded-2xl border p-6" style={{ borderColor: "var(--gp-border)", backgroundColor: "color-mix(in srgb, var(--gp-surface) 60%, transparent)" }}>
+        <h2 className="text-lg font-semibold text-[var(--gp-text)]">
           State labels (Memory Pulse)
         </h2>
         <div className="grid gap-3 sm:grid-cols-3">
