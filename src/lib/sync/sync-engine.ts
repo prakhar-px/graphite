@@ -30,12 +30,12 @@ export type PushBatch = {
 };
 
 export async function pushToCloud(batch: PushBatch) {
-  if (!isOnline()) return;
+  if (!isOnline()) throw new Error("offline");
   const supabase = getSupabaseClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) return;
+  if (!user) throw new Error("no user");
 
   setSyncStatus("syncing");
 

@@ -4,6 +4,8 @@ import { useEffect, useRef } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { useAppStore } from "@/store/app-store";
 import { isOnline } from "@/lib/sync/sync-engine";
+import { syncQueue } from "@/lib/sync/sync-queue";
+import { getSupabaseClient } from "@/lib/supabase/client";
 
 export function SyncManager() {
   const { user } = useAuth();
@@ -41,6 +43,45 @@ export function SyncManager() {
 
     document.addEventListener("visibilitychange", handleVisibility);
     return () => document.removeEventListener("visibilitychange", handleVisibility);
+  }, [user?.id]);
+
+  useEffect(() => {
+    if (!user) return;
+
+    const handleBeforeUnload = () => {
+      syncQueue.flushImmediate();
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, [user?.id]);
+
+  useEffect(() => {
+    if (!user) return;
+
+    const supabase = getSupabaseClient();
+    const pull = () => { useAppStore.getState().pullFromCloud(); };
+
+    const channel = supabase
+      .channel("graphite-realtime")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "planner_day_status", filter: `user_id=eq.${user.id}` },
+        pull
+      )
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "problem_log", filter: `user_id=eq.${user.id}` },
+        pull
+      )
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "profiles", filter: `id=eq.${user.id}` },
+        pull
+      )
+      .subscribe();
+
+    return () => { supabase.removeChannel(channel); };
   }, [user?.id]);
 
   return null;

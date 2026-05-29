@@ -18,13 +18,43 @@ type BatchMap = {
 const FLUSH_IMMEDIATE = new Set(["upsert_problem", "upsert_day", "delete_problem"]);
 const FLUSH_DEBOUNCED_1500 = new Set(["update_profile"]);
 
+const PENDING_OPS_KEY = "graphite-sync-pending";
+
+function savePendingOps(ops: SyncOp[]) {
+  try {
+    localStorage.setItem(PENDING_OPS_KEY, JSON.stringify(ops));
+  } catch { /* localStorage full or unavailable */ }
+}
+
+function loadPendingOps(): SyncOp[] {
+  try {
+    const raw = localStorage.getItem(PENDING_OPS_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch { return []; }
+}
+
+function clearPendingOps() {
+  try {
+    localStorage.removeItem(PENDING_OPS_KEY);
+  } catch { /* ignore */ }
+}
+
 class SyncQueue {
   private ops: SyncOp[] = [];
   private timeoutId: ReturnType<typeof setTimeout> | null = null;
   private pendingFlush: boolean = false;
 
+  constructor() {
+    const pending = loadPendingOps();
+    if (pending.length > 0) {
+      this.ops = pending;
+      this.scheduleFlush("upsert_problem");
+    }
+  }
+
   enqueue(op: SyncOp) {
     this.ops.push(op);
+    savePendingOps(this.ops);
     this.scheduleFlush(op.type);
   }
 
@@ -89,9 +119,11 @@ class SyncQueue {
     try {
       const { pushToCloud } = await import("./sync-engine");
       await pushToCloud(batch);
+      clearPendingOps();
     } catch {
-      // Re-enqueue on failure
+      // Re-enqueue on failure and persist to localStorage
       this.ops = [...ops, ...this.ops];
+      savePendingOps(this.ops);
     } finally {
       this.pendingFlush = false;
     }
