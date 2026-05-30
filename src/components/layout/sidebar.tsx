@@ -48,7 +48,7 @@ export function Sidebar({ className }: SidebarProps) {
     >
       <Link
         href="/"
-        className="flex h-16 shrink-0 items-center gap-3 border-b px-5 transition-colors hover:bg-[var(--gp-surface-raised)]"
+        className="flex h-16 shrink-0 items-center gap-1.5 border-b px-5 transition-colors hover:bg-[var(--gp-surface-raised)]"
         style={{ borderColor: "var(--gp-border)" }}
       >
         <span className="mt-[-2px] flex shrink-0 items-center justify-center"><GraphiteLogo size={26} type={logo} /></span>
