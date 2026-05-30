@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Code2, LogOut, Target, User } from "lucide-react";
 import { GraphiteLogo } from "@/components/brand/graphite-logo";
+import { useLogo } from "@/hooks/use-logo";
 import { mainNav } from "@/config/navigation";
 import { cn } from "@/lib/utils";
 import { useAppStore } from "@/store/app-store";
@@ -26,6 +27,7 @@ interface SidebarProps {
 export function Sidebar({ className }: SidebarProps) {
   const pathname = usePathname();
   const focusMode = useAppStore((state) => state.focusMode);
+  const [logo] = useLogo();
   const toggleFocusMode = useAppStore((state) => state.toggleFocusMode);
   const { user, signOut } = useAuth();
   const { syncStatus } = useSync();
@@ -46,10 +48,10 @@ export function Sidebar({ className }: SidebarProps) {
     >
       <Link
         href="/"
-        className="flex h-16 shrink-0 items-center gap-1.5 border-b px-5 transition-colors hover:bg-[var(--gp-surface-raised)]"
+        className="flex h-16 shrink-0 items-center gap-3 border-b px-5 transition-colors hover:bg-[var(--gp-surface-raised)]"
         style={{ borderColor: "var(--gp-border)" }}
       >
-        <span className="mt-[-2px] flex shrink-0 items-center justify-center"><GraphiteLogo size={26} /></span>
+        <span className="mt-[-2px] flex shrink-0 items-center justify-center"><GraphiteLogo size={26} type={logo} /></span>
         <div>
           <p className="text-sm font-semibold tracking-tight text-[var(--gp-text)]">
             Graphite

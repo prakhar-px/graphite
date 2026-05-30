@@ -2,12 +2,14 @@ import { Shell } from "@/components/layout/shell";
 import { AiSettingsPanel } from "@/components/settings/ai-settings-panel";
 import { SubapassPanel } from "@/components/settings/subapass-panel";
 import { DataPanels } from "@/components/settings/data-panels";
+import { LogoPickerPanel } from "@/components/settings/logo-picker-panel";
 import { PremiumCard } from "@/components/ui/premium-card";
 
 export default function SettingsPage() {
   return (
     <Shell title="Settings" subtitle="Preferences & data">
       <div className="space-y-4 p-4 lg:p-8">
+        <LogoPickerPanel />
         <SubapassPanel />
         <DataPanels />
         <AiSettingsPanel />

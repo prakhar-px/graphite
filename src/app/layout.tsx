@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthGate } from "@/components/auth/auth-gate";
 import { SyncManager } from "@/components/sync/sync-manager";
 import { ThemeProvider } from "@/components/theme/theme-provider";
+import { DynamicFavicon } from "@/components/brand/dynamic-favicon";
 import "./globals.css";
 
 const inter = Inter({
@@ -50,6 +51,7 @@ export default function RootLayout({
             <AuthGate>
               {children}
               <SyncManager />
+              <DynamicFavicon />
             </AuthGate>
           </TooltipProvider>
         </ThemeProvider>

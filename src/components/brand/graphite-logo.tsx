@@ -1,7 +1,9 @@
+export type LogoType = "g" | "hex-faceted" | "hex-solid" | "compass" | "progress-arrow";
+
 interface GraphiteLogoProps {
   className?: string;
   size?: number;
-  type?: "g" | "hex-faceted" | "hex-solid" | "compass" | "progress-arrow";
+  type?: LogoType;
 }
 
 const S = 80;
