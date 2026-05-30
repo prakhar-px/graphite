@@ -5,7 +5,7 @@ import { Flame, Sparkles, Target } from "lucide-react";
 import { getDashboardStats } from "@/engines/dashboard/selectors";
 import { ProblemLogDialog } from "@/components/problems/problem-log-dialog";
 import { PremiumCard } from "@/components/ui/premium-card";
-import { SegmentedBeadArc } from "@/components/charts/SegmentedBeadArc";
+import { PulseRing } from "@/components/charts/PulseRing";
 import { ToneBadge } from "@/components/ui/tone-badge";
 import { useUserSnapshot } from "@/store/app-store";
 import { cn } from "@/lib/utils";
@@ -87,12 +87,10 @@ export function Hero() {
           </div>
         </PremiumCard>
 
-        <PremiumCard className="flex flex-col items-center justify-center py-6">
-          <SegmentedBeadArc
+        <PremiumCard className="flex flex-col items-center justify-center overflow-hidden py-6">
+          <PulseRing
             value={stats.completion}
             size={168}
-            segments={24}
-            colorScheme="green"
             label="roadmap"
           />
           <div className="mt-5 text-center">

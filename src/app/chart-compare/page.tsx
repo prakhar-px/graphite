@@ -10,6 +10,13 @@ import { HeatIntensityRing } from "@/components/charts/HeatIntensityRing";
 import { GlassmorphismRing } from "@/components/charts/GlassmorphismRing";
 import { MemoryPulse } from "@/components/charts/MemoryPulse";
 import { AppleWatchRing } from "@/components/charts/AppleWatchRing";
+import { NebulaRing } from "@/components/charts/NebulaRing";
+import { PulseRing } from "@/components/charts/PulseRing";
+import { PulseBeadRing } from "@/components/charts/PulseBeadRing";
+import { WaveRing } from "@/components/charts/WaveRing";
+import { CometRing } from "@/components/charts/CometRing";
+import { DashFlowRing } from "@/components/charts/DashFlowRing";
+import { VelocityRing } from "@/components/charts/VelocityRing";
 
 export default function ChartComparePage() {
   const roadmap = 74;
@@ -24,6 +31,12 @@ export default function ChartComparePage() {
     { name: "teal mono", scheme: "teal" as const, desc: "Deep teal → light — very refined" },
     { name: "rose → violet", scheme: "rose" as const, desc: "Sunset-inspired, bold" },
     { name: "⭐ green trio — dull → brighter → brightest", scheme: "green" as const, desc: "Same green palette from Orb Core, three intensities" },
+  ];
+
+  const orbCoreShades = [
+    { state: "Red (value < 40%)", hue: 0, sat: 80, lightnesses: [60, 40, 50, 55, 70], opacities: [0.35, 0.1, 0.2, 0.4, 1], ring: ["glow outer", "glow mid", "mid ring", "inner ring", "core"] },
+    { state: "Amber (value 40–70%)", hue: 40, sat: 70, lightnesses: [60, 40, 50, 55, 70], opacities: [0.35, 0.1, 0.2, 0.4, 1], ring: ["glow outer", "glow mid", "mid ring", "inner ring", "core"] },
+    { state: "Green (value ≥ 70%)", hue: 140, sat: 70, lightnesses: [60, 40, 50, 55, 70], opacities: [0.35, 0.1, 0.2, 0.4, 1], ring: ["glow outer", "glow mid", "mid ring", "inner ring", "core"] },
   ];
 
   const roadmapVariants = [
@@ -72,6 +85,41 @@ export default function ChartComparePage() {
       desc: "Rainbow cycle (red → orange → green → blue → violet), filled segments, subtle glow per color",
       comp: (v: number) => <AppleWatchRing value={v} size={168} segments={28} label="roadmap" />,
     },
+    {
+      name: "OPTION 9 — Nebula Ring (retired — too busy)",
+      desc: "Futuristic orbital ring with micro-beads, head satellite, layered glow orb — dynamic hue by progress",
+      comp: (v: number) => <NebulaRing value={v} size={168} label="roadmap" />,
+    },
+    {
+      name: "⭐ OPTION 10 — Pulse Ring",
+      desc: "Minimal smooth ring with breathing glow + heartbeat pulse dot at progress head — dynamic hue",
+      comp: (v: number) => <PulseRing value={v} size={168} label="roadmap" />,
+    },
+    {
+      name: "OPTION 11 — Pulse Bead Ring",
+      desc: "Minimal 16-bead 270° arc with gentle breathing pulse on active beads — dynamic hue",
+      comp: (v: number) => <PulseBeadRing value={v} size={168} label="roadmap" />,
+    },
+    {
+      name: "⭐ OPTION 12 — Wave Ring",
+      desc: "Liquid-flowing highlight strip chases continuously along the arc — 1.2s per lap, eye-catching",
+      comp: (v: number) => <WaveRing value={v} size={168} label="roadmap" />,
+    },
+    {
+      name: "⭐ OPTION 13 — Comet Ring",
+      desc: "Meteor-like dot with gradient tail orbits the ring — glowing comet head, 1.8s orbit",
+      comp: (v: number) => <CometRing value={v} size={168} label="roadmap" />,
+    },
+    {
+      name: "OPTION 14 — Dash Flow Ring",
+      desc: "Dashed progress with marching animation — dashes flow forward at 0.6s cycle, lively",
+      comp: (v: number) => <DashFlowRing value={v} size={168} label="roadmap" />,
+    },
+    {
+      name: "🏁 FINAL — Velocity Ring",
+      desc: "Ultra-thin 3.5px ring with motion-trail ghost arc + snappy twin-pulse thrust dot — sporty, minimal, futuristic",
+      comp: (v: number) => <VelocityRing value={v} size={168} label="roadmap" />,
+    },
   ];
 
   return (
@@ -116,6 +164,41 @@ export default function ChartComparePage() {
                   segments={24}
                   colorScheme={s.scheme}
                 />
+              </div>
+            </PremiumCard>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Orb Core — all color shades ── */}
+      <section className="space-y-6">
+        <h2 className="text-lg font-semibold text-[var(--gp-text)]">
+          Orb Core — every color shade used across all states
+        </h2>
+        <p className="-mt-4 text-sm text-[var(--gp-text-muted)]">
+          Each of the 3 states (red/amber/green) uses 5 concentric rings at different lightness × opacity.
+        </p>
+        <div className="grid gap-8 sm:grid-cols-3">
+          {orbCoreShades.map((s) => (
+            <PremiumCard key={s.state}>
+              <h3 className="mb-3 text-xs uppercase tracking-wider text-[var(--gp-text-muted)]">
+                {s.state}
+              </h3>
+              <div className="flex flex-col items-center gap-4">
+                {s.lightnesses.map((l, i) => (
+                  <div key={l} className="flex items-center gap-3">
+                    <span
+                      className="inline-block h-8 w-8 rounded-full border border-white/10"
+                      style={{
+                        backgroundColor: `hsl(${s.hue}, ${s.sat}%, ${l}%)`,
+                        opacity: s.opacities[i],
+                      }}
+                    />
+                    <span className="text-xs text-[var(--gp-text-faint)]">
+                      hsl({s.hue}, {s.sat}%, {l}%) &middot; opacity {s.opacities[i]} &middot; {s.ring[i]}
+                    </span>
+                  </div>
+                ))}
               </div>
             </PremiumCard>
           ))}

@@ -20,6 +20,10 @@ export const metadata: Metadata = {
   title: "Graphite — FAANG DSA Mission Control",
   description:
     "Premium developer productivity OS for FAANG and Microsoft interview preparation.",
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({

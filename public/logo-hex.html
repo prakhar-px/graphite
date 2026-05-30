@@ -13,10 +13,10 @@
   ::-webkit-scrollbar-thumb{background:rgb(161 161 170/0.35);border-radius:3px}
 
   .sidebar{width:240px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100vh;position:sticky;top:0;flex-shrink:0}
-  .sidebar-header{display:flex;align-items:center;gap:7px;padding:16px 20px;border-bottom:1px solid var(--border);height:64px;cursor:pointer;transition:background .15s}
+  .sidebar-header{display:flex;align-items:center;gap:6px;padding:16px 20px;border-bottom:1px solid var(--border);height:64px;cursor:pointer;transition:background .15s}
   .sidebar-header:hover{background:var(--surface-raised)}
-  .sidebar-header .name{font-size:.85rem;font-weight:600}
-  .sidebar-header .tag{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-faint)}
+  .sidebar-header .name{font-size:.875rem;font-weight:600;letter-spacing:-.025em}
+  .sidebar-header .tag{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-faint)}
   .sidebar-nav{flex:1;padding:12px}
   .nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;font-size:.85rem;color:var(--text-muted);transition:all .15s;cursor:pointer;margin-bottom:2px}
   .nav-item:hover{color:var(--text);background:var(--surface-raised)}
@@ -64,11 +64,13 @@
   <a href="/" class="logo-link">
     <div class="sidebar-header">
       <!-- Hex Solid — adaptive hex fill + core via CSS vars -->
-      <svg width="24" height="24" viewBox="-6 0 80 80" fill="none">
-        <polygon points="40,6 68,22 68,58 40,74 12,58 12,22" fill="var(--text)" opacity="0.95"/>
-        <circle cx="40" cy="40" r="5" fill="var(--bg)"/>
-      </svg>
-      <div><div class="name">Graphite</div><div class="tag">Mastery OS</div></div>
+      <div style="margin-top:-2px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="26" height="26" viewBox="-6 0 80 80" fill="none">
+          <polygon points="40,6 68,22 68,58 40,74 12,58 12,22" fill="var(--text)" opacity="0.95"/>
+          <circle cx="40" cy="40" r="5" fill="var(--bg)"/>
+        </svg>
+      </div>
+      <div><div class="name">Graphite</div><div class="tag">DSA Mission Control</div></div>
     </div>
   </a>
   <div class="sidebar-nav">
