@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Graphite — Hex Solid</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-6 0 80 80'%3E%3Cpolygon points='40,6 68,22 68,58 40,74 12,58 12,22' fill='%2318181B' opacity='0.95'/%3E%3Ccircle cx='40' cy='40' r='5' fill='%23F4F5F8'/%3E%3C/svg%3E">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#f4f5f8;--surface:#ffffff;--surface-raised:#ffffff;--border:#e2e4ea;--text:#18181b;--text-muted:#6b7280;--text-faint:#9ca3af;--nav-bg:#ffffff;--nav-border:#e2e4ea;--accent:#8B5CF6}
+  .dark{--bg:#09090b;--surface:#111113;--surface-raised:#18181b;--border:#27272a;--text:#fafafa;--text-muted:#a1a1aa;--text-faint:#52525b;--nav-bg:#09090b;--nav-border:#27272a}
+  body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex}
+  ::-webkit-scrollbar{width:6px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:rgb(161 161 170/0.35);border-radius:3px}
+
+  .sidebar{width:240px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100vh;position:sticky;top:0;flex-shrink:0}
+  .sidebar-header{display:flex;align-items:center;gap:7px;padding:16px 20px;border-bottom:1px solid var(--border);height:64px;cursor:pointer;transition:background .15s}
+  .sidebar-header:hover{background:var(--surface-raised)}
+  .sidebar-header .name{font-size:.85rem;font-weight:600}
+  .sidebar-header .tag{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-faint)}
+  .sidebar-nav{flex:1;padding:12px}
+  .nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;font-size:.85rem;color:var(--text-muted);transition:all .15s;cursor:pointer;margin-bottom:2px}
+  .nav-item:hover{color:var(--text);background:var(--surface-raised)}
+  .nav-item.active{background:rgba(139,92,246,0.12);color:#a78bfa;box-shadow:0 0 24px rgba(124,58,237,0.08)}
+  .nav-dot{width:16px;height:16px;border-radius:4px;background:var(--text-faint);opacity:.3;flex-shrink:0}
+  .nav-item.active .nav-dot{background:var(--accent);opacity:.8}
+  .sidebar-footer{padding:12px;border-top:1px solid var(--border);margin-top:auto}
+  .user-btn{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;cursor:pointer;transition:background .15s;width:100%;border:none;background:none;color:var(--text-muted);font-size:.85rem;text-align:left}
+  .user-btn:hover{background:var(--surface-raised);color:var(--text)}
+  .avatar{width:28px;height:28px;border-radius:50%;background:var(--surface-raised);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:500;flex-shrink:0}
+
+  .main{flex:1;display:flex;flex-direction:column;min-width:0}
+  .navbar{display:flex;align-items:center;justify-content:space-between;height:64px;padding:0 32px;border-bottom:1px solid var(--nav-border);background:color-mix(in srgb,var(--nav-bg) 85%,transparent);backdrop-filter:blur(12px);flex-shrink:0}
+  .navbar h1{font-size:1.1rem;font-weight:600}
+  .navbar p{font-size:.7rem;color:var(--text-faint)}
+  .nav-right{display:flex;align-items:center;gap:12px}
+
+  .theme-toggle{width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--surface-raised);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all .15s}
+  .theme-toggle:hover{border-color:var(--accent)}
+
+  .content{padding:32px;flex:1;overflow-y:auto}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+  .stat-card{padding:20px;border-radius:16px;background:var(--surface-raised);border:1px solid var(--border)}
+  .stat-card .num{font-size:1.8rem;font-weight:700;line-height:1}
+  .stat-card .lbl{font-size:.75rem;color:var(--text-muted);margin-top:4px}
+  .stat-card .change{font-size:.65rem;color:#22c55e;margin-top:6px}
+  .section-title{font-size:.9rem;font-weight:600;margin-bottom:12px;color:var(--text-muted)}
+  .progress-bars{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+  .prog-row{display:flex;align-items:center;gap:12px}
+  .prog-row .lbl{font-size:.75rem;color:var(--text-muted);width:80px;flex-shrink:0}
+  .prog-row .bar{flex:1;height:8px;border-radius:4px;background:var(--border);overflow:hidden}
+  .prog-row .bar .fill{height:100%;border-radius:4px;background:var(--accent);transition:width .5s}
+  .prog-row .pct{font-size:.7rem;color:var(--text-faint);width:36px;text-align:right}
+
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .card{padding:20px;border-radius:16px;background:var(--surface-raised);border:1px solid var(--border)}
+  .card .mini-row{display:flex;gap:8px;margin-top:10px}
+  .mini-box{flex:1;height:28px;border-radius:6px;background:var(--surface);border:1px solid var(--border)}
+
+  .logo-link{text-decoration:none;color:inherit}
+</style>
+</head>
+<body>
+<div class="sidebar">
+  <a href="/" class="logo-link">
+    <div class="sidebar-header">
+      <!-- Hex Solid — adaptive hex fill + core via CSS vars -->
+      <svg width="24" height="24" viewBox="-6 0 80 80" fill="none">
+        <polygon points="40,6 68,22 68,58 40,74 12,58 12,22" fill="var(--text)" opacity="0.95"/>
+        <circle cx="40" cy="40" r="5" fill="var(--bg)"/>
+      </svg>
+      <div><div class="name">Graphite</div><div class="tag">Mastery OS</div></div>
+    </div>
+  </a>
+  <div class="sidebar-nav">
+    <div class="nav-item active"><div class="nav-dot"></div>Dashboard</div>
+    <div class="nav-item"><div class="nav-dot"></div>Planner</div>
+    <div class="nav-item"><div class="nav-dot"></div>Topics</div>
+    <div class="nav-item"><div class="nav-dot"></div>Analytics</div>
+    <div class="nav-item"><div class="nav-dot"></div>AI Coach</div>
+  </div>
+  <div class="sidebar-footer">
+    <button class="user-btn">
+      <div class="avatar">P</div>
+      <div><div style="font-size:.8rem;color:var(--text)">Prakhar</div><div style="font-size:.65rem;color:var(--text-faint)">Synced</div></div>
+    </button>
+  </div>
+</div>
+
+<div class="main">
+  <div class="navbar">
+    <div><h1>Dashboard</h1><p>Mission Control</p></div>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme">🌙</button>
+    </div>
+  </div>
+  <div class="content">
+    <div class="stats">
+      <div class="stat-card"><div class="num">12</div><div class="lbl">Day Streak</div><div class="change">↑ 3 this week</div></div>
+      <div class="stat-card"><div class="num">74%</div><div class="lbl">Mastery Score</div><div class="change">↑ 5% vs last week</div></div>
+      <div class="stat-card"><div class="num">8</div><div class="lbl">Active Topics</div><div class="change">2 in revision</div></div>
+    </div>
+
+    <div class="section-title">Weekly Progress</div>
+    <div class="progress-bars">
+      <div class="prog-row"><span class="lbl">Arrays</span><div class="bar"><div class="fill" style="width:80%"></div></div><span class="pct">80%</span></div>
+      <div class="prog-row"><span class="lbl">Trees</span><div class="bar"><div class="fill" style="width:55%"></div></div><span class="pct">55%</span></div>
+      <div class="prog-row"><span class="lbl">DP</span><div class="bar"><div class="fill" style="width:30%"></div></div><span class="pct">30%</span></div>
+      <div class="prog-row"><span class="lbl">Graphs</span><div class="bar"><div class="fill" style="width:45%"></div></div><span class="pct">45%</span></div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card"><div style="font-size:.85rem;font-weight:500">Upcoming</div><div style="font-size:.75rem;color:var(--text-muted);margin-top:4px">Day 24 — Binary Trees</div><div class="mini-row"><div class="mini-box"></div><div class="mini-box"></div></div></div>
+      <div class="card"><div style="font-size:.85rem;font-weight:500">Revision Queue</div><div style="font-size:.75rem;color:var(--text-muted);margin-top:4px">3 topics due for review</div><div class="mini-row"><div class="mini-box"></div><div class="mini-box"></div></div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const toggle = document.getElementById('themeToggle');
+toggle.onclick = () => {
+  document.documentElement.classList.toggle('dark');
+  toggle.textContent = document.documentElement.classList.contains('dark') ? '🌙' : '☀️';
+};
+</script>
+</body></html>
