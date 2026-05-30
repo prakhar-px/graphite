@@ -14,6 +14,14 @@ export function useAuth() {
     supabase.auth.getUser().then(({ data: { user } }: { data: { user: User | null } }) => {
       setUser(user);
       setLoading(false);
+    }).catch(() => {
+      // Stale/expired refresh token — sign out silently
+      supabase.auth.signOut().then(() => {
+        setUser(null);
+        setLoading(false);
+      }).catch(() => {
+        setLoading(false);
+      });
     });
 
     const {
