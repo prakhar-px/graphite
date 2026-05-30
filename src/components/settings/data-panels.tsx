@@ -1,0 +1,154 @@
+"use client";
+
+import { useRef, useState } from "react";
+import { format } from "date-fns";
+import { EXCEL_SOURCES } from "@/config/excel-sources";
+import { getExcelMeta } from "@/lib/data-seed";
+import { useAppStore } from "@/store/app-store";
+import { LeetCodePanel } from "@/components/settings/leetcode-panel";
+import { PremiumCard } from "@/components/ui/premium-card";
+import { Button } from "@/components/ui/button";
+
+export function DataPanels() {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [message, setMessage] = useState<string | null>(null);
+
+  const exportProgress = useAppStore((s) => s.exportProgress);
+  const importProgress = useAppStore((s) => s.importProgress);
+  const resetProgress = useAppStore((s) => s.resetProgress);
+  const seedMismatch = useAppStore((s) => s.seedMismatch);
+  const acknowledgeSeed = useAppStore((s) => s.acknowledgeSeed);
+
+  const meta = getExcelMeta();
+  const activeKey = (meta.activeKey ?? "sample") as keyof typeof EXCEL_SOURCES;
+  const active = EXCEL_SOURCES[activeKey] ?? EXCEL_SOURCES.sample;
+
+  const handleImport = async (file: File | undefined) => {
+    if (!file) return;
+    const result = await importProgress(file);
+    setMessage(result.message);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  return (
+    <div className="w-full space-y-4">
+      {seedMismatch ? (
+        <PremiumCard className="border-amber-500/40 bg-amber-500/10">
+          <p className="text-sm text-amber-800 dark:text-amber-100">
+            Roadmap data changed (Excel re-parsed). Your saved progress may not
+            match the new plan. Export a backup if needed, or reset progress.
+          </p>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="mt-3 border-amber-500/40"
+            onClick={() => acknowledgeSeed()}
+          >
+            Dismiss
+          </Button>
+        </PremiumCard>
+      ) : null}
+
+      <PremiumCard>
+        <h3 className="font-semibold text-[var(--gp-text)]">Progress backup (V1.2)</h3>
+        <p className="mt-2 text-sm text-[var(--gp-text-muted)]">
+          Planner status, LeetCode problem log, tasks, and preferences are saved
+          in your browser. Export before switching Excel files or clearing site
+          data.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <Button type="button" size="sm" title="Download a .json backup of all your data" onClick={() => exportProgress()}>
+            Export progress
+          </Button>
+          <Button
+            type="button"
+            size="sm"
+            variant="outline"
+            title="Restore data from a .json backup file"
+            onClick={() => fileInputRef.current?.click()}
+          >
+            Import progress
+          </Button>
+          <Button
+            type="button"
+            size="sm"
+            variant="outline"
+            className="border-red-500/40 text-red-600 dark:text-red-400 hover:border-red-500/70 hover:bg-red-500/10"
+            title="Wipe planner state back to the original roadmap"
+            onClick={() => {
+              if (
+                window.confirm(
+                  "Reset all progress to the current roadmap seed? This cannot be undone."
+                )
+              ) {
+                resetProgress();
+                setMessage("Progress reset to roadmap defaults.");
+              }
+            }}
+          >
+            Reset progress
+          </Button>
+        </div>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="application/json,.json"
+          className="hidden"
+          onChange={(e) => handleImport(e.target.files?.[0])}
+        />
+        {message ? (
+          <p className="mt-3 text-sm text-[var(--gp-text-muted)]">{message}</p>
+        ) : null}
+      </PremiumCard>
+
+      <LeetCodePanel />
+
+      <PremiumCard>
+        <h3 className="font-semibold text-[var(--gp-text)]">Excel sources</h3>
+        <p className="mt-2 text-sm text-[var(--gp-text-muted)]">
+          Active:{" "}
+          <span className="text-[var(--gp-text)]">
+            {active.label} ({meta.sourceFile})
+          </span>
+          {meta.parsedAt ? (
+            <>
+              <br />
+              Last parsed:{" "}
+              {format(new Date(meta.parsedAt), "yyyy-MM-dd HH:mm")}
+            </>
+          ) : null}
+        </p>
+        <ul className="mt-3 space-y-2 text-sm text-[var(--gp-text-muted)]">
+          {Object.entries(EXCEL_SOURCES).map(([key, source]) => (
+            <li key={key}>
+              <code
+                className="rounded px-1 font-mono text-xs text-[var(--gp-text)]"
+                style={{ backgroundColor: "var(--gp-surface-raised)" }}
+              >
+                npm run excel:{key}
+              </code>{" "}
+              — {source.label}
+            </li>
+          ))}
+        </ul>
+        <p className="mt-4 text-xs text-[var(--gp-text-faint)]">
+          After switching, restart{" "}
+          <code
+            className="rounded px-1 font-mono text-[var(--gp-text)]"
+            style={{ backgroundColor: "var(--gp-surface-raised)" }}
+          >
+            npm run dev
+          </code>{" "}
+          and refresh. Config file:{" "}
+          <code
+            className="rounded px-1 font-mono text-[var(--gp-text)]"
+            style={{ backgroundColor: "var(--gp-surface-raised)" }}
+          >
+            excel.config.json
+          </code>
+        </p>
+      </PremiumCard>
+    </div>
+  );
+}

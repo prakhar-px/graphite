@@ -1,0 +1,201 @@
+GRAPHITE'S STRUCTURE:
+I now have a thorough understanding of the codebase. Here is the complete report.
+
+Codebase Exploration Report: Graphite
+1. Overall Project Structure
+Graphite is a Next.js 16 (App Router) + TypeScript private project serving as a FAANG DSA (Data Structures & Algorithms) interview preparation dashboard -- a "Mission Control" for tracking a 70-day structured study plan.
+
+Stack: Next.js 16.2.6 (App Router), React 19, TypeScript 5, Tailwind CSS 4, Zustand (localStorage), Recharts, Framer Motion, shadcn/ui, date-fns.
+
+Layer	Directory	Purpose
+Pages (App Router)	src/app/	9 route groups: dashboard, planner, topics, analytics, revision, mistakes, companies, coach, settings
+UI Components	src/components/	11 subdirectories: dashboard, planner, layout, ui, ai, companies, problems, revision, settings, topics, charts
+Business Logic (Engines)	src/engines/	11 subdirectories: planner, telemetry, analytics, dashboard, problems, revision, topics, confidence, core, ai, storage
+Data (parsed from Excel)	src/data/	8 JSON files: daily-plan.json (70 days), dashboard.json, master-plan.json, revision-tracker.json, company-prep.json, mistake-log.json, weekly-review.json, meta.json
+Library / Utilities	src/lib/	data.ts, computed-data.ts, roadmap-calendar.ts, data-seed.ts, user-state-io.ts, utils.ts, plus ai/ and leetcode/ subdirs
+State Management	src/store/	app-store.ts (Zustand with localStorage persistence)
+Types	src/types/	index.ts, problem-log.ts, mission-completion.ts, ai-coach.ts
+Scripts (Excel pipeline)	scripts/	3 scripts: parse-excel.ts, sync-excel-roadmap.ts, use-excel.ts
+Config	src/config/	excel-sources.ts, navigation.ts, roadmap.ts, theme.ts
+API Routes	src/app/api/	ai/coach, ai/health, leetcode/question, leetcode/sync
+Data files (root)	./	Excel files: Graphite_FAANG_Roadmap_Updated.xlsx, FAANG_DSA_Master_Roadmap_v2.xlsx, FAANG_DSA_Master_Roadmap_v2_sample.xlsx + striver_sheet.csv, striver_sheet.json
+Top-level directory listing:
+
+.env.example
+.env.local
+.git/
+.gitignore
+.next/
+~$Graphite_FAANG_Roadmap_Updated.xlsx
+AGENTS.md
+CLAUDE.md
+components.json
+eslint.config.mjs
+excel.config.json
+extract_striver.py
+FAANG_DSA_Master_Roadmap_v2_sample.xlsx
+FAANG_DSA_Master_Roadmap_v2.xlsx
+Graphite_FAANG_Roadmap_Updated.xlsx
+next-env.d.ts
+next.config.ts
+node_modules/
+package-lock.json
+package.json
+postcss.config.mjs
+public/
+README.md
+scripts/
+src/
+striver_sheet.csv
+striver_sheet.json
+tsconfig.json
+tsconfig.tsbuildinfo
+2. All Files Related to "Planner"
+#	Absolute Path	Description
+App Route		
+1	C:\Users\dell\Documents\APPS\graphite\src\app\planner\page.tsx	Planner page layout (calendar + task card using Shell)
+Components		
+2	C:\Users\dell\Documents\APPS\graphite\src\components\planner\planner-calendar.tsx	70-day mission calendar grid (15-line preview of missions)
+3	C:\Users\dell\Documents\APPS\graphite\src\components\planner\task-card.tsx	Individual mission day detail card with status, questions, completion
+4	C:\Users\dell\Documents\APPS\graphite\src\components\planner\complete-day-dialog.tsx	Dialog to complete a mission day (rough vs actual)
+5	C:\Users\dell\Documents\APPS\graphite\src\components\planner\log-problem-dialog.tsx	Dialog to log a LeetCode problem (single or bulk)
+6	C:\Users\dell\Documents\APPS\graphite\src\components\planner\mission-question-confidence.tsx	Confidence UI for suggested questions per mission
+7	C:\Users\dell\Documents\APPS\graphite\src\components\planner\solved-problems-list.tsx	List of solved problems for a planner day
+8	C:\Users\dell\Documents\APPS\graphite\src\components\planner\confidence-chips.tsx	Confidence rating chip selector (emoji + slider)
+Engine (business logic)		
+9	C:\Users\dell\Documents\APPS\graphite\src\engines\planner\mission.ts	Mission title, workload label, question log building, merge functions
+10	C:\Users\dell\Documents\APPS\graphite\src\engines\planner\selectors.ts	Planner selectors: completion rate, streak, today's plan, past-due check, weekend missions
+Data		
+11	C:\Users\dell\Documents\APPS\graphite\src\data\daily-plan.json	Full 70-day plan parsed from Excel (2034 lines)
+Config reference		
+12	C:\Users\dell\Documents\APPS\graphite\src\types\index.ts	Contains DailyPlanDay and TaskStatus type definitions used by planner
+3. All Files Related to "Telemetry" or "Metrics"
+#	Absolute Path	Description
+Engine		
+1	C:\Users\dell\Documents\APPS\graphite\src\engines\telemetry\selectors.ts	Core telemetry engine: weekly solved trends, planner progress, weekly targets, solved-by-week calculations
+Analytics Engine		
+2	C:\Users\dell\Documents\APPS\graphite\src\engines\analytics\selectors.ts	Combines planner + telemetry analytics into a full analytics snapshot
+Dashboard Engine		
+3	C:\Users\dell\Documents\APPS\graphite\src\engines\dashboard\selectors.ts	Computes dashboard stats (solved count, metrics, focus score, company readiness)
+Problems Engine (telemetry data)		
+4	C:\Users\dell\Documents\APPS\graphite\src\engines\problems\selectors.ts	Problem solving telemetry: named vs quick, difficulty distribution, revision load, confidence averages
+5	C:\Users\dell\Documents\APPS\graphite\src\engines\problems\helpers.ts	Problem log helpers: normalize, identity key, bulk quick log detection, re-solve tracking
+6	C:\Users\dell\Documents\APPS\graphite\src\engines\problems\types.ts	Type re-exports for ProblemLog, ProblemSource, etc.
+Confidence Engine (confidence metrics)		
+7	C:\Users\dell\Documents\APPS\graphite\src\engines\confidence\selectors.ts	Topic/global confidence percent calculations, confidence heatmap
+Revision Engine (retention metrics)		
+8	C:\Users\dell\Documents\APPS\graphite\src\engines\revision\selectors.ts	Revision telemetry: solve events, recall strength, overdue tracking, reinforcement queue
+Topics Engine		
+9	C:\Users\dell\Documents\APPS\graphite\src\engines\topics\selectors.ts	Topic progress metrics with status derivation
+Core Types		
+10	C:\Users\dell\Documents\APPS\graphite\src\engines\core\types.ts	UserSnapshot type used across all telemetry engines
+Computed data bridge		
+11	C:\Users\dell\Documents\APPS\graphite\src\lib\computed-data.ts	Deprecated re-export bridge to engines/*
+Analytics page		
+12	C:\Users\dell\Documents\APPS\graphite\src\app\analytics\page.tsx	Analytics page UI (weekly chart, topic distribution, revision heatmap)
+Type definitions		
+13	C:\Users\dell\Documents\APPS\graphite\src\types\problem-log.ts	ProblemLog, SolvedProblem, ProblemSource, ProblemDifficulty types
+14	C:\Users\dell\Documents\APPS\graphite\src\types\index.ts	WeeklyProgressPoint, TopicDistribution types
+4. Excel/Sheet Files and Data Files Related to DSA Plans
+#	Absolute Path	Description
+Excel workbooks (root)		
+1	C:\Users\dell\Documents\APPS\graphite\Graphite_FAANG_Roadmap_Updated.xlsx	Primary Excel workbook ("updated" source) -- 7 sheets including Daily DSA Plan
+2	C:\Users\dell\Documents\APPS\graphite\FAANG_DSA_Master_Roadmap_v2.xlsx	Full 70-day roadmap Excel ("full" source)
+3	C:\Users\dell\Documents\APPS\graphite\FAANG_DSA_Master_Roadmap_v2_sample.xlsx	Sample Excel ("sample" source)
+4	C:\Users\dell\Documents\APPS\graphite\~\$Graphite_FAANG_Roadmap_Updated.xlsx	Temp/lock file for the updated roadmap
+CSV/JSON data files		
+5	C:\Users\dell\Documents\APPS\graphite\striver_sheet.csv	Striver DSA sheet in CSV format
+6	C:\Users\dell\Documents\APPS\graphite\striver_sheet.json	Striver DSA sheet in JSON format
+Parsed JSON data (src/data)		
+7	C:\Users\dell\Documents\APPS\graphite\src\data\daily-plan.json	70-day plan (parsed from Excel Daily DSA Plan sheet)
+8	C:\Users\dell\Documents\APPS\graphite\src\data\dashboard.json	Dashboard metrics from Excel Dashboard sheet
+9	C:\Users\dell\Documents\APPS\graphite\src\data\master-plan.json	3-phase master plan from Excel Master Plan sheet
+10	C:\Users\dell\Documents\APPS\graphite\src\data\revision-tracker.json	Revision tracking from Excel Revision Tracker sheet
+11	C:\Users\dell\Documents\APPS\graphite\src\data\company-prep.json	Company prep data from Excel Company Prep sheet
+12	C:\Users\dell\Documents\APPS\graphite\src\data\mistake-log.json	Mistake log from Excel Mistake Log sheet
+13	C:\Users\dell\Documents\APPS\graphite\src\data\weekly-review.json	Weekly review data from Excel Weekly Review sheet
+14	C:\Users\dell\Documents\APPS\graphite\src\data\meta.json	Metadata: source file, parse time, active key, sheets list
+Config for Excel sources		
+15	C:\Users\dell\Documents\APPS\graphite\excel.config.json	Active source & source definitions for Excel switching
+16	C:\Users\dell\Documents\APPS\graphite\src\config\excel-sources.ts	TypeScript config mapping source keys to Excel files
+Excel parsing scripts		
+17	C:\Users\dell\Documents\APPS\graphite\scripts\parse-excel.ts	Parses Excel workbook to JSON (normalizes daily plan, writes all sheets to src/data)
+18	C:\Users\dell\Documents\APPS\graphite\scripts\sync-excel-roadmap.ts	Aligns Excel rows with weekday/weekend rules + mission columns
+19	C:\Users\dell\Documents\APPS\graphite\scripts\use-excel.ts	CLI utility to switch active Excel source and re-parse
+Python extraction script		
+20	C:\Users\dell\Documents\APPS\graphite\extract_striver.py	Python script to extract Striver sheet data
+UI Sheet component		
+21	C:\Users\dell\Documents\APPS\graphite\src\components\ui\sheet.tsx	UI sheet/drawer component (unrelated to Excel sheets, used for mobile sidebar)
+5. Files Related to "Engine" or "Source" That Drive Telemetry
+#	Absolute Path	Description
+Core Infrastructure		
+1	C:\Users\dell\Documents\APPS\graphite\src\engines\core\types.ts	Core UserSnapshot type -- the runtime snapshot passed through all engines
+2	C:\Users\dell\Documents\APPS\graphite\src\engines\storage\local-persistence.ts	Zustand localStorage persistence setup for the app store
+Telemetry Engine		
+3	C:\Users\dell\Documents\APPS\graphite\src\engines\telemetry\selectors.ts	Primary telemetry driver: weekly solved trends, planner progress, weekly targets. Re-exports from problems engine
+Problems Engine (source of telemetry data)		
+4	C:\Users\dell\Documents\APPS\graphite\src\engines\problems\selectors.ts	Problem log selectors: named/roadmap/quick totals, difficulty distribution, confidence averages
+5	C:\Users\dell\Documents\APPS\graphite\src\engines\problems\helpers.ts	Problem log construction: buildQuickProblemLog, buildDetailedProblemLog, reSolveProblemLog, identity keys
+6	C:\Users\dell\Documents\APPS\graphite\src\engines\problems\types.ts	Type re-exports for problem entities
+Planner Engine (mission source)		
+7	C:\Users\dell\Documents\APPS\graphite\src\engines\planner\selectors.ts	Planner status selectors consumed by telemetry (completion, streak, plan with statuses)
+8	C:\Users\dell\Documents\APPS\graphite\src\engines\planner\mission.ts	Mission completion log builder for telemetry ingestion
+Analytics Engine (aggregator)		
+9	C:\Users\dell\Documents\APPS\graphite\src\engines\analytics\selectors.ts	Combines planner + telemetry + dashboard + topics + revision into a unified analytics snapshot
+Dashboard Engine		
+10	C:\Users\dell\Documents\APPS\graphite\src\engines\dashboard\selectors.ts	Dashboard stats computation consuming telemetry data (streak, focus score, company readiness)
+Revision Engine		
+11	C:\Users\dell\Documents\APPS\graphite\src\engines\revision\selectors.ts	Revision telemetry from problem solve events
+Confidence Engine		
+12	C:\Users\dell\Documents\APPS\graphite\src\engines\confidence\selectors.ts	Confidence metrics from problem log
+Topics Engine		
+13	C:\Users\dell\Documents\APPS\graphite\src\engines\topics\selectors.ts	Topic progress builder using telemetry data
+14	C:\Users\dell\Documents\APPS\graphite\src\engines\topics\helpers.ts	Topic matching helper for telemetry
+AI Context (uses telemetry)		
+15	C:\Users\dell\Documents\APPS\graphite\src\engines\ai\context.ts	Builds AI coach context from full analytics snapshot
+Data Bridge		
+16	C:\Users\dell\Documents\APPS\graphite\src\lib\data.ts	Main data access layer that wires raw JSON + engines to components
+17	C:\Users\dell\Documents\APPS\graphite\src\lib\computed-data.ts	Deprecated re-export bridge routing to engines
+LeetCode Sync Source		
+18	C:\Users\dell\Documents\APPS\graphite\src\lib\leetcode\submissions.ts	Fetches LeetCode submissions (GraphQL + fallback API) -- external source for telemetry
+19	C:\Users\dell\Documents\APPS\graphite\src\lib\leetcode\graphql.ts	LeetCode GraphQL query for question metadata
+20	C:\Users\dell\Documents\APPS\graphite\src\lib\leetcode\graphql-client.ts	Base LeetCode GraphQL client
+21	C:\Users\dell\Documents\APPS\graphite\src\lib\leetcode\sync-keys.ts	Deduplication keys for synced submissions
+22	C:\Users\dell\Documents\APPS\graphite\src\lib\leetcode\build-entry.ts	Builds SolvedProblem from LeetCode metadata
+API Routes (expose telemetry sources)		
+23	C:\Users\dell\Documents\APPS\graphite\src\app\api\leetcode\sync\route.ts	GET: syncs recent LeetCode submissions
+24	C:\Users\dell\Documents\APPS\graphite\src\app\api\leetcode\question\route.ts	GET: fetches LeetCode question metadata by slug/URL
+App Store (telemetry state)		
+25	C:\Users\dell\Documents\APPS\graphite\src\store\app-store.ts	Zustand store persisting all telemetry data (problemLog, dayStatuses) with localStorage
+Type Definitions		
+26	C:\Users\dell\Documents\APPS\graphite\src\types\problem-log.ts	All ProblemLog/SolvedProblem types used across telemetry
+6. Sheet/Schedule Related Utility Functions
+#	Absolute Path	Description
+Roadmap Calendar		
+1	C:\Users\dell\Documents\APPS\graphite\src\lib\roadmap-calendar.ts	Core calendar utility: getRoadmapStartDate(), formatMissionDate(), parseMissionDate(), resolveMissionCalendar(), getCalendarDayForToday(), isWithinSprint(). Uses date-fns.
+Config		
+2	C:\Users\dell\Documents\APPS\graphite\src\config\roadmap.ts	Roadmap constants: FOUNDATION_SPRINT_DAYS=70, ROADMAP_START_DATE="2026-05-27", ROADMAP_DATE_FORMAT="dd-MMM-yyyy"
+Data Seed		
+3	C:\Users\dell\Documents\APPS\graphite\src\lib\data-seed.ts	getDataSeedId() -- detects roadmap swaps by checking source file, day count, start date
+State IO		
+4	C:\Users\dell\Documents\APPS\graphite\src\lib\user-state-io.ts	Export/import progress with buildExportPayload() and parseImportFile(), handles planner day validation
+Engine helpers		
+5	C:\Users\dell\Documents\APPS\graphite\src\engines\planner\selectors.ts	getPlanWithStatuses(), getTodayPlan(), getMissionByDay(), isMissionPastDue(), computeStreak(), getPlannerCompletionRate()
+6	C:\Users\dell\Documents\APPS\graphite\src\engines\planner\mission.ts	getMissionTitle(), getMissionWorkloadLabel(), getAllSuggestedTitles()
+7	C:\Users\dell\Documents\APPS\graphite\src\engines\dashboard\selectors.ts	getUpcomingDays() -- slices upcoming schedule after today
+Telemetry weekly scheduling		
+8	C:\Users\dell\Documents\APPS\graphite\src\engines\telemetry\selectors.ts	weekIndexForDate(), weekIndexForProblem(), weeklyTargetFromPlan(), progressiveWeeklyTarget(), resolveWeeklyTargets(), weeklySolvedFromLog()
+Progress tracking schedules		
+9	C:\Users\dell\Documents\APPS\graphite\src\engines\revision\selectors.ts	computeDaysSinceLastSolve(), computeRevisionScore(), computeRecallStrength() -- schedule-aware revision priority calculations
+UI component (related)		
+10	C:\Users\dell\Documents\APPS\graphite\src\components\planner\planner-calendar.tsx	Renders the 70-day sprint calendar grid using the dailyPlan data
+11	C:\Users\dell\Documents\APPS\graphite\src\lib\data.ts	buildTopicProgress(), getWeeklyProgress(), getTodayPlan(), getUpcomingDays(), getPlanWithStatuses() -- data layer functions that bridge to engines
+Summary
+This is a well-structured Next.js 16 App Router project serving as a FAANG DSA interview preparation dashboard ("Mission Control"). Key architecture patterns:
+
+Excel-driven data: All roadmap data (70-day plan, dashboard metrics, revision tracker, company prep, mistake log, weekly reviews) is parsed from Excel workbooks into JSON via scripts/parse-excel.ts
+Engine architecture: Business logic is organized into domain-specific "engines" (planner, telemetry, analytics, problems, revision, topics, confidence, dashboard, ai) in src/engines/
+Telemetry system: Problem-solving data flows from manual logging or LeetCode sync through ProblemLog entries stored in Zustand (localStorage), then computed through engines/telemetry/selectors.ts and related engines
+Zustand state management: src/store/app-store.ts persists day statuses, problem logs, and user preferences to localStorage
+AI Coach integration: Gemini API-powered coach accessible via /api/ai/coach route, using telemetry data as context
+LeetCode integration: Full sync pipeline with GraphQL API queries, submission deduplication, and bulk import
