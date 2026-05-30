@@ -11,7 +11,7 @@ export function SyncManager() {
   const { user } = useAuth();
   const pullFromCloud = useAppStore((s) => s.pullFromCloud);
   const pushFullState = useAppStore((s) => s.pushFullState);
-  const lastSyncedAt = useAppStore((s) => s.lastSyncedAt);
+  const clearLocalState = useAppStore((s) => s.clearLocalState);
   const initialized = useRef(false);
 
   useEffect(() => {
@@ -24,6 +24,7 @@ export function SyncManager() {
 
     const init = async () => {
       if (!isOnline()) return;
+      clearLocalState();
       const hasCloudData = await pullFromCloud();
       if (!hasCloudData) {
         await pushFullState();

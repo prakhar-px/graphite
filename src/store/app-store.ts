@@ -134,6 +134,7 @@ interface AppState extends PersistedUserState {
   lastSyncedAt: string | null;
   pullFromCloud: () => Promise<boolean>;
   pushFullState: () => Promise<void>;
+  clearLocalState: () => void;
 }
 
 const initialDayStatuses = Object.fromEntries(
@@ -191,6 +192,7 @@ function createInitialState(): Omit<
   | "syncLeetCodeSubmissions"
   | "pullFromCloud"
   | "pushFullState"
+  | "clearLocalState"
 > {
   const snapshot = {
     dayStatuses: initialDayStatuses,
@@ -516,6 +518,11 @@ export const useAppStore = create<AppState>()(
       acknowledgeSeed: () => {
         set({ seedMismatch: false, lastDataSeedId: currentSeedId });
         syncQueue.enqueue({ type: "update_profile", patch: { lastDataSeedId: currentSeedId } });
+      },
+
+      clearLocalState: () => {
+        const fresh = createInitialState();
+        set({ ...fresh, lastDataSeedId: currentSeedId });
       },
 
       pullFromCloud: async () => {

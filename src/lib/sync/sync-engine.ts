@@ -200,6 +200,9 @@ export async function pushFullState(state: PersistedUserState) {
 
     await (supabase.from("profiles").upsert({ id: user.id, ...profileUpdate } as never) as unknown as Promise<any>);
 
+    // Clear old data before re-inserting (handles reset/import)
+    await (supabase.from("planner_day_status").delete().eq("user_id", user.id) as unknown as Promise<any>);
+
     if (Object.keys(state.dayStatuses).length > 0) {
       const rows = Object.entries(state.dayStatuses).map(([day, status]) => ({
         user_id: user.id,
@@ -212,6 +215,13 @@ export async function pushFullState(state: PersistedUserState) {
         }) as unknown as Promise<any>);
       }
     }
+
+    // Soft-delete all existing problems, then re-insert current ones
+    await (supabase
+      .from("problem_log")
+      .update({ deleted_at: new Date().toISOString() } as never)
+      .eq("user_id", user.id)
+      .is("deleted_at", null) as unknown as Promise<any>);
 
     if (state.problemLog.length > 0) {
       for (const problem of state.problemLog) {
